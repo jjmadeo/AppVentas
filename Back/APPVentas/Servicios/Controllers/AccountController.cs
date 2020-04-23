@@ -71,7 +71,7 @@ namespace Servicios.Controllers
                 {
                     return BadRequest("Usaurio existente");
                 }
-                user.Add(model);
+                user.Add(model); 
                 Console.WriteLine("Usaurio" + model.Usuario);
 
 
