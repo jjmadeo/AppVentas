@@ -9,6 +9,7 @@ using System.Security.Claims;
 using System.IdentityModel.Tokens.Jwt;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using Microsoft.Extensions.Logging;
 
 namespace Servicios.Controllers
 {   [Produces("application/json")]
@@ -17,14 +18,19 @@ namespace Servicios.Controllers
     public class AccountController : ControllerBase
     {
 
-        //listo para guardar al usuario
+        List<UserInfo> user = new List<UserInfo>()
+        {
+            {new UserInfo(){ Usuario= "juan",Password="1234",Role="ADM" } },
+            {new UserInfo(){ Usuario= "maria",Password="1234",Role="VENTAS" } },
+            {new UserInfo(){ Usuario= "sergio",Password="1234",Role="VENTAS" } },
+            {new UserInfo(){ Usuario= "salvador",Password="1234",Role="CLIENTE" } }
+        };
+        private readonly ILogger<AccountController> _logger;
 
-
-        List<UserInfo> usuario = new List<UserInfo>();
-
-        UserInfo[] user = new UserInfo[20];
-        
-
+        public AccountController(ILogger<AccountController> logger)
+        {
+            _logger = logger;
+        }
         /*
         // GET: api/Account
         [HttpGet]
@@ -57,10 +63,17 @@ namespace Servicios.Controllers
         [HttpPost]
         public IActionResult CreateUser([FromBody] UserInfo model)
         {
+            _logger.LogInformation("Usaurio: " + model.Usuario);
             if (ModelState.IsValid)
             {
+
+                if (Exist(model)!=null)
+                {
+                    return BadRequest("Usaurio existente");
+                }
+                user.Add(model);
                 Console.WriteLine("Usaurio" + model.Usuario);
-                usuario.Add(model);
+
 
 
                 return BuildToken(model);
@@ -70,7 +83,7 @@ namespace Servicios.Controllers
             {
                 return BadRequest(ModelState);
             }
-
+             
         }
 
 
@@ -78,16 +91,14 @@ namespace Servicios.Controllers
         [Route("Login")]
         public async Task<IActionResult> Login([FromBody] UserInfo userInfo)
         {
+            _logger.LogInformation("Usaurio: " + userInfo.Usuario);
+
             if (ModelState.IsValid)
             {
-
-                
-
-
-                if ("jjmadeo".Equals(userInfo.Usuario))
+                UserInfo userloguiado = Exist(userInfo);
+                if (userloguiado!=null)
                 {
-                    return BuildToken(userInfo);
-
+                    return BuildToken(userloguiado);
                 }
                 else
                 {
@@ -107,7 +118,7 @@ namespace Servicios.Controllers
             var claims = new[]
             {
                 new Claim(JwtRegisteredClaimNames.UniqueName, userInfo.Usuario),
-                new Claim("miValor", "Lo que yo quiera"),
+                new Claim("Role", userInfo.Role),
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
             };
 
@@ -127,7 +138,22 @@ namespace Servicios.Controllers
             {
                 token = new JwtSecurityTokenHandler().WriteToken(token),
                 expiration = expiration
+                
             });
+
+        }
+
+        private UserInfo Exist(UserInfo inusuario)
+        {
+            _logger.LogInformation(" *** " + inusuario.Usuario +" ****  "+inusuario.Password);
+
+            foreach ( UserInfo usuario in user)
+            {
+                _logger.LogInformation("Usaurio: Existe : " + usuario.Usuario);
+
+                if (usuario.Usuario.Equals(inusuario.Usuario)) return usuario;
+            }
+            return null;
 
         }
     }

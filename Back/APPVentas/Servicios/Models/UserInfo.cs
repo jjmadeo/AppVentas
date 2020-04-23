@@ -9,6 +9,9 @@ namespace Servicios.Models
     {
         public String Usuario { get; set; }
         public String Password { get; set; }
+        public String Role { get; set; }
+
+
 
     }
 }
