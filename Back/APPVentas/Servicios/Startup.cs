@@ -17,6 +17,8 @@ namespace Servicios
 {
     public class Startup
     {
+        readonly string ReglasCorse = "_myAllowSpecificOrigins";
+
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -27,6 +29,15 @@ namespace Servicios
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors(options =>
+            {
+                options.AddPolicy(name: ReglasCorse,
+                                  builder =>
+                                  {
+                                      builder.WithOrigins("http://localhost:81", "http://www.contoso.com").AllowAnyHeader().AllowAnyMethod();
+                                  });
+            });
+
             services.AddControllers();
 
             services.AddSwaggerGen(config =>
@@ -55,6 +66,9 @@ namespace Servicios
 
                     );
 
+
+
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -68,6 +82,8 @@ namespace Servicios
             app.UseAuthentication();
 
             app.UseRouting();
+
+            app.UseCors(ReglasCorse);
 
             app.UseAuthorization();
 

@@ -1,0 +1,11 @@
+body{
+  background:#bdc3c7;
+}
+
+.header{
+  padding-top: 10px;
+  height: 60px;
+}
+#logout{
+  width:  100%;
+}

@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8">
+    <title>Benvenido</title>
+
+
+    <style>
+
+
+body{
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+  background: #34495e;
+}
+.box{
+  width: 300px;
+  padding: 40px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  background: #191919;
+  text-align: center;
+}
+.box h1{
+  color: white;
+  text-transform: uppercase;
+  font-weight: 500;
+}
+.box input[type = "text"],.box input[type = "password"]{
+  border:0;
+  background: none;
+  display: block;
+  margin: 20px auto;
+  text-align: center;
+  border: 2px solid #3498db;
+  padding: 14px 10px;
+  width: 200px;
+  outline: none;
+  color: white;
+  border-radius: 24px;
+  transition: 0.25s;
+}
+.box input[type = "text"]:focus,.box input[type = "password"]:focus{
+  width: 280px;
+  border-color: #2ecc71;
+}
+.box input[type = "submit"]{
+  border:0;
+  background: none;
+  display: block;
+  margin: 20px auto;
+  text-align: center;
+  border: 2px solid #2ecc71;
+  padding: 14px 40px;
+  outline: none;
+  color: white;
+  border-radius: 24px;
+  transition: 0.25s;
+  cursor: pointer;
+}
+.box input[type = "submit"]:hover{
+  background: #2ecc71;
+}
+
+    </style>
+  </head>
+
+  
+  <body>
+
+<form class="box" action="index.html" method="post">
+  <h1>Inicie Sesion</h1>
+  <input type="text" name="usuario" id="user" placeholder="Username">
+  <input type="password" name="password" id="pass"  placeholder="Password">
+  <input type="submit" name="boton" id="boton" value="Login">
+</form>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+
+
+<script>
+    var token =localStorage.getItem("token");
+  if(token){
+    
+    tokenDecoded = JSON.parse(atob(token.split('.')[1]))
+
+      alert(`Bienvenido ${tokenDecoded.unique_name} !!`);
+      window.location.href = "./index.html"
+  }
+  else{    
+
+      alert("Hola!, Bienvenido, Inicie Sesion");
+
+
+     }
+
+
+     $(document).ready(function() {
+
+    $("#boton").click(function(event){
+       var myHeaders = new Headers();
+        myHeaders.append("Content-Type", "application/json");
+        var usuario = document.getElementById("user").value
+        var pass = document.getElementById("pass").value
+
+        if(usuario==='' || pass===''){
+          alert("completa todos los campos");
+        }else{
+          console.log(usuario+" "+pass);
+
+          var raw = JSON.stringify({"Usuario":usuario,"password":pass});
+
+          var requestOptions = {
+          method: 'POST',
+          headers: myHeaders,
+          body: raw,
+          redirect: 'follow'
+          };
+
+          fetch("http://localhost:60227/api/account/login", requestOptions)
+          .then(response => response.text())
+          .then(result => {
+            console.log("resultade del logg=>>",JSON.parse(result))
+            let res =  JSON.parse(result);
+
+            localStorage.setItem("token",JSON.stringify(res.token))
+            localStorage.setItem("expirate",JSON.stringify(res.expiration))
+
+            window.location.href = "./index.html"
+
+
+
+          })
+          .catch(error => console.log('error', error));
+        }
+        event.preventDefault()
+      })
+
+    
+
+    });
+
+
+     
+
+
+</script>
+
+
+
+  </body>
+</html>

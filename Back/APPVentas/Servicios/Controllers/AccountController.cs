@@ -22,7 +22,7 @@ namespace Servicios.Controllers
         {
             {new UserInfo(){ Usuario= "juan",Password="1234",Role="ADM" } },
             {new UserInfo(){ Usuario= "maria",Password="1234",Role="VENTAS" } },
-            {new UserInfo(){ Usuario= "sergio",Password="1234",Role="VENTAS" } },
+            {new UserInfo(){ Usuario= "sergio",Password="1234",Role="INVITADO" } },
             {new UserInfo(){ Usuario= "salvador",Password="1234",Role="CLIENTE" } }
         };
         private readonly ILogger<AccountController> _logger;
