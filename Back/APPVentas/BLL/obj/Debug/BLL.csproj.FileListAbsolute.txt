@@ -7,3 +7,5 @@ C:\Users\jjmadeo\Desktop\Facultad\TECNICAS DE PROGRAMACION\TP\Project\Back\APPVe
 C:\Users\jjmadeo\Desktop\Facultad\TECNICAS DE PROGRAMACION\TP\Project\Back\APPVentas\BLL\obj\Debug\BLL.csproj.CopyComplete
 C:\Users\jjmadeo\Desktop\Facultad\TECNICAS DE PROGRAMACION\TP\Project\Back\APPVentas\BLL\obj\Debug\BLL.dll
 C:\Users\jjmadeo\Desktop\Facultad\TECNICAS DE PROGRAMACION\TP\Project\Back\APPVentas\BLL\obj\Debug\BLL.pdb
+C:\Users\jjmadeo\Desktop\Facultad\TECNICAS DE PROGRAMACION\TP\Project\Back\APPVentas\BLL\bin\Debug\System.Data.SqlClient.dll
+C:\Users\jjmadeo\Desktop\Facultad\TECNICAS DE PROGRAMACION\TP\Project\Back\APPVentas\BLL\bin\Debug\System.Data.SqlClient.xml

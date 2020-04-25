@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Servicios.Models;
 using System.Security.Claims;
@@ -10,35 +8,40 @@ using System.IdentityModel.Tokens.Jwt;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using Microsoft.Extensions.Logging;
+using BLL;
+using DAL;
+using System.Data;
 
 namespace Servicios.Controllers
-{   [Produces("application/json")]
+{
+    [Produces("application/json")]
     [Route("api/[controller]")]
     [ApiController]
     public class AccountController : ControllerBase
     {
-
+        /*
         List<UserInfo> user = new List<UserInfo>()
         {
             {new UserInfo(){ Usuario= "juan",Password="1234",Role="ADM" } },
             {new UserInfo(){ Usuario= "maria",Password="1234",Role="VENTAS" } },
             {new UserInfo(){ Usuario= "sergio",Password="1234",Role="INVITADO" } },
             {new UserInfo(){ Usuario= "salvador",Password="1234",Role="CLIENTE" } }
-        };
+        };*/
         private readonly ILogger<AccountController> _logger;
 
         public AccountController(ILogger<AccountController> logger)
         {
             _logger = logger;
         }
-        /*
+        
         // GET: api/Account
         [HttpGet]
-        public IEnumerable<string> Get()
+        public IActionResult Get()
         {
-            return new string[] { "value1", "value2" };
+            DataTable res = new BLL.Usuario().ConsultarUsuario("juan","jjmxyz");
+            return Ok(res);
         }
-
+        /*
         // GET: api/Account/5
         [HttpGet("{id}", Name = "Get")]
         public string Get(int id)
@@ -71,7 +74,7 @@ namespace Servicios.Controllers
                 {
                     return BadRequest("Usaurio existente");
                 }
-                user.Add(model); 
+               // user.Add(model); 
                 Console.WriteLine("Usaurio" + model.Usuario);
 
 
@@ -95,10 +98,17 @@ namespace Servicios.Controllers
 
             if (ModelState.IsValid)
             {
-                UserInfo userloguiado = Exist(userInfo);
-                if (userloguiado!=null)
+                DataTable res = new BLL.Usuario().ConsultarUsuario(userInfo.Usuario, userInfo.Password);
+                
+                if (res.Rows[0]!=null)
                 {
-                    return BuildToken(userloguiado);
+                    String dataRow = res.Rows[0]["usuario"].ToString();
+                    _logger.LogInformation("asd"+dataRow);
+                    userInfo.Role = res.Rows[0]["role"].ToString();
+
+                    // UserInfo usuarioLoguiado = new UserInfo();
+
+                    return BuildToken(userInfo);
                 }
                 else
                 {
@@ -147,12 +157,16 @@ namespace Servicios.Controllers
         {
             _logger.LogInformation(" *** " + inusuario.Usuario +" ****  "+inusuario.Password);
 
+            //Usuario usuariBLL = new Usuario();
+            //usuariBLL.ConsultarUsuario(inusuario.Usuario, inusuario.Password);
+            /*
             foreach ( UserInfo usuario in user)
             {
                 _logger.LogInformation("Usaurio: Existe : " + usuario.Usuario);
 
                 if (usuario.Usuario.Equals(inusuario.Usuario)) return usuario;
             }
+            */
             return null;
 
         }

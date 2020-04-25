@@ -11,7 +11,11 @@ namespace Servicios.Models
         public String Password { get; set; }
         public String Role { get; set; }
 
-
-
+        public UserInfo(string usuario, string password, string role)
+        {
+            Usuario = usuario;
+            Password = password;
+            Role = role;
+        }
     }
 }

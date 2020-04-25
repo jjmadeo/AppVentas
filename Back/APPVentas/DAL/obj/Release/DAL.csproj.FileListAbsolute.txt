@@ -1,0 +1,9 @@
+C:\Users\jjmadeo\Desktop\Facultad\TECNICAS DE PROGRAMACION\TP\Project\Back\APPVentas\DAL\bin\Release\DAL.dll
+C:\Users\jjmadeo\Desktop\Facultad\TECNICAS DE PROGRAMACION\TP\Project\Back\APPVentas\DAL\bin\Release\DAL.pdb
+C:\Users\jjmadeo\Desktop\Facultad\TECNICAS DE PROGRAMACION\TP\Project\Back\APPVentas\DAL\bin\Release\System.Data.SqlClient.dll
+C:\Users\jjmadeo\Desktop\Facultad\TECNICAS DE PROGRAMACION\TP\Project\Back\APPVentas\DAL\bin\Release\System.Data.SqlClient.xml
+C:\Users\jjmadeo\Desktop\Facultad\TECNICAS DE PROGRAMACION\TP\Project\Back\APPVentas\DAL\obj\Release\DAL.csprojAssemblyReference.cache
+C:\Users\jjmadeo\Desktop\Facultad\TECNICAS DE PROGRAMACION\TP\Project\Back\APPVentas\DAL\obj\Release\DAL.csproj.CoreCompileInputs.cache
+C:\Users\jjmadeo\Desktop\Facultad\TECNICAS DE PROGRAMACION\TP\Project\Back\APPVentas\DAL\obj\Release\DAL.csproj.CopyComplete
+C:\Users\jjmadeo\Desktop\Facultad\TECNICAS DE PROGRAMACION\TP\Project\Back\APPVentas\DAL\obj\Release\DAL.dll
+C:\Users\jjmadeo\Desktop\Facultad\TECNICAS DE PROGRAMACION\TP\Project\Back\APPVentas\DAL\obj\Release\DAL.pdb

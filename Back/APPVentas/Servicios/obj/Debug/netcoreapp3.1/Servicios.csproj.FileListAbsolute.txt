@@ -110,6 +110,15 @@ C:\Users\jjmadeo\Desktop\Facultad\TECNICAS DE PROGRAMACION\TP\Project\Back\APPVe
 C:\Users\jjmadeo\Desktop\Facultad\TECNICAS DE PROGRAMACION\TP\Project\Back\APPVentas\Servicios\bin\Debug\netcoreapp3.1\System.Web.Http.dll
 C:\Users\jjmadeo\Desktop\Facultad\TECNICAS DE PROGRAMACION\TP\Project\Back\APPVentas\Servicios\bin\Debug\netcoreapp3.1\System.Web.Http.Cors.dll
 C:\Users\jjmadeo\Desktop\Facultad\TECNICAS DE PROGRAMACION\TP\Project\Back\APPVentas\Servicios\bin\Debug\netcoreapp3.1\Newtonsoft.Json.Bson.dll
+C:\Users\jjmadeo\Desktop\Facultad\TECNICAS DE PROGRAMACION\TP\Project\Back\APPVentas\Servicios\bin\Debug\netcoreapp3.1\System.Data.SqlClient.dll
+C:\Users\jjmadeo\Desktop\Facultad\TECNICAS DE PROGRAMACION\TP\Project\Back\APPVentas\Servicios\bin\Debug\netcoreapp3.1\runtimes\win-arm64\native\sni.dll
+C:\Users\jjmadeo\Desktop\Facultad\TECNICAS DE PROGRAMACION\TP\Project\Back\APPVentas\Servicios\bin\Debug\netcoreapp3.1\runtimes\win-x64\native\sni.dll
+C:\Users\jjmadeo\Desktop\Facultad\TECNICAS DE PROGRAMACION\TP\Project\Back\APPVentas\Servicios\bin\Debug\netcoreapp3.1\runtimes\win-x86\native\sni.dll
+C:\Users\jjmadeo\Desktop\Facultad\TECNICAS DE PROGRAMACION\TP\Project\Back\APPVentas\Servicios\bin\Debug\netcoreapp3.1\runtimes\unix\lib\netcoreapp2.1\System.Data.SqlClient.dll
+C:\Users\jjmadeo\Desktop\Facultad\TECNICAS DE PROGRAMACION\TP\Project\Back\APPVentas\Servicios\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp2.1\System.Data.SqlClient.dll
+C:\Users\jjmadeo\Desktop\Facultad\TECNICAS DE PROGRAMACION\TP\Project\Back\APPVentas\Servicios\bin\Debug\netcoreapp3.1\System.Text.Json.dll
+C:\Users\jjmadeo\Desktop\Facultad\TECNICAS DE PROGRAMACION\TP\Project\Back\APPVentas\Servicios\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.JsonPatch.dll
+C:\Users\jjmadeo\Desktop\Facultad\TECNICAS DE PROGRAMACION\TP\Project\Back\APPVentas\Servicios\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.Mvc.NewtonsoftJson.dll
 C:\Users\jjmadeo\Desktop\Facultad\TECNICAS DE PROGRAMACION\TP\Project\Back\APPVentas\Servicios\obj\Debug\netcoreapp3.1\Servicios.csproj.CoreCompileInputs.cache
 C:\Users\jjmadeo\Desktop\Facultad\TECNICAS DE PROGRAMACION\TP\Project\Back\APPVentas\Servicios\obj\Debug\netcoreapp3.1\Servicios.MvcApplicationPartsAssemblyInfo.cs
 C:\Users\jjmadeo\Desktop\Facultad\TECNICAS DE PROGRAMACION\TP\Project\Back\APPVentas\Servicios\obj\Debug\netcoreapp3.1\Servicios.MvcApplicationPartsAssemblyInfo.cache
