@@ -41,45 +41,30 @@ namespace Servicios.Controllers
             DataTable res = new BLL.Usuario().ConsultarUsuario("juan","jjmxyz");
             return Ok(res);
         }
-        /*
-        // GET: api/Account/5
-        [HttpGet("{id}", Name = "Get")]
-        public string Get(int id)
-        {
-            return "value";
-        }
-
-        // POST: api/Account
-        [HttpPost]
-        public void Post([FromBody] string value)
-        {
-        }
-
-        // PUT: api/Account/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
-        }
-        */
+        
 
         [Route("Create")]
         [HttpPost]
         public IActionResult CreateUser([FromBody] UserInfo model)
         {
-            _logger.LogInformation("Usaurio: " + model.Usuario);
+            _logger.LogInformation("Usaurio=>" + model.Usuario + "Pasword =>"+model.Password +"Role=>"+model.Role);
             if (ModelState.IsValid)
             {
+                if(model.Role==null)
+                    model.Role = "cliente";
 
-                if (Exist(model)!=null)
-                {
-                    return BadRequest("Usaurio existente");
+                string[] resultado = new BLL.Usuario().CrearUsuario(model.Usuario, model.Password, model.Role);
+                if ("OK".Equals(resultado[0])) {
+
+                    return Ok(new { res = new { Stado = resultado[0], Info = resultado[1] } });
+                      /**Rtornar multiples valores.*/
+//                    return Ok(new { Response = resultado[1], Status = StatusCode(200, new { Dato = "asd", Dato = "asd", Dato = "asd" }) });
+
+
+                    //return BadRequest("Usaurio existente");
+                } else {
+                    return BadRequest(new { res = new {  Stado =resultado[0], Info = resultado[1] } });
                 }
-               // user.Add(model); 
-                Console.WriteLine("Usaurio" + model.Usuario);
-
-
-
-                return BuildToken(model);
                               
             }
             else
@@ -92,13 +77,13 @@ namespace Servicios.Controllers
 
         [HttpPost]
         [Route("Login")]
-        public async Task<IActionResult> Login([FromBody] UserInfo userInfo)
+        public IActionResult Login([FromBody] UserInfo userInfo)
         {
             _logger.LogInformation("Usaurio: " + userInfo.Usuario);
 
             if (ModelState.IsValid)
             {
-                DataTable res = new BLL.Usuario().ConsultarUsuario(userInfo.Usuario, userInfo.Password);
+                DataTable res =   new BLL.Usuario().LoginBLL(userInfo.Usuario, userInfo.Password);
                 
                 if (res.Rows[0]!=null)
                 {
