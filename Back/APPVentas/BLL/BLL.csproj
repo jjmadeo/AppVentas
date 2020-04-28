@@ -53,6 +53,10 @@
       <Project>{53dc6130-d3c2-475e-858e-4982684c7735}</Project>
       <Name>DAL</Name>
     </ProjectReference>
+    <ProjectReference Include="..\ENTITY\ENTITY.csproj">
+      <Project>{e8b94f3c-bbe8-47a7-92d4-7ce33e8c042a}</Project>
+      <Name>ENTITY</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

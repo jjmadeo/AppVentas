@@ -15,6 +15,9 @@
             "projectReferences": {
               "C:\\Users\\jjmadeo\\Desktop\\Facultad\\TECNICAS DE PROGRAMACION\\TP\\Project\\Back\\APPVentas\\DAL\\DAL.csproj": {
                 "projectPath": "C:\\Users\\jjmadeo\\Desktop\\Facultad\\TECNICAS DE PROGRAMACION\\TP\\Project\\Back\\APPVentas\\DAL\\DAL.csproj"
+              },
+              "C:\\Users\\jjmadeo\\Desktop\\Facultad\\TECNICAS DE PROGRAMACION\\TP\\Project\\Back\\APPVentas\\ENTITY\\ENTITY.csproj": {
+                "projectPath": "C:\\Users\\jjmadeo\\Desktop\\Facultad\\TECNICAS DE PROGRAMACION\\TP\\Project\\Back\\APPVentas\\ENTITY\\ENTITY.csproj"
               }
             }
           }
@@ -29,7 +32,27 @@
       "restore": {
         "projectUniqueName": "C:\\Users\\jjmadeo\\Desktop\\Facultad\\TECNICAS DE PROGRAMACION\\TP\\Project\\Back\\APPVentas\\DAL\\DAL.csproj",
         "projectName": "DAL",
-        "projectPath": "C:\\Users\\jjmadeo\\Desktop\\Facultad\\TECNICAS DE PROGRAMACION\\TP\\Project\\Back\\APPVentas\\DAL\\DAL.csproj"
+        "projectPath": "C:\\Users\\jjmadeo\\Desktop\\Facultad\\TECNICAS DE PROGRAMACION\\TP\\Project\\Back\\APPVentas\\DAL\\DAL.csproj",
+        "frameworks": {
+          "net472": {
+            "projectReferences": {
+              "C:\\Users\\jjmadeo\\Desktop\\Facultad\\TECNICAS DE PROGRAMACION\\TP\\Project\\Back\\APPVentas\\ENTITY\\ENTITY.csproj": {
+                "projectPath": "C:\\Users\\jjmadeo\\Desktop\\Facultad\\TECNICAS DE PROGRAMACION\\TP\\Project\\Back\\APPVentas\\ENTITY\\ENTITY.csproj"
+              }
+            }
+          }
+        }
+      },
+      "frameworks": {
+        "net472": {}
+      }
+    },
+    "C:\\Users\\jjmadeo\\Desktop\\Facultad\\TECNICAS DE PROGRAMACION\\TP\\Project\\Back\\APPVentas\\ENTITY\\ENTITY.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\jjmadeo\\Desktop\\Facultad\\TECNICAS DE PROGRAMACION\\TP\\Project\\Back\\APPVentas\\ENTITY\\ENTITY.csproj",
+        "projectName": "ENTITY",
+        "projectPath": "C:\\Users\\jjmadeo\\Desktop\\Facultad\\TECNICAS DE PROGRAMACION\\TP\\Project\\Back\\APPVentas\\ENTITY\\ENTITY.csproj"
       },
       "frameworks": {
         "net472": {}
@@ -63,6 +86,9 @@
             "projectReferences": {
               "C:\\Users\\jjmadeo\\Desktop\\Facultad\\TECNICAS DE PROGRAMACION\\TP\\Project\\Back\\APPVentas\\BLL\\BLL.csproj": {
                 "projectPath": "C:\\Users\\jjmadeo\\Desktop\\Facultad\\TECNICAS DE PROGRAMACION\\TP\\Project\\Back\\APPVentas\\BLL\\BLL.csproj"
+              },
+              "C:\\Users\\jjmadeo\\Desktop\\Facultad\\TECNICAS DE PROGRAMACION\\TP\\Project\\Back\\APPVentas\\ENTITY\\ENTITY.csproj": {
+                "projectPath": "C:\\Users\\jjmadeo\\Desktop\\Facultad\\TECNICAS DE PROGRAMACION\\TP\\Project\\Back\\APPVentas\\ENTITY\\ENTITY.csproj"
               }
             }
           }

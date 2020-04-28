@@ -122,3 +122,5 @@ C:\Users\jjmadeo\Desktop\Facultad\TECNICAS DE PROGRAMACION\TP\Project\Back\APPVe
 C:\Users\jjmadeo\Desktop\Facultad\TECNICAS DE PROGRAMACION\TP\Project\Back\APPVentas\Servicios\obj\Debug\netcoreapp3.1\Servicios.csproj.CoreCompileInputs.cache
 C:\Users\jjmadeo\Desktop\Facultad\TECNICAS DE PROGRAMACION\TP\Project\Back\APPVentas\Servicios\obj\Debug\netcoreapp3.1\Servicios.MvcApplicationPartsAssemblyInfo.cs
 C:\Users\jjmadeo\Desktop\Facultad\TECNICAS DE PROGRAMACION\TP\Project\Back\APPVentas\Servicios\obj\Debug\netcoreapp3.1\Servicios.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\jjmadeo\Desktop\Facultad\TECNICAS DE PROGRAMACION\TP\Project\Back\APPVentas\Servicios\bin\Debug\netcoreapp3.1\ENTITY.dll
+C:\Users\jjmadeo\Desktop\Facultad\TECNICAS DE PROGRAMACION\TP\Project\Back\APPVentas\Servicios\bin\Debug\netcoreapp3.1\ENTITY.pdb

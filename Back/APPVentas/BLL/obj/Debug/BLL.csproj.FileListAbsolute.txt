@@ -9,3 +9,5 @@ C:\Users\jjmadeo\Desktop\Facultad\TECNICAS DE PROGRAMACION\TP\Project\Back\APPVe
 C:\Users\jjmadeo\Desktop\Facultad\TECNICAS DE PROGRAMACION\TP\Project\Back\APPVentas\BLL\obj\Debug\BLL.pdb
 C:\Users\jjmadeo\Desktop\Facultad\TECNICAS DE PROGRAMACION\TP\Project\Back\APPVentas\BLL\bin\Debug\System.Data.SqlClient.dll
 C:\Users\jjmadeo\Desktop\Facultad\TECNICAS DE PROGRAMACION\TP\Project\Back\APPVentas\BLL\bin\Debug\System.Data.SqlClient.xml
+C:\Users\jjmadeo\Desktop\Facultad\TECNICAS DE PROGRAMACION\TP\Project\Back\APPVentas\BLL\bin\Debug\ENTITY.dll
+C:\Users\jjmadeo\Desktop\Facultad\TECNICAS DE PROGRAMACION\TP\Project\Back\APPVentas\BLL\bin\Debug\ENTITY.pdb

@@ -1,0 +1,6 @@
+C:\Users\jjmadeo\Desktop\Facultad\TECNICAS DE PROGRAMACION\TP\Project\Back\APPVentas\ENTITY\bin\Debug\ENTITY.dll
+C:\Users\jjmadeo\Desktop\Facultad\TECNICAS DE PROGRAMACION\TP\Project\Back\APPVentas\ENTITY\bin\Debug\ENTITY.pdb
+C:\Users\jjmadeo\Desktop\Facultad\TECNICAS DE PROGRAMACION\TP\Project\Back\APPVentas\ENTITY\obj\Debug\ENTITY.csprojAssemblyReference.cache
+C:\Users\jjmadeo\Desktop\Facultad\TECNICAS DE PROGRAMACION\TP\Project\Back\APPVentas\ENTITY\obj\Debug\ENTITY.csproj.CoreCompileInputs.cache
+C:\Users\jjmadeo\Desktop\Facultad\TECNICAS DE PROGRAMACION\TP\Project\Back\APPVentas\ENTITY\obj\Debug\ENTITY.dll
+C:\Users\jjmadeo\Desktop\Facultad\TECNICAS DE PROGRAMACION\TP\Project\Back\APPVentas\ENTITY\obj\Debug\ENTITY.pdb

@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Servicios.Models;
 using System.Security.Claims;
 using System.IdentityModel.Tokens.Jwt;
 using Microsoft.IdentityModel.Tokens;
@@ -11,6 +10,8 @@ using Microsoft.Extensions.Logging;
 using BLL;
 using DAL;
 using System.Data;
+
+using ENTITY;
 
 namespace Servicios.Controllers
 {
@@ -35,12 +36,12 @@ namespace Servicios.Controllers
         }
         
         // GET: api/Account
-        [HttpGet]
-        public IActionResult Get()
-        {
-            DataTable res = new BLL.Usuario().ConsultarUsuario("juan","jjmxyz");
-            return Ok(res);
-        }
+        //[HttpGet]
+        //public IActionResult Get()
+        //{
+        //    DataTable res = new BLL.Usuario().ConsultarUsuario("juan","jjmxyz");
+        //    return Ok(res);
+        //}
         
 
         [Route("Create")]
@@ -53,7 +54,7 @@ namespace Servicios.Controllers
                 if(model.Role==null)
                     model.Role = "cliente";
 
-                string[] resultado = new BLL.Usuario().CrearUsuario(model.Usuario, model.Password, model.Role);
+                string[] resultado = new BLL.Usuario().CrearUsuario(model);
                 if ("OK".Equals(resultado[0])) {
 
                     return Ok(new { res = new { Stado = resultado[0], Info = resultado[1] } });
@@ -77,32 +78,23 @@ namespace Servicios.Controllers
 
         [HttpPost]
         [Route("Login")]
-        public IActionResult Login([FromBody] UserInfo userInfo)
-        {
+        public IActionResult Login([FromBody] UserInfo userInfo) {
             _logger.LogInformation("Usaurio: " + userInfo.Usuario);
 
-            if (ModelState.IsValid)
-            {
-                DataTable res =   new BLL.Usuario().LoginBLL(userInfo.Usuario, userInfo.Password);
-                
-                if (res.Rows[0]!=null)
-                {
-                    String dataRow = res.Rows[0]["usuario"].ToString();
-                    _logger.LogInformation("asd"+dataRow);
-                    userInfo.Role = res.Rows[0]["role"].ToString();
 
+            if (ModelState.IsValid) {
+                String[] resCore = new BLL.Usuario().LoginBLL(userInfo);
+                if ("OK".Equals(resCore[0])) {
+
+                    userInfo.Role = resCore[2];
                     // UserInfo usuarioLoguiado = new UserInfo();
 
                     return BuildToken(userInfo);
-                }
-                else
-                {
+                } else {
                     ModelState.AddModelError(string.Empty, "Invalid login attempt.");
                     return BadRequest(ModelState);
                 }
-            }
-            else
-            {
+            } else {
                 return BadRequest(ModelState);
             }
         }

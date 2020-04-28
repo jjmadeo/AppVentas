@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using DAL;
+using ENTITY;
 namespace BLL
 {
     public class Usuario
@@ -25,10 +26,17 @@ namespace BLL
         }
 
 
-        public String[] LoginBLL(String usuario, String password) {
+        public String[] LoginBLL(UserInfo model) {
 
-            if (usuario !=null && password != null) {
+            if (model.Usuario !=null && model.Password != null) {
+                UserInfo Userloguiado = new DAL.Usuario().LoginDAL(model);
+                 if(model.Usuario.Equals(Userloguiado.Usuario) && model.Password.Equals(Seguridad.DesencriptarTDES(Userloguiado.Password))) {
+                    return new string[] { "OK", $"Datos Correctos, Bienvenido {Userloguiado.Usuario}",$"{Userloguiado.Role}" };
 
+                } else {
+                    return new string[] { "Error", $"EL usuario o password  no coincide."};
+
+                }
 
             } else {
                 return new string[] { "OK", $"Debe completar ambos campos" };
@@ -38,18 +46,18 @@ namespace BLL
             throw new ArgumentException("Ubo un error al Crear el Usuario");
         }
 
-        public DataTable ConsultarUsuario(String usuario, String password)
-        {
+        //public DataTable ConsultarUsuario(UserInfo model)
+        //{
 
-            if(usuario =="" && password=="")
-                return new DAL.Usuario().ConsultarUsuarioDAL("","");
-            return new DAL.Usuario().ConsultarUsuarioDAL(usuario,password); 
+        //    if(model.Usuario =="" && model.Password=="")
+        //        return new DAL.Usuario().ConsultarUsuarioDAL("","");
+        //    return new DAL.Usuario().ConsultarUsuarioDAL(model); 
 
-        }
-        public bool ConsultarUsuario(String usuario) {
+        //}
+        public bool ConsultarUsuario(UserInfo model) {
 
-            if (usuario != null) {
-                if(new DAL.Usuario().ConsultarUsuarioDAL(usuario)) {
+            if (model.Usuario != null) {
+                if(new DAL.Usuario().ConsultarUsuarioDAL(model)) {
                     return true;
                 }
                 return false;
@@ -62,23 +70,24 @@ namespace BLL
 
         }
 
-        public String[] CrearUsuario(String usuario, String password, String role) {
-                  role = role.ToUpper();
+        public String[] CrearUsuario(UserInfo model) {
+                  model.Role = model.Role.ToUpper();
 
             String ROLES = "ADM,VENTAS,CLIENTE";
 
-                if (usuario != null && password != null && role != null) {
+                if (model.Usuario != null && model.Password != null && model.Role != null) {
 
-                if (!ConsultarUsuario(usuario)){
-                        if (ROLES.Contains(role)) {
-                            if ("OK".Equals(new DAL.Usuario().CrearUsuarioDAL(usuario, Seguridad.EncriptarTDES(password), role)[0])) {
+                if (!ConsultarUsuario(model)){
+                        if (ROLES.Contains(model.Role)) {
+                        model.Password = Seguridad.EncriptarTDES(model.Password);
+                            if ("OK".Equals(new DAL.Usuario().CrearUsuarioDAL(model)[0])) {
                                 return new string[] { "OK", $"Clave encriptada,Registro Realizado" };
                             }
                         } else {
-                               return new string[] { "ERROR", $"El ROLE {role} Ingresado no es un rol valido." };
+                               return new string[] { "ERROR", $"El ROLE {model.Role} Ingresado no es un rol valido." };
                          }
                 } else {
-                             return new string[] { "ERROR", $"El usuario {usuario} ya se encuentra registrado" };
+                             return new string[] { "ERROR", $"El usuario {model.Usuario} ya se encuentra registrado" };
                         }                  
 
 
