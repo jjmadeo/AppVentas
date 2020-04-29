@@ -6,13 +6,13 @@
     <title>Ventas</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="./css/estilos.css">
+    <link rel="stylesheet" href="./css/login.css">
 
 </head>
 <body class="">
 <div class="container bg-secondary pricipal">
     <div class="container header">
-        <div class="row" id="menu">
-            
+        <div class="row" id="menu">            
             
         </div>
     </div>
@@ -29,6 +29,42 @@
 
 
 
+<!-- Modales -->
+
+ <!-- The Modal LOGIN-->
+  <div class="modal" id="login">
+    <div class="modal-dialog">
+      <div class="modalContent">
+              <div class="bodyLogin">
+                <form class="box" action="#" method="">
+                    <span id="banner"></span>
+                    <h1>Inicie Sesion</h1>
+                    <input type="text" name="" id="user" placeholder="Username">
+                    <input type="password" name="" id="pass"  placeholder="Password">
+                    <input type="submit" name="" id="ingresar" value="Login">
+                </form>
+            </div>
+        </div>
+    </div>
+  </div>
+                       
+ <!-- The Modal Registrar-->
+ <div class="modal" id="registro">
+    <div class="modal-dialog">
+      <div class="modalContent">
+              <div class="bodyLogin">
+                <form class="box" action="#" method="">
+                    <span id="bannerR"></span>
+                    <h1>Crear Usuario</h1>
+                    <input type="text" name="" id="usuario" placeholder="Username">
+                    <input type="password" name="" id="password"  placeholder="Password">
+                    <input type="submit" name="" id="registrarse" value="Crear Usuario">
+                </form>
+            </div>
+        </div>
+    </div>
+  </div>
+                       
 
 
 
@@ -36,24 +72,23 @@
 
 
 
-
-
-
-
-
-<script>
+<!-- <script>
     var token = localStorage.getItem("token")
     if( token===null||token===undefined ){
         console.log("debe registrarse");
-        window.location.href = "./login.html"
+
+        if(confirm("desea iniciar sesion?")){
+                    window.location.href = "./login.html"
+
+        }
+        
     }else{        
         console.log(JSON.parse(atob(localStorage.getItem("token").split('.')[1])).Role)
     }
 
 
 
-</script>
-
+</script> -->
 
 
 <script type="module" src="./js/Accounts.js"></script>
@@ -61,6 +96,146 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script>
+
+ 
+     $(document).ready(function() {
+         //valida si el usuario esta loguiado
+        var token =localStorage.getItem("token");
+        if(token){
+            tokenDecoded = JSON.parse(atob(token.split('.')[1]))
+            alert(`Bienvenido ${tokenDecoded.unique_name} !!`);
+        }
+        //login
+    $("#ingresar").click(function(event){
+       var myHeaders = new Headers();
+        myHeaders.append("Content-Type", "application/json");
+        var usuario = document.getElementById("user").value
+        var pass = document.getElementById("pass").value
+
+        if(usuario==='' || pass===''){
+          alert("completa todos los campos");
+        }else{
+          console.log(usuario+" "+pass);
+
+          var raw = JSON.stringify({"Usuario":usuario,"password":pass});
+
+          var requestOptions = {
+          method: 'POST',
+          headers: myHeaders,
+          body: raw,
+          redirect: 'follow'
+          };
+
+          fetch("http://localhost:60227/api/account/login", requestOptions)
+          .then(response =>{
+            if(!response.ok) throw Error(response.status)
+            
+            return response.text();
+            
+            })
+          .then(result => {
+            console.log("resultadO del logg=>>",JSON.parse(result))
+            let res =  JSON.parse(result);
+
+            localStorage.setItem("token",JSON.stringify(res.token))
+            localStorage.setItem("expirate",JSON.stringify(res.expiration))
+
+           window.location.href = "./index.html"
+
+
+
+          })
+          .catch(error =>{
+            var banner = $("#banner")
+         
+              banner.css("display","none")
+              banner.empty();
+
+            if(error.toString().includes("404")){
+            
+              banner.append("Usuario o Password incorrectos!!")
+              banner.css("display","inline")
+
+
+            }
+
+          });
+        }
+        event.preventDefault()
+      })
+
+      //registro
+      $("#registrarse").click(function(event){
+       var myHeaders = new Headers();
+        myHeaders.append("Content-Type", "application/json");
+        var usuario = document.getElementById("usuario").value
+        var pass = document.getElementById("password").value
+
+        if(usuario==='' || pass===''){
+          alert("completa todos los campos");
+        }else{
+          console.log(usuario+" "+pass);
+
+          var raw = JSON.stringify({"Usuario":usuario,"password":pass});
+
+          var requestOptions = {
+          method: 'POST',
+          headers: myHeaders,
+          body: raw,
+          redirect: 'follow'
+          };
+
+          fetch("http://localhost:60227/api/account/create", requestOptions)
+          .then(response =>{
+            if(!response.ok) throw Error(response.status)
+            
+            return response.text();
+            
+            })
+          .then(result => {
+            console.log("Usuario Creado=>>",JSON.parse(result))
+            var banner = $("#bannerR")
+         
+            banner.css("display","none")
+            banner.empty();
+            banner.append("Usuario Creado Correctamente")
+            banner.css("display","inline")
+            banner.css("border","green solid 3px")
+         
+
+
+
+          })
+          .catch(error =>{
+            var banner = $("#bannerR")
+         
+              banner.css("display","none")
+              banner.empty();
+
+            if(error.toString().includes("404")){
+            
+              banner.append("tenemos problemas al realizar el registro, intente nuevamente en unos minutos.")
+              banner.css("display","inline")
+
+
+            }
+
+          });
+        }
+        event.preventDefault()
+      })
+    
+
+    });
+
+
+
+</script>
+
+
+
+
 
     
 </body>

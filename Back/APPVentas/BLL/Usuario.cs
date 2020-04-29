@@ -28,9 +28,9 @@ namespace BLL
 
         public String[] LoginBLL(UserInfo model) {
 
-            if (model.Usuario !=null && model.Password != null) {
+            if (model.Usuario !="" && model.Password != "") {
                 UserInfo Userloguiado = new DAL.Usuario().LoginDAL(model);
-                 if(model.Usuario.Equals(Userloguiado.Usuario) && model.Password.Equals(Seguridad.DesencriptarTDES(Userloguiado.Password))) {
+                 if((model !=null && Userloguiado !=null)&&(model.Usuario.Equals(Userloguiado.Usuario) && model.Password.Equals(Seguridad.DesencriptarTDES(Userloguiado.Password)))) {
                     return new string[] { "OK", $"Datos Correctos, Bienvenido {Userloguiado.Usuario}",$"{Userloguiado.Role}" };
 
                 } else {

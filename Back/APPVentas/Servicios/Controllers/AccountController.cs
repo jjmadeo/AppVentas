@@ -92,7 +92,7 @@ namespace Servicios.Controllers
                     return BuildToken(userInfo);
                 } else {
                     ModelState.AddModelError(string.Empty, "Invalid login attempt.");
-                    return BadRequest(ModelState);
+                    return NotFound(new { res = new { Stado = resCore[0], Info = resCore[1] }});
                 }
             } else {
                 return BadRequest(ModelState);
