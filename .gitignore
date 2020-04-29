@@ -1,0 +1,19 @@
+### BACK ###
+#BLL
+Back/APPVentas/BLL/bin/
+Back/APPVentas/BLL/obj/
+
+#DAL
+Back/APPVentas/DAL/bin/
+Back/APPVentas/DAL/obj/
+
+#ENTITY
+Back/APPVentas/ENTITY/bin/
+Back/APPVentas/ENTITY/obj/
+
+#Servicios
+Back/APPVentas/Servicios/bin/
+Back/APPVentas/Servicios/obj/
+
+#visual estudio
+Back/APPVentas/.vs/
