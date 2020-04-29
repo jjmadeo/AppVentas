@@ -1,6 +1,8 @@
 'use strict'
  $(document).ready(function() {
-    const USER_ROLE = JSON.parse(atob(localStorage.getItem("token").split('.')[1])).Role
+   if(localStorage.getItem("token")!=null){
+           var USER_ROLE = JSON.parse(atob(localStorage.getItem("token").split('.')[1])).Role.trim()
+   }
 
     const HTML_ADM = `
             <div class="col-10">
@@ -69,13 +71,13 @@
                   </div>
             </div>
             <div class="col-2">
-                <button type="button" id="logout" class="btn btn-primary">Registrarse</button>
+                <button type="button" id=" " class="btn btn-primary" data-toggle="modal" data-target="#registro"">Registrarse</button>
             </div>  
             <div class="col-2">
-                <button type="button" id="logout" class="btn btn-primary">Iniciar Session </button>
+                <button type="button" id="" class="btn btn-primary" data-toggle="modal" data-target="#login">Iniciar Session </button>
             </div>        
     `
-
+    
    
     switch (USER_ROLE) {
        case 'ADM':
@@ -110,7 +112,9 @@ function ComprobarSession(){
    var token = localStorage.getItem("token")
     if( token===null||token===undefined ){
         console.log("debe registrarse");
-        window.location.href = "./login.html"
+        $("#menu").empty();
+        $("#menu").append(HTML_INVITADO);
+        //window.location.href = "./login.html"
     }else{        
         console.log(JSON.parse(atob(localStorage.getItem("token").split('.')[1])).Role)
     }
