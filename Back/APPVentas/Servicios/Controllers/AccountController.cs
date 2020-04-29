@@ -14,65 +14,43 @@ using System.Data;
 using ENTITY;
 
 namespace Servicios.Controllers
-{
+{   // le decimos que entienda JSON
     [Produces("application/json")]
-    [Route("api/[controller]")]
+    [Route("api/[controller]")] //esto toma el nombre del controller como parte de la ruta es decir en este caso seria API/ACCOUNT/[Method]
     [ApiController]
     public class AccountController : ControllerBase
     {
-        /*
-        List<UserInfo> user = new List<UserInfo>()
-        {
-            {new UserInfo(){ Usuario= "juan",Password="1234",Role="ADM" } },
-            {new UserInfo(){ Usuario= "maria",Password="1234",Role="VENTAS" } },
-            {new UserInfo(){ Usuario= "sergio",Password="1234",Role="INVITADO" } },
-            {new UserInfo(){ Usuario= "salvador",Password="1234",Role="CLIENTE" } }
-        };*/
-        private readonly ILogger<AccountController> _logger;
+         private readonly ILogger<AccountController> _logger;  //modulos para escribir logs,  siempre va definido en forma global.
 
         public AccountController(ILogger<AccountController> logger)
         {
             _logger = logger;
         }
-        
-        // GET: api/Account
-        //[HttpGet]
-        //public IActionResult Get()
-        //{
-        //    DataTable res = new BLL.Usuario().ConsultarUsuario("juan","jjmxyz");
-        //    return Ok(res);
-        //}
-        
-
+                   
+        /// <summary>
+        /// Crea un uusario, Recibe un model usuario definido en entity
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns>retorna un  usaurio creado.</returns>
         [Route("Create")]
         [HttpPost]
         public IActionResult CreateUser([FromBody] UserInfo model)
         {
             _logger.LogInformation("Usaurio=>" + model.Usuario + "Pasword =>"+model.Password +"Role=>"+model.Role);
-            if (ModelState.IsValid)
-            {
-                if(model.Role==null)
+            if (ModelState.IsValid){
+                if (model.Role == null) {
                     model.Role = "cliente";
-
+                }
                 string[] resultado = new BLL.Usuario().CrearUsuario(model);
                 if ("OK".Equals(resultado[0])) {
-
                     return Ok(new { res = new { Stado = resultado[0], Info = resultado[1] } });
-                      /**Rtornar multiples valores.*/
-//                    return Ok(new { Response = resultado[1], Status = StatusCode(200, new { Dato = "asd", Dato = "asd", Dato = "asd" }) });
-
-
-                    //return BadRequest("Usaurio existente");
                 } else {
                     return BadRequest(new { res = new {  Stado =resultado[0], Info = resultado[1] } });
                 }
-                              
             }
-            else
-            {
+            else{
                 return BadRequest(ModelState);
             }
-             
         }
 
 
@@ -80,15 +58,10 @@ namespace Servicios.Controllers
         [Route("Login")]
         public IActionResult Login([FromBody] UserInfo userInfo) {
             _logger.LogInformation("Usaurio: " + userInfo.Usuario);
-
-
             if (ModelState.IsValid) {
                 String[] resCore = new BLL.Usuario().LoginBLL(userInfo);
                 if ("OK".Equals(resCore[0])) {
-
                     userInfo.Role = resCore[2];
-                    // UserInfo usuarioLoguiado = new UserInfo();
-
                     return BuildToken(userInfo);
                 } else {
                     ModelState.AddModelError(string.Empty, "Invalid login attempt.");
@@ -99,7 +72,11 @@ namespace Servicios.Controllers
             }
         }
 
-
+        /// <summary>
+        /// Genera  el token para la autenticacion.
+        /// </summary>
+        /// <param name="userInfo"></param>
+        /// <returns></returns>
         private IActionResult BuildToken(UserInfo userInfo)
         {
             var claims = new[]
@@ -129,23 +106,6 @@ namespace Servicios.Controllers
             });
 
         }
-
-        private UserInfo Exist(UserInfo inusuario)
-        {
-            _logger.LogInformation(" *** " + inusuario.Usuario +" ****  "+inusuario.Password);
-
-            //Usuario usuariBLL = new Usuario();
-            //usuariBLL.ConsultarUsuario(inusuario.Usuario, inusuario.Password);
-            /*
-            foreach ( UserInfo usuario in user)
-            {
-                _logger.LogInformation("Usaurio: Existe : " + usuario.Usuario);
-
-                if (usuario.Usuario.Equals(inusuario.Usuario)) return usuario;
-            }
-            */
-            return null;
-
-        }
+                
     }
 }
