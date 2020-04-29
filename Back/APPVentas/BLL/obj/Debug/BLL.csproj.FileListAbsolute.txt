@@ -1,9 +1,0 @@
-C:\Users\jjmadeo\Desktop\Facultad\TECNICAS DE PROGRAMACION\TP\Project\Back\APPVentas\BLL\bin\Debug\BLL.dll
-C:\Users\jjmadeo\Desktop\Facultad\TECNICAS DE PROGRAMACION\TP\Project\Back\APPVentas\BLL\bin\Debug\BLL.pdb
-C:\Users\jjmadeo\Desktop\Facultad\TECNICAS DE PROGRAMACION\TP\Project\Back\APPVentas\BLL\bin\Debug\DAL.dll
-C:\Users\jjmadeo\Desktop\Facultad\TECNICAS DE PROGRAMACION\TP\Project\Back\APPVentas\BLL\bin\Debug\DAL.pdb
-C:\Users\jjmadeo\Desktop\Facultad\TECNICAS DE PROGRAMACION\TP\Project\Back\APPVentas\BLL\obj\Debug\BLL.csprojAssemblyReference.cache
-C:\Users\jjmadeo\Desktop\Facultad\TECNICAS DE PROGRAMACION\TP\Project\Back\APPVentas\BLL\obj\Debug\BLL.csproj.CoreCompileInputs.cache
-C:\Users\jjmadeo\Desktop\Facultad\TECNICAS DE PROGRAMACION\TP\Project\Back\APPVentas\BLL\obj\Debug\BLL.csproj.CopyComplete
-C:\Users\jjmadeo\Desktop\Facultad\TECNICAS DE PROGRAMACION\TP\Project\Back\APPVentas\BLL\obj\Debug\BLL.dll
-C:\Users\jjmadeo\Desktop\Facultad\TECNICAS DE PROGRAMACION\TP\Project\Back\APPVentas\BLL\obj\Debug\BLL.pdb
