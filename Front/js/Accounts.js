@@ -64,7 +64,6 @@
                       Menu
                     </button>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                      <a class="dropdown-item" href="#">Registrarse</a>
                       <a class="dropdown-item" href="#">Buscar</a>
                       <a class="dropdown-item" href="#">Mi Changuito</a>
                     </div>
