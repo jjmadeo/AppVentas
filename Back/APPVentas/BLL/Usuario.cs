@@ -26,6 +26,22 @@ namespace BLL
         }
 
 
+
+
+     
+
+        public UserInfo[] GetusersBLL() {
+
+            return new DAL.Usuario().GetusersDAL();
+
+        }
+
+        public UserInfo[] GetusersBLL(int id) {
+
+            return new DAL.Usuario().GetusersDAL(id);
+
+        }
+
         public String[] LoginBLL(UserInfo model) {
 
             if (model.Usuario !="" && model.Password != "") {
@@ -54,7 +70,7 @@ namespace BLL
         //    return new DAL.Usuario().ConsultarUsuarioDAL(model); 
 
         //}
-        public bool ConsultarUsuario(UserInfo model) {
+        private bool ConsultarUsuario(UserInfo model) {
 
             if (model.Usuario != null) {
                 if(new DAL.Usuario().ConsultarUsuarioDAL(model)) {

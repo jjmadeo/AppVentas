@@ -26,12 +26,46 @@ namespace Servicios.Controllers
         {
             _logger = logger;
         }
-                   
+        
+        [HttpGet]
+        public IActionResult getUsuarios(){
+
+            UserInfo[] usuarios = new BLL.Usuario().GetusersBLL();
+
+
+            if (usuarios != null) {
+                return Ok(new { usuarios = usuarios });
+            }
+
+            return BadRequest(new { data = "Hubo un error"});
+
+           
+
+        }
+        [HttpGet("{id}", Name = "getUsuario")]
+        public IActionResult getUsuario(int id) {
+
+            UserInfo[] usuarios = new BLL.Usuario().GetusersBLL(id);
+
+
+            if (usuarios != null) {
+                return Ok(new { usuarios = usuarios });
+            }
+
+            return BadRequest(new { data = "Hubo un error" });
+
+
+
+        }
+
+
+
         /// <summary>
         /// Crea un uusario, Recibe un model usuario definido en entity
         /// </summary>
         /// <param name="model"></param>
         /// <returns>retorna un  usaurio creado.</returns>
+        /// 
         [Route("Create")]
         [HttpPost]
         public IActionResult CreateUser([FromBody] UserInfo model)
@@ -71,6 +105,12 @@ namespace Servicios.Controllers
                 return BadRequest(ModelState);
             }
         }
+
+
+
+
+
+      
 
         /// <summary>
         /// Genera  el token para la autenticacion.

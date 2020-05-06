@@ -25,18 +25,59 @@ namespace DAL
         {
         }
 
-        //public DataTable ConsultarUsuarioDAL(UserInfo model) {
-        //    ConnectBBDD conexion = new ConnectBBDD();
-
-        //    if (model.Usuario == "" && model.Password == "") {
-
-        //        return conexion.LeerPorStoreProcedure("sp_usuarios");
-        //    }
-
-        //    return conexion.LeerPorComando($"select *  from usuarios where usuario='{model.Usuario}'");
 
 
-        //}
+        public UserInfo[] GetusersDAL() {
+
+            ConnectBBDD conexion = new ConnectBBDD();
+            DataTable res = conexion.LeerPorComando($"select *  from usuarios");
+           
+            if (res.Rows.Count > 0) {
+                UserInfo[] arrUser = new UserInfo[res.Rows.Count];
+
+
+
+                for(int i = 0; i < res.Rows.Count; i++) {
+                    arrUser[i] = new UserInfo(res.Rows[i]["usuario"].ToString(), res.Rows[i]["password"].ToString(), res.Rows[i]["role"].ToString());
+                }
+
+                return arrUser;
+
+            } else {
+                UserInfo[] datoNull = null;
+                return datoNull;
+
+            }
+
+
+
+        }
+        public UserInfo[] GetusersDAL(int id) {
+
+            ConnectBBDD conexion = new ConnectBBDD();
+            DataTable res = conexion.LeerPorComando($"select *  from usuarios where id={id}");
+
+            if (res.Rows.Count > 0) {
+                UserInfo[] arrUser = new UserInfo[res.Rows.Count];
+
+
+
+                for (int i = 0; i < res.Rows.Count; i++) {
+                    arrUser[i] = new UserInfo(res.Rows[i]["usuario"].ToString(), res.Rows[i]["password"].ToString(), res.Rows[i]["role"].ToString());
+                }
+
+                return arrUser;
+
+            } else {
+                UserInfo[] datoNull = null;
+                return datoNull;
+
+            }
+
+
+
+        }
+
         public bool ConsultarUsuarioDAL(UserInfo model) {
             ConnectBBDD conexion = new ConnectBBDD();
 
