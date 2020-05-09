@@ -9,3 +9,13 @@ body{
 #logout{
   width:  100%;
 }
+
+
+.productos{
+
+  background: #54a0ff;
+}
+.producto{
+
+  margin: 30px;
+}

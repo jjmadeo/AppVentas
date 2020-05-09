@@ -7,15 +7,45 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-
+using ENTITY;
 namespace Servicios.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+    //[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public class ProductController : ControllerBase
     {
-        // GET: api/Product
+        [HttpGet]
+        public Producto[] getProductos() {
+
+            Producto[] productos = new BLL.Producto().getProductoBLL();
+
+
+            return productos;
+        }
+        
+        
+        
+        
+        
+
+
+
+
+
+
+
+
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        /*/// GET: api/Product
         [HttpGet]
         public IEnumerable<string> Get()
         {
@@ -45,6 +75,6 @@ namespace Servicios.Controllers
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
-        }
+        }*/
     }
 }

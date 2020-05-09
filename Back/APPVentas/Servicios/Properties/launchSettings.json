@@ -2,6 +2,10 @@
   "iisSettings": {
     "windowsAuthentication": false,
     "anonymousAuthentication": true,
+    "iis": {
+      "applicationUrl": "http://localhost/Servicios",
+      "sslPort": 0
+    },
     "iisExpress": {
       "applicationUrl": "http://localhost:60227",
       "sslPort": 0
@@ -18,7 +22,7 @@
       }
     },
     "Servicios": {
-      "commandName": "Project",
+      "commandName": "IISExpress",
       "launchBrowser": true,
       "launchUrl": "swagger",
       "environmentVariables": {
