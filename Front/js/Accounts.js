@@ -5,7 +5,7 @@
    }
 
     const HTML_ADM = `
-            <div class="col-10">
+            <div class="col-3">
                 <div class="dropdown">
                     <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                       Administrar
@@ -17,12 +17,22 @@
                     </div>
                   </div>
             </div>
+            <div class="col-5">
+            <div class="input-group flex-nowrap">
+              <div class="input-group-prepend">
+                <span class="input-group-text" id="addon-wrapping">Buscar producto</span>
+              </div>
+              <input type="text" class="form-control" placeholder="Ej: Remera" aria-label="Username" aria-describedby="addon-wrapping">
+            </div>
+          </div>  
+          <div class="col-2">
+            </div>  
             <div class="col-2">
                 <button type="button" id="logout" class="btn btn-primary">Salir</button>
             </div>    
     `
     const HTML_VENTAS = `
-            <div class="col-10">
+            <div class="col-3">
                 <div class="dropdown">
                     <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                       Ventas
@@ -34,12 +44,22 @@
                     </div>
                   </div>
             </div> 
-            <div class="col-2">
-                <button type="button" id="logout" class="btn btn-primary">Salir</button>
-            </div>       
+            <div class="col-5">
+            <div class="input-group flex-nowrap">
+              <div class="input-group-prepend">
+                <span class="input-group-text" id="addon-wrapping">Buscar producto</span>
+              </div>
+              <input type="text" class="form-control" placeholder="Ej: Remera" aria-label="Username" aria-describedby="addon-wrapping">
+            </div>
+          </div>
+          <div class="col-2">
+          </div>  
+          <div class="col-2">
+              <button type="button" id="logout" class="btn btn-primary">Salir</button>
+          </div>      
     `
     const HTML_CLIENTE = `
-            <div class="col-10">
+            <div class="col-3">
                 <div class="dropdown">
                     <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                       Menu
@@ -53,12 +73,24 @@
                     </div>
                   </div>
             </div>
-            <div class="col-2">
-                <button type="button" id="logout" class="btn btn-primary">Salir</button>
-            </div>        
+            <div class="col-5">
+            <div class="input-group flex-nowrap">
+              <div class="input-group-prepend">
+                <span class="input-group-text" id="addon-wrapping">Buscar producto</span>
+              </div>
+              <input type="text" class="form-control" placeholder="Ej: Remera" aria-label="Username" aria-describedby="addon-wrapping">
+            </div>
+          </div>
+          <div class="col-2">
+          </div>  
+          <div class="col-2">
+              <button type="button" id="logout" class="btn btn-primary">Salir</button>
+          </div>    
+           
+                     
     `
     const HTML_INVITADO = `
-            <div class="col-8">
+            <div class="col-3">
                 <div class="dropdown">
                     <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                       Menu
@@ -69,12 +101,16 @@
                     </div>
                   </div>
             </div>
+            <div class="col-5">
+              
+            </div>  
             <div class="col-2">
-                <button type="button" id=" " class="btn btn-primary" data-toggle="modal" data-target="#registro"">Registrarse</button>
+                <button type="button" id=" " class="btn btn-primary" data-toggle="modal" data-target="#registro">Registrarse</button>
             </div>  
             <div class="col-2">
                 <button type="button" id="" class="btn btn-primary" data-toggle="modal" data-target="#login">Iniciar Session </button>
-            </div>        
+            </div>
+                 
     `
     
    

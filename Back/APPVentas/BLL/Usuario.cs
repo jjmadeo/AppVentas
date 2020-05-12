@@ -10,16 +10,7 @@ namespace BLL
 {
     public class Usuario
     {
-        public string usuario { get; set; }
-        public string Password { get; set; }
-        public string Role { get; set; }
-
-        public Usuario(string usuario, string password, string role)
-        {
-            this.usuario = usuario;
-            Password = password;
-            Role = role;
-        }
+        
 
         public Usuario()
         {
@@ -44,7 +35,7 @@ namespace BLL
 
         public String[] LoginBLL(UserInfo model) {
 
-            if (model.Usuario !="" && model.Password != "") {
+            if (model.Usuario != string.Empty && model.Password != "") {
                 UserInfo Userloguiado = new DAL.Usuario().LoginDAL(model);
                  if((model !=null && Userloguiado !=null)&&(model.Usuario.Equals(Userloguiado.Usuario) && model.Password.Equals(Seguridad.DesencriptarTDES(Userloguiado.Password)))) {
                     return new string[] { "OK", $"Datos Correctos, Bienvenido {Userloguiado.Usuario}",$"{Userloguiado.Role}" };
