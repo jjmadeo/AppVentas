@@ -34,7 +34,27 @@ namespace Servicios.Controllers
             return categorias;
         }
 
+        //actualizar
+        [HttpPut]
+        [Route("categorias")]
+        [HttpGet("{id}", Name = "cateogiraUpdate")] // id viene el identificador de la categoria 
+        public IActionResult  cateogiraUpdate(int id,[FromBody] Categoria categoria ) { // Form body viene el contenido de la categoria.
 
+            //codigo para actualizar una categoria existente.
+
+
+            return Ok(new { MSG="Producto actualizado." }); 
+        }
+
+        [HttpPost]
+        [Route("categorias")]
+        public IActionResult cateogiraUpdate([FromBody] Categoria categoria) { // Form body viene el contenido de la categoria.
+
+            //codigo para actualizar una categoria existente.
+
+
+            return Ok(new { MSG = "Producto actualizado." }); 
+        }
 
 
 

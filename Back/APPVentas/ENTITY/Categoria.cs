@@ -27,5 +27,8 @@ namespace ENTITY {
 		public Categoria(string nombre) {
 			_nombre = nombre;
 		}
+
+		public Categoria() {
+		}
 	}
 }
