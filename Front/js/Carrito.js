@@ -1,3 +1,23 @@
+$(document).ready(function(){
+    $(document).on('click','.categorias', function(e){ //esta función se ejecutará en todos los casos
+
+    let id_Categoria = $(this).attr('idCategoria')
+
+
+        Vaciar("#items");
+           
+        let newArr = baseDeDatos.filter(item=>{
+            return item.categoria.id == id_Categoria;
+        })
+        
+        renderItems(newArr)
+
+
+    });
+
+})
+
+
 let img = "https://assets.adidas.com/images/w_840,h_840,f_auto,q_auto:sensitive,fl_lossy/d02db446868c4f2a8b31a9f10119d830_9366/Pelota_Top_de_Entrenamiento_Argentina_19_Blanco_DY2519_DY2519_01_standard.jpg"
 let baseDeDatos = []
 
@@ -30,6 +50,24 @@ let total = 0;
 let $carrito = document.querySelector('#carrito');
 let $total = document.querySelector('#total');
 let $search = document.querySelector('#buscar')
+
+// document.addEventListener("DOMContentLoaded", function(event) {
+ 
+// //     var container = document.querySelector('#contenedorCategorias').childNodes;
+// // var matches = container.querySelectorAll('.btnCategoria');
+
+// var highlightedItems = userList.querySelectorAll('.btnCategoria');
+
+// highlightedItems.forEach(function(userItem) {
+//   console.log(userItem);
+// });
+
+
+    
+//   });
+
+
+
 
 $search.addEventListener('keyup',()=>{
     //clearInner($items)
@@ -228,4 +266,9 @@ function Vaciar(idPadre){
         }
     }
 }
+
+const Categorias = function(e){
+    console.log("boton")
+}
+
 

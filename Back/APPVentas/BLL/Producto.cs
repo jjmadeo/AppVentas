@@ -18,5 +18,14 @@ namespace BLL {
 
 
         }
+        public ENTITY.Categoria[] getCategoriasBLL() {
+
+
+            return new DAL.Producto().getCategoriasDAL();
+
+
+        }
+
+        
     }
 }

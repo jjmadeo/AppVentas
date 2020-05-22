@@ -23,11 +23,16 @@ namespace Servicios.Controllers
 
             return productos;
         }
-        
-        
-        
-        
-        
+
+        [HttpGet]
+        [Route("categorias")]
+        public Categoria[] getCategorias() {
+
+            Categoria[] categorias = new BLL.Producto().getCategoriasBLL();
+
+
+            return categorias;
+        }
 
 
 
@@ -36,15 +41,19 @@ namespace Servicios.Controllers
 
 
 
-        
-        
-        
-        
-        
-        
-        
-        
-        
+
+
+
+
+
+
+
+
+
+
+
+
+
         /*/// GET: api/Product
         [HttpGet]
         public IEnumerable<string> Get()

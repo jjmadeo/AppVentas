@@ -57,8 +57,15 @@ namespace ENTITY {
             set { _nombre = value; }
         }
 
+        private Categoria _categoria;
+            
+        public Categoria Categoria {
+            get { return _categoria; }
+            set { _categoria = value; }
+        }
 
-        public Producto(String nombre, string detalle, double precio, int stock, int fecha, bool visible, int id) {
+
+        public Producto(String nombre, string detalle, double precio, int stock, int fecha, bool visible, int id, Categoria  categoria) {
             _nombre = nombre;
             _id = id;
             _detalle = detalle;
@@ -66,6 +73,7 @@ namespace ENTITY {
             _stock = stock;
             _fecha = fecha;
             _visible = visible;
+            _categoria = categoria;
         }
 
 
