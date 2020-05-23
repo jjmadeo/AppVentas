@@ -24,6 +24,36 @@ namespace Servicios.Controllers
             return productos;
         }
 
+        [HttpPost]
+        public IActionResult nuevoProducto([FromBody] Producto producto) {
+
+            //Producto productos = new BLL.Producto().newProductoBLL(producto);
+
+
+            return Ok(new { ProductoCreated = producto });
+
+        }
+        [HttpPut("{id}", Name = "ProductoUpdate")] // id viene el identificador de la categoria 
+        public IActionResult ProductoUpdate(int id, [FromBody] Producto producto) { // Form body viene el contenido de la categoria.
+
+            //buscas al producto con el @{id} prodporcionado y actualizarlo con los valores recibidos en en producto.
+
+
+            return Ok(new { MSG = "Producto actualizado." });
+        }
+
+
+        [HttpDelete("{id}", Name = "ProductoDelete")] // id viene el identificador de la categoria 
+        public IActionResult ProductoDelete(int id) { // Form body viene el contenido de la categoria.
+
+
+            // buscar por id y borrar el producto de la base.
+
+            return Ok(new { MSG = "Producto Eliminado." });
+        }
+
+
+
         [HttpGet]
         [Route("categorias")]
         public Categoria[] getCategorias() {

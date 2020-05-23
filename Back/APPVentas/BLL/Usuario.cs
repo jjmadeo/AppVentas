@@ -35,7 +35,7 @@ namespace BLL
 
         public String[] LoginBLL(UserInfo model) {
 
-            if (model.Usuario != string.Empty && model.Password != "") {
+            if (model.Usuario != string.Empty && model.Password != string.Empty) {
                 UserInfo Userloguiado = new DAL.Usuario().LoginDAL(model);
                  if((model !=null && Userloguiado !=null)&&(model.Usuario.Equals(Userloguiado.Usuario) && model.Password.Equals(Seguridad.DesencriptarTDES(Userloguiado.Password)))) {
                     return new string[] { "OK", $"Datos Correctos, Bienvenido {Userloguiado.Usuario}",$"{Userloguiado.Role}" };
@@ -80,7 +80,7 @@ namespace BLL
         public String[] CrearUsuario(UserInfo model) {
                   model.Role = model.Role.ToUpper();
 
-            String ROLES = "ADM,VENTAS,CLIENTE";
+            String ROLES = "1,2,3";
 
                 if (model.Usuario != null && model.Password != null && model.Role != null) {
 
@@ -107,6 +107,27 @@ namespace BLL
 
 
         }
+
+
+        public UserInfo[] getEmplBLL() {
+            return new DAL.Usuario().getEmplDAL();
+        }
+        public UserInfo getEmplBLL(int id) {
+
+            try {
+                return new DAL.Usuario().getEmplDAL(id)[0];
+
+            } catch (NullReferenceException) {
+
+                UserInfo a = null;
+
+                return a;
+
+
+            }
+        }
+
+
 
     }
 

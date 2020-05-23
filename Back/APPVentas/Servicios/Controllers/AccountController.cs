@@ -73,7 +73,7 @@ namespace Servicios.Controllers
             _logger.LogInformation("Usaurio=>" + model.Usuario + "Pasword =>"+model.Password +"Role=>"+model.Role);
             if (ModelState.IsValid){
                 if (model.Role == null) {
-                    model.Role = "cliente";
+                    model.Role = "3";
                 }
                 string[] resultado = new BLL.Usuario().CrearUsuario(model);
                 if ("OK".Equals(resultado[0])) {
@@ -107,10 +107,27 @@ namespace Servicios.Controllers
         }
 
 
+        [HttpGet]
+        [Route("Empleados")]
+        public IActionResult getEmpleados() {
+
+            return Ok(new { Empleados =  new BLL.Usuario().getEmplBLL() });
+
+        }
+        
+        [HttpGet("Empleados/{id}", Name = "getEmpleado")]
+       // [Route("Empleados")]
+        public IActionResult GetEmpleado(int id) {
 
 
 
-      
+            return Ok(new { Empleados = new BLL.Usuario().getEmplBLL(id) });
+
+        }
+
+
+
+
 
         /// <summary>
         /// Genera  el token para la autenticacion.

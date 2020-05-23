@@ -1,6 +1,7 @@
+DROP DATABASE SALES;
 USE [master]
 GO
-/****** Object:  Database [SALES]    Script Date: 22/05/2020 0:07:03 ******/
+/****** Object:  Database [SALES]    Script Date: 23/05/2020 2:30:34 ******/
 CREATE DATABASE [SALES]
  CONTAINMENT = NONE
  ON  PRIMARY 
@@ -77,7 +78,7 @@ ALTER DATABASE [SALES] SET QUERY_STORE = OFF
 GO
 USE [SALES]
 GO
-/****** Object:  Table [dbo].[Categorias]    Script Date: 22/05/2020 0:07:03 ******/
+/****** Object:  Table [dbo].[Categorias]    Script Date: 23/05/2020 2:30:35 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -91,7 +92,36 @@ CREATE TABLE [dbo].[Categorias](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[productos]    Script Date: 22/05/2020 0:07:03 ******/
+/****** Object:  Table [dbo].[Empleados]    Script Date: 23/05/2020 2:30:35 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Empleados](
+	[id_empl] [int] IDENTITY(1,1) NOT NULL,
+	[nombre] [nvarchar](50) NOT NULL,
+	[password] [nvarchar](50) NOT NULL,
+	[id_role] [int] NOT NULL,
+	[id_sucursal] [int] NOT NULL,
+	[usuario] [nvarchar](50) NULL,
+ CONSTRAINT [PK_Empleados] PRIMARY KEY CLUSTERED 
+(
+	[id_empl] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[PDU]    Script Date: 23/05/2020 2:30:35 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[PDU](
+	[PDUTABLA] [nvarchar](500) NOT NULL,
+	[PDUCLAVE] [nvarchar](500) NOT NULL,
+	[PDUVALOR] [nvarchar](500) NOT NULL
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[productos]    Script Date: 23/05/2020 2:30:35 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -107,7 +137,72 @@ CREATE TABLE [dbo].[productos](
 	[id_Categoria] [int] NULL
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[usuarios]    Script Date: 22/05/2020 0:07:03 ******/
+/****** Object:  Table [dbo].[Roles]    Script Date: 23/05/2020 2:30:35 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Roles](
+	[id] [int] IDENTITY(1,1) NOT NULL,
+	[nombre] [nvarchar](50) NOT NULL,
+ CONSTRAINT [PK_Roles] PRIMARY KEY CLUSTERED 
+(
+	[id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Sesiones]    Script Date: 23/05/2020 2:30:35 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Sesiones](
+	[id] [int] NOT NULL,
+	[fecha] [int] NOT NULL,
+	[hora] [int] NOT NULL,
+	[sesion] [nvarchar](100) NOT NULL,
+	[id_usuario] [int] NULL,
+	[id_empleado] [int] NULL,
+ CONSTRAINT [PK_Sesiones] PRIMARY KEY CLUSTERED 
+(
+	[id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Sucursales]    Script Date: 23/05/2020 2:30:35 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Sucursales](
+	[id] [int] IDENTITY(1,1) NOT NULL,
+	[razon_social] [nvarchar](50) NOT NULL,
+	[cuil] [bigint] NOT NULL,
+	[direccion] [nvarchar](50) NOT NULL,
+ CONSTRAINT [PK_Sucursales] PRIMARY KEY CLUSTERED 
+(
+	[id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Tarjetas]    Script Date: 23/05/2020 2:30:35 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Tarjetas](
+	[nTarjeta] [int] NOT NULL,
+	[fechaVencimiento] [int] NOT NULL,
+	[nombre] [nvarchar](100) NOT NULL,
+	[pin] [int] NOT NULL,
+	[id_usuario] [int] NOT NULL,
+ CONSTRAINT [PK_Tarjetas] PRIMARY KEY CLUSTERED 
+(
+	[nTarjeta] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[usuarios]    Script Date: 23/05/2020 2:30:35 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -116,7 +211,10 @@ CREATE TABLE [dbo].[usuarios](
 	[id] [int] IDENTITY(1,1) NOT NULL,
 	[usuario] [nvarchar](50) NOT NULL,
 	[password] [nvarchar](50) NOT NULL,
-	[role] [nchar](10) NOT NULL,
+	[id_role] [int] NULL,
+	[nombre] [nvarchar](50) NULL,
+	[direccion] [nvarchar](300) NULL,
+	[email] [nvarchar](50) NULL,
  CONSTRAINT [PK_usuarios] PRIMARY KEY CLUSTERED 
 (
 	[id] ASC
@@ -138,6 +236,16 @@ GO
 INSERT [dbo].[Categorias] ([id], [nombre]) VALUES (8, N'Animales  ')
 GO
 SET IDENTITY_INSERT [dbo].[Categorias] OFF
+GO
+SET IDENTITY_INSERT [dbo].[Empleados] ON 
+GO
+INSERT [dbo].[Empleados] ([id_empl], [nombre], [password], [id_role], [id_sucursal], [usuario]) VALUES (3, N'juan', N'P7T8s3og68I=', 1, 4, N'jjmadeo')
+GO
+INSERT [dbo].[Empleados] ([id_empl], [nombre], [password], [id_role], [id_sucursal], [usuario]) VALUES (4, N'salvador', N'P7T8s3og68I=', 2, 4, N'salvador')
+GO
+INSERT [dbo].[Empleados] ([id_empl], [nombre], [password], [id_role], [id_sucursal], [usuario]) VALUES (5, N'juan', N'P7T8s3og68I=', 1, 4, N'juanEmpl')
+GO
+SET IDENTITY_INSERT [dbo].[Empleados] OFF
 GO
 SET IDENTITY_INSERT [dbo].[productos] ON 
 GO
@@ -791,22 +899,76 @@ INSERT [dbo].[productos] ([id], [nombre], [detalle], [precio], [stock], [fecha],
 GO
 SET IDENTITY_INSERT [dbo].[productos] OFF
 GO
+SET IDENTITY_INSERT [dbo].[Roles] ON 
+GO
+INSERT [dbo].[Roles] ([id], [nombre]) VALUES (1, N'ADM')
+GO
+INSERT [dbo].[Roles] ([id], [nombre]) VALUES (2, N'VENTAS')
+GO
+INSERT [dbo].[Roles] ([id], [nombre]) VALUES (3, N'CLIENTE')
+GO
+SET IDENTITY_INSERT [dbo].[Roles] OFF
+GO
+SET IDENTITY_INSERT [dbo].[Sucursales] ON 
+GO
+INSERT [dbo].[Sucursales] ([id], [razon_social], [cuil], [direccion]) VALUES (4, N'Deportes Lomas', 1, N'Alen Doble  188')
+GO
+INSERT [dbo].[Sucursales] ([id], [razon_social], [cuil], [direccion]) VALUES (5, N'Deporte llavallol', 30252252236995, N'bahia blanca 234')
+GO
+INSERT [dbo].[Sucursales] ([id], [razon_social], [cuil], [direccion]) VALUES (6, N'adrogue Deportes', 248115, N'almt Brown 3598')
+GO
+SET IDENTITY_INSERT [dbo].[Sucursales] OFF
+GO
 SET IDENTITY_INSERT [dbo].[usuarios] ON 
 GO
-INSERT [dbo].[usuarios] ([id], [usuario], [password], [role]) VALUES (22, N'jjmadeo', N'P7T8s3og68I=', N'ADM       ')
+INSERT [dbo].[usuarios] ([id], [usuario], [password], [id_role], [nombre], [direccion], [email]) VALUES (24, N'jjmadeo', N'P7T8s3og68I=', 3, N'JUAN JOSE MADEO', N'sadasd', N'NULLasdasd@asdsa')
 GO
-INSERT [dbo].[usuarios] ([id], [usuario], [password], [role]) VALUES (23, N'jjmadeoventas', N'P7T8s3og68I=', N'VENTAS    ')
+INSERT [dbo].[usuarios] ([id], [usuario], [password], [id_role], [nombre], [direccion], [email]) VALUES (25, N'jjmadeoaa', N'sad', 3, N'Juan', N'sad', N'@sadsad')
 GO
-INSERT [dbo].[usuarios] ([id], [usuario], [password], [role]) VALUES (24, N'jjmadeocliente', N'P7T8s3og68I=', N'CLIENTE   ')
+INSERT [dbo].[usuarios] ([id], [usuario], [password], [id_role], [nombre], [direccion], [email]) VALUES (26, N'string', N'P7T8s3og68I=', 3, N'string', N'asdasd', N'@sadsad')
+GO
+INSERT [dbo].[usuarios] ([id], [usuario], [password], [id_role], [nombre], [direccion], [email]) VALUES (27, N'asdasd', N'P7T8s3og68I=', 3, N'123123', N'123213', N'123123')
+GO
+INSERT [dbo].[usuarios] ([id], [usuario], [password], [id_role], [nombre], [direccion], [email]) VALUES (28, N'juanEmpl', N'P7T8s3og68I=', 3, N'juan', N'', N'')
 GO
 SET IDENTITY_INSERT [dbo].[usuarios] OFF
+GO
+ALTER TABLE [dbo].[Empleados]  WITH CHECK ADD  CONSTRAINT [FK_Empleados_Roles] FOREIGN KEY([id_role])
+REFERENCES [dbo].[Roles] ([id])
+GO
+ALTER TABLE [dbo].[Empleados] CHECK CONSTRAINT [FK_Empleados_Roles]
+GO
+ALTER TABLE [dbo].[Empleados]  WITH CHECK ADD  CONSTRAINT [FK_Empleados_Sucursales] FOREIGN KEY([id_sucursal])
+REFERENCES [dbo].[Sucursales] ([id])
+GO
+ALTER TABLE [dbo].[Empleados] CHECK CONSTRAINT [FK_Empleados_Sucursales]
 GO
 ALTER TABLE [dbo].[productos]  WITH CHECK ADD  CONSTRAINT [FK_productos_Categorias] FOREIGN KEY([id_Categoria])
 REFERENCES [dbo].[Categorias] ([id])
 GO
 ALTER TABLE [dbo].[productos] CHECK CONSTRAINT [FK_productos_Categorias]
 GO
-/****** Object:  StoredProcedure [dbo].[sp_usuarios]    Script Date: 22/05/2020 0:07:03 ******/
+ALTER TABLE [dbo].[Sesiones]  WITH CHECK ADD  CONSTRAINT [FK_Sesiones_Empleados] FOREIGN KEY([id_empleado])
+REFERENCES [dbo].[Empleados] ([id_empl])
+GO
+ALTER TABLE [dbo].[Sesiones] CHECK CONSTRAINT [FK_Sesiones_Empleados]
+GO
+ALTER TABLE [dbo].[Sesiones]  WITH CHECK ADD  CONSTRAINT [FK_Sesiones_usuarios] FOREIGN KEY([id_usuario])
+REFERENCES [dbo].[usuarios] ([id])
+GO
+ALTER TABLE [dbo].[Sesiones] CHECK CONSTRAINT [FK_Sesiones_usuarios]
+GO
+ALTER TABLE [dbo].[Tarjetas]  WITH CHECK ADD  CONSTRAINT [FK_Tarjetas_usuarios] FOREIGN KEY([id_usuario])
+REFERENCES [dbo].[usuarios] ([id])
+GO
+ALTER TABLE [dbo].[Tarjetas] CHECK CONSTRAINT [FK_Tarjetas_usuarios]
+GO
+ALTER TABLE [dbo].[usuarios]  WITH CHECK ADD  CONSTRAINT [FK_usuarios_Roles] FOREIGN KEY([id_role])
+REFERENCES [dbo].[Roles] ([id])
+GO
+ALTER TABLE [dbo].[usuarios] CHECK CONSTRAINT [FK_usuarios_Roles]
+GO
+/****** Object:  StoredProcedure [dbo].[sp_usuarios]    Script Date: 23/05/2020 2:30:35 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
