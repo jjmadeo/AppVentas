@@ -15,30 +15,153 @@ $(document).ready(function(){
 
     });
 
+ const compra = {
+          tipoCompra:null,
+          sucursal:null ,
+          id:null ,        
+          cuil:null ,
+          direccion:null        
+        
+       }
+       var token =localStorage.getItem("token");
+       if(!token){
+        $('#modalInicio').modal('show');
+
+       }
+      $('#sucrusaldiv').hide();
+      $("#tipoVentaSelect").change(function(){
+        $('#sucrusaldiv').hide();
+        $('#tipoVentabtn').attr("disabled", false);
+        if($('#tipoVentaSelect').val()==='Asistida'){
+          $('#sucrusaldiv').show();
+        }
+            compra.tipoCompra=$('#tipoVentaSelect').val()
+        });
+        $("#sucursalSelectinicio").change(function(){
+          compra.sucursal= $("#sucursalSelectinicio option:selected").attr('razonSocial')
+          compra.direccion= $("#sucursalSelectinicio option:selected").attr('cuil')
+          compra.cuil= $("#sucursalSelectinicio option:selected").attr('direccion')
+          compra.id = $('#sucursalSelectinicio').val();
+          $('#tipoVentabtn').attr("disabled", false);
+       
+        });
+        
+
+      $("#tipoVentabtn").click(function(){
+
+        if($('#tipoVentaSelect').val()==='Asistida'){
+            localStorage.removeItem("Compra");
+            localStorage.setItem("Compra",JSON.stringify(compra));
+        }
+
+        Vaciar("#items");
+        cargarProductos();
+
+
+      })
+
+
+      $("#ChangeMode").click(function(){
+
+        localStorage.clear();
+        location. reload();
+
+        // Vaciar("#items");
+        // cargarProductos();
+
+
+      })
+
+
+
+
+
+
+    
+
 })
 
 
+
 let img = "https://assets.adidas.com/images/w_840,h_840,f_auto,q_auto:sensitive,fl_lossy/d02db446868c4f2a8b31a9f10119d830_9366/Pelota_Top_de_Entrenamiento_Argentina_19_Blanco_DY2519_DY2519_01_standard.jpg"
-let baseDeDatos = []
+    let baseDeDatos = []
+cargarProductos();
+
+function cargarProductos(){
+
+    
+    
+    let idSucursal;
+    let compralstorage = localStorage.getItem("Compra");
+    console.log(compralstorage)
+    
+    if(compralstorage != null){
+        compralstorage= JSON.parse(compralstorage);
+        idSucursal=compralstorage.id;
+    }
+    console.log(idSucursal)
+    var requestOptions = {
+        method: 'GET',
+        redirect: 'follow'
+    };
+    
+    let enpointProduct = "http://localhost:60227/api/product"
+   // console.log("asd"+compralstorage.id)
+    if( compralstorage?.id!=null){
+        enpointProduct =`http://localhost:60227/api/Product/Sucursal/${compralstorage.id}`
+    } 
+    
+    
+    fetch(enpointProduct, requestOptions)
+    .then(response => response.text())
+    .then(result => {
+        console.log(JSON.parse(result));
+        baseDeDatos = JSON.parse(result);  
+        renderItems(JSON.parse(result));
+    
+        })
+        
+    
+    .catch(error => console.log('error', error));
+    
+}
 
 
+// let img = "https://assets.adidas.com/images/w_840,h_840,f_auto,q_auto:sensitive,fl_lossy/d02db446868c4f2a8b31a9f10119d830_9366/Pelota_Top_de_Entrenamiento_Argentina_19_Blanco_DY2519_DY2519_01_standard.jpg"
+// let baseDeDatos = []
 
-var requestOptions = {
-    method: 'GET',
-    redirect: 'follow'
-};
+// let idSucursal;
+// let compralstorage = localStorage.getItem("Compra");
+// console.log(compralstorage)
 
-fetch("http://localhost:60227/api/product", requestOptions)
-.then(response => response.text())
-.then(result => {
-    console.log(JSON.parse(result));
-    baseDeDatos = JSON.parse(result);  
-    renderItems(JSON.parse(result));
+// if(compralstorage != null){
+//     compralstorage= JSON.parse(compralstorage);
+//     idSucursal=compralstorage.id;
+// }
+// console.log(idSucursal)
+// var requestOptions = {
+//     method: 'GET',
+//     redirect: 'follow'
+// };
 
-    })
+// let enpointProduct = "http://localhost:60227/api/product"
+// console.log("asd"+compralstorage.id)
+// if(compralstorage.id!=null){
+//     enpointProduct =`http://localhost:60227/api/Product/Sucursal/${compralstorage.id}`
+// } 
+
+
+// fetch(enpointProduct, requestOptions)
+// .then(response => response.text())
+// .then(result => {
+//     console.log(JSON.parse(result));
+//     baseDeDatos = JSON.parse(result);  
+//     renderItems(JSON.parse(result));
+
+//     })
     
 
-.catch(error => console.log('error', error));
+// .catch(error => console.log('error', error));
 
 
 

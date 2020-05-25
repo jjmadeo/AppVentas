@@ -24,6 +24,15 @@ namespace Servicios.Controllers
             return productos;
         }
 
+        [HttpGet("Sucursal/{idsucursal}", Name = "getProductosSucursal")]
+        public Producto[] getProductosSucursal(int idsucursal) {
+
+            Producto[] productos = new BLL.Producto().getProductoBLL(idsucursal);
+
+
+            return productos;
+        }
+
         [HttpPost]
         public IActionResult nuevoProducto([FromBody] Producto producto) {
 

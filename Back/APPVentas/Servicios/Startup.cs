@@ -35,7 +35,7 @@ namespace Servicios
                 options.AddPolicy(name: ReglasCorse,
                                   builder =>
                                   {
-                                      builder.WithOrigins("http://localhost:81", "http://www.contoso.com").AllowAnyHeader().AllowAnyMethod();
+                                      builder.WithOrigins("http://localhost:81", "http://localhost", "http://localhost:80").AllowAnyHeader().AllowAnyMethod();
                                   });
             });
 
@@ -44,7 +44,7 @@ namespace Servicios
             services.AddSwaggerGen(config =>
                 config.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo
                 {
-                    Title="Ejmeplo Swagger",
+                    Title="APP Ventas",
                     Version="v1"
                     
                 }

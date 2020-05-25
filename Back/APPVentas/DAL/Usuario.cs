@@ -122,28 +122,49 @@ namespace DAL
 
         }
 
+        public ENTITY.Roles[] getRolesDAL() {
+            ConnectBBDD conexion = new ConnectBBDD();
+
+            DataTable res = conexion.LeerPorComando($"select * from roles");
+
+            if (res.Rows.Count > 0) {
+                Roles[] arrUser = new Roles[res.Rows.Count];
+
+
+
+                for (int i = 0; i < res.Rows.Count; i++) {
+                    arrUser[i] = new Roles(int.Parse(res.Rows[i]["id"].ToString()) , res.Rows[i]["nombre"].ToString());
+                }
+
+                return arrUser;
+
+            } else {
+
+                Roles[] datoNull = null;
+                return datoNull;
+            }
+
+
+        }
+
         public bool ConsultarUsuarioDAL(UserInfo model) {
             ConnectBBDD conexion = new ConnectBBDD();
 
-            if(model.id_sucursal != 0) {
-                DataTable prueba1 = conexion.LeerPorComando($"select u.id_empl,u.usuario,u.password,u.nombre,r.nombre as role  from Empleados as u, Roles  as r where r.id = u.id_role and usuario='{model.Usuario}'");
+           
+                DataTable empleados = conexion.LeerPorComando($"select u.id_empl,u.usuario,u.password,u.nombre,r.nombre as role  from Empleados as u, Roles  as r where r.id = u.id_role and usuario='{model.Usuario}'");
+                DataTable usuarios = conexion.LeerPorComando($"select u.id,u.usuario,u.password,u.email,u.direccion,u.nombre,r.nombre as role  from usuarios as u, Roles  as r where r.id = u.id_role and usuario='{model.Usuario}'");
 
 
-                if (prueba1.Rows.Count > 0 && prueba1.Rows[0]["usuario"].ToString().Equals(model.Usuario)) {
-                    return true;
-                }
-                return false;
-
-            } else {
-                DataTable prueba2 = conexion.LeerPorComando($"select u.id,u.usuario,u.password,u.email,u.direccion,u.nombre,r.nombre as role  from usuarios as u, Roles  as r where r.id = u.id_role and usuario='{model.Usuario}'");
+                if ((empleados.Rows.Count > 0 && empleados.Rows[0]["usuario"].ToString().Equals(model.Usuario)) || (usuarios.Rows.Count > 0 && usuarios.Rows[0]["usuario"].ToString().Equals(model.Usuario))) {
+                        return true;
+                    }
+                    return false;
 
 
-                if (prueba2.Rows.Count > 0 && prueba2.Rows[0]["usuario"].ToString().Equals(model.Usuario)) {
-                    return true;
-                }
-                return false;
 
-            }
+                
+
+            
             
 
            
@@ -152,9 +173,15 @@ namespace DAL
 
         public UserInfo LoginDAL(UserInfo model) {
             ConnectBBDD conexion = new ConnectBBDD();
-            DataTable res = conexion.LeerPorComando($"select u.id,u.usuario,u.password,u.email,u.direccion,u.nombre,r.nombre as role  from usuarios as u, Roles  as r where r.id = u.id_role and usuario='jjmadeo'");
+            DataTable res = conexion.LeerPorComando($"select u.id,u.usuario,u.password,u.email,u.direccion,u.nombre,r.nombre as role  from usuarios as u, Roles  as r where r.id = u.id_role and usuario='{model.Usuario}'");
+            DataTable resempl = conexion.LeerPorComando($"select u.id_empl,u.usuario,u.password,u.nombre,r.nombre as role ,u.id_sucursal  from Empleados as u, Roles  as r  where r.id = u.id_role and usuario='{model.Usuario}'");
+
             if (res.Rows.Count > 0) {
                 return new UserInfo(res.Rows[0]["usuario"].ToString(), res.Rows[0]["password"].ToString(), res.Rows[0]["role"].ToString(), res.Rows[0]["nombre"].ToString(), res.Rows[0]["email"].ToString(), res.Rows[0]["direccion"].ToString(),0);
+
+
+            } else if(resempl.Rows.Count > 0) {
+                return new UserInfo(resempl.Rows[0]["usuario"].ToString(), resempl.Rows[0]["password"].ToString(), resempl.Rows[0]["role"].ToString(), resempl.Rows[0]["nombre"].ToString(), string.Empty, string.Empty, int.Parse(resempl.Rows[0]["id_sucursal"].ToString()));
 
 
             } else {

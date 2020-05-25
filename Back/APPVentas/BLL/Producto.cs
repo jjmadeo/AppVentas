@@ -18,6 +18,13 @@ namespace BLL {
 
 
         }
+        public ENTITY.Producto[] getProductoBLL(int idsucursal) {
+
+
+            return new DAL.Producto().getProductoDAL(idsucursal);
+
+
+        }
         public ENTITY.Categoria[] getCategoriasBLL() {
 
 

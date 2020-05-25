@@ -124,7 +124,13 @@ namespace Servicios.Controllers
             return Ok(new { Empleados = new BLL.Usuario().getEmplBLL(id) });
 
         }
+        [HttpGet]
+        [Route("Roles")]
+        public IActionResult getSucursal() {
 
+            return Ok(new { roles = new BLL.Usuario().getRolesBLL() });
+
+        }
 
 
 

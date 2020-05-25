@@ -73,17 +73,6 @@
 </div
 
 
-<!-- Mostramos Productos -->
-<!-- <div class="container productos ">
-  <div class="container">
-      <div class="row" id="productos">
-
-      </div>
-  </div>
-  
-</div> -->
-
-
 
 
 
@@ -110,13 +99,65 @@
   </div>
                        
  <!-- The Modal Registrar-->
- <div class="modal" id="registro">
+
+
+ <!-- Modal -->
+<div class="modal fade" id="registro" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="staticBackdropLabel">Realizar registro</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col" id="bannerR">
+                
+            </div>
+          </div>
+          <div class="row">
+            <div class="col">
+              <input type="text" class="form-control mb-2 mr-sm-2"   id="nombre" placeholder="Nombre Completo">
+             </div>
+             <div class="col">
+              <input type="text" class="form-control mb-2 mr-sm-2"   id="email" placeholder="Correo electronico">
+             </div>
+          </div>
+          <div class="row">
+            <div class="col">
+              <input type="text" class="form-control mb-2 mr-sm-2"    id="direccion" placeholder="Direccion">
+             </div>
+           </div>
+          <div class="row">
+            <div class="col">
+              <input type="text" class="form-control mb-2 mr-sm-2"   id="usuario" placeholder="Usuario">
+             </div>
+             <div class="col">
+              <input type="password" class="form-control mb-2 mr-sm-2"   id="password" placeholder="Contraseña">
+             </div>
+          </div>
+        </div>
+       </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+        <button type="button" class="btn btn-primary"  id="registrarse">Registrar</button>
+      </div>
+    </div>
+  </div>
+</div>
+ <!-- <div class="modal" id="registro">
     <div class="modal-dialog">
       <div class="modalContent">
               <div class="bodyLogin">
                 <form class="box" action="#" method="">
                     <span id="bannerR"></span>
                     <h1>Crear Usuario</h1>
+                    <input type="text" name="" id="nombre" placeholder="Nombre Completo">
+                    <input type="text" name="" id="email" placeholder="Correo Electronico">
+                    <input type="text" name="" id="direccion" placeholder="Direccion">
                     <input type="text" name="" id="usuario" placeholder="Username">
                     <input type="password" name="" id="password"  placeholder="Password">
                     <input type="submit" name="" id="registrarse" value="Crear Usuario">
@@ -124,7 +165,7 @@
             </div>
         </div>
     </div>
-  </div>
+  </div> -->
 
 
 
@@ -157,8 +198,192 @@
   </div>
 </div>
                        
+<!-- Select de asistida o online -->
+
+<div class="modal fade" id="modalInicio" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="staticBackdropLabel">Seleccion Entre Venta asistidad y Venta Online</h5>
+        <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close"> -->
+        </button>
+      </div>
+      <div class="modal-body">
+        <H3>Seleccione tipo de venta</H3>
+        
+
+        <div class="form-group">
+          <label for="tipoVentaSelect">Tipo de Compra</label>
+          <select class="form-control" id="tipoVentaSelect">
+            <option selected="selected">Seleccione</option>
+            <option value="Autoasistida">Autoasistida</option>
+            <option value="Asistida">Asistida</option>
+          </select>
+          <hr>
+          <div id="sucrusaldiv">
+            <label for="sucursalSelectinicio">Sucursal</label>
+            <select class="form-control" id="sucursalSelectinicio">
+              <option selected="selected">Seleccione</option>
+            </select>
+          </div>
+          
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" id="tipoVentabtn" disabled="true"  data-dismiss="modal">Aceptar</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 
+<!-- EMPLEADOS -->
+
+<div class="modal fade bd-example-modal-lg" id="modalEmpleados"tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+    <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Panel de Empleados</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+     </div>
+      <div class="modal-body">
+        <div class="container">
+          <div class="row">
+           <div class="col menu">
+
+            <ul class="nav nav-tabs">
+              <li class="nav-item">
+                <a class="nav-link active" id="alta" href="#">Alta</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link"  id="modificacion" href="#">Modificacion</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" id="baja" href="#">Baja</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link " id="consultar" href="#" >Consultar</a>
+              </li>
+            </ul>
+           </div>
+           
+          </div>
+        </div>
+        <div class="container" id="containerAlta" >
+          <form class="was-validated container">
+
+            <div class="row">
+              <div class="col">
+                <div class="mb-3 mt-3">
+                  <div class="input-group is-invalid">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text" id="validatedInputGroupPrepend">Nombre Completo</span>
+                    </div>
+                    <input type="text" class="form-control is-invalid" id="nombreAltaEmpleado" aria-describedby="validatedInputGroupPrepend" required>
+                  </div>
+                  <div class="invalid-feedback">
+                    Example invalid input group feedback
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col">
+
+                <div class="mb-3 mt-3">
+                  <div class="input-group is-invalid">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text" id="validatedInputGroupPrepend">Usuario</span>
+                    </div>
+                    <input type="text" class="form-control is-invalid" id="UsuarioAltaEmpleado" aria-describedby="validatedInputGroupPrepend" required>
+                  </div>
+                  <div class="invalid-feedback">
+                    Example invalid input group feedback
+                  </div>
+                </div>
+
+              </div>
+              <div class="col">
+                <div class="mb-3 mt-3">
+                <div class="input-group is-invalid">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text" id="validatedInputGroupPrepend">Password</span>
+                  </div>
+                  <input type="text" class="form-control is-invalid" id="passwordAltaEmpleado" aria-describedby="validatedInputGroupPrepend" required>
+                </div>
+                <div class="invalid-feedback">
+                  Example invalid input group feedback
+                </div>
+              </div></div>
+            </div>
+            
+          
+            <div class="row">
+              <div class="col">
+                <div class="mb-3">
+                  <div class="input-group is-invalid">
+                    <div class="input-group-prepend">
+                      <label class="input-group-text" for="validatedInputGroupSelect">Rol</label>
+                    </div>
+                    <select class="custom-select" id="rolAltaEmpleado" required>
+                      <option value="">Seleccione</option>
+                    </select>
+                  </div>
+                  <div class="invalid-feedback">
+                    Example invalid input group feedback
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col">
+                <div class="mb-3">
+                  <div class="input-group is-invalid">
+                    <div class="input-group-prepend">
+                      <label class="input-group-text" for="validatedInputGroupSelect">Sucursal</label>
+                    </div>
+                    <select class="custom-select" id="sucursalAltaEmpleado" required>
+                      <option value="">Seleccione</option>
+                    </select>
+                  </div>
+                  <div class="invalid-feedback">
+                    Example invalid input group feedback
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+          
+            
+          </form>
+            
+
+        </div>
+        <div class="container" id="containerModi">
+          menu modificacion
+
+        </div>
+        <div class="container" id="containerBaja">
+          menu baja
+
+        </div>
+        <div class="container" id="containerConsul">
+          menu consultar
+
+        </div>
+
+
+        
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Salir</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 
 
@@ -185,14 +410,38 @@
 <script type="module" src="./js/Accounts.js"></script>
 <script type="module" src="./js/Productos.js"></script>
 <script type="module" src="./js/Carrito.js"></script>
+<script type="module" src="./js/empleados.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script>
 
  
      $(document).ready(function() {
+      
+     
+          var requestOptions = {
+            method: 'GET',
+            redirect: 'follow'
+          };
+          let  $slectSucursal = $("#sucursalSelectinicio");
+          fetch("http://localhost:60227/api/Sucrusal", requestOptions)
+            .then(response => response.text())
+            .then(result => {
+              result = JSON.parse(result);
+            console.log(result);
+            result.sucursales.forEach(element => {
+                
+               $slectSucursal.append(`<option value="${element.id}" cuil="${element.cuil}" direccion="${element.direccion}" razonSocial="${element.razonSocial}">${element.razonSocial}</option>`);
+
+            });
+
+            })
+            .catch(error => console.log('error', error));
+
+
+
          //valida si el usuario esta loguiado
         var token =localStorage.getItem("token");
         if(token){
@@ -262,15 +511,25 @@
       $("#registrarse").click(function(event){
        var myHeaders = new Headers();
         myHeaders.append("Content-Type", "application/json");
-        var usuario = document.getElementById("usuario").value
-        var pass = document.getElementById("password").value
+        var usuario = $("#usuario").val();
+        var pass = $("#password").val();
+        var email = $("#nombre").val();
+        var direccion = $("#direccion").val();
+        var nombre =$("#email").val();
 
-        if(usuario==='' || pass===''){
+
+        if(usuario==='' || pass==='' ||  email ===''|| direccion ==='' || nombre ===''){
           alert("completa todos los campos");
         }else{
           console.log(usuario+" "+pass);
 
-          var raw = JSON.stringify({"Usuario":usuario,"password":pass});
+          var raw = JSON.stringify({
+                            "usuario": usuario.trim(),
+                            "password": pass.trim(),
+                            "nombre": nombre,
+                            "email": email.trim(),
+                            "direccion": direccion,
+                          });
 
           var requestOptions = {
           method: 'POST',
@@ -292,9 +551,15 @@
          
             banner.css("display","none")
             banner.empty();
-            banner.append("Usuario Creado Correctamente")
+            banner.append(`
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <strong>Bienvenido</strong> El usuario se creo correctamente.
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+            `)
             banner.css("display","inline")
-            banner.css("border","green solid 3px")
          
 
 
@@ -308,11 +573,36 @@
 
             if(error.toString().includes("404")){
             
-              banner.append("tenemos problemas al realizar el registro, intente nuevamente en unos minutos.")
+              banner.append(`
+              <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <strong>Hay un problema</strong> El usuario ya existe.
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              
+              `)
               banner.css("display","inline")
 
 
             }
+
+            if(error.toString().includes("400")){
+              console.log(error.toString());
+            
+            banner.append(`
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+              <strong>Hay un problema</strong> El usuario ya existe.
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            
+            `)
+            banner.css("display","inline")
+
+
+          }
 
           });
         }

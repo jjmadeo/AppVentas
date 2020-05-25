@@ -18,9 +18,9 @@ namespace ENTITY {
 			get { return _razonSocial; }
 			set { _razonSocial = value; }
 		}
-		private int _cuil;
+		private string _cuil;
 
-		public int cuil {
+		public string Cuil {
 			get { return _cuil; }
 			set { _cuil = value; }
 		}
@@ -31,7 +31,7 @@ namespace ENTITY {
 			set { _direccion = value; }
 		}
 
-		public Sucursal(int id, string razonSocial, int cuil, string direccion) {
+		public Sucursal(int id, string razonSocial, string cuil, string direccion) {
 			_id = id;
 			_razonSocial = razonSocial;
 			_cuil = cuil;

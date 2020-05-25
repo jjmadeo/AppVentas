@@ -1,5 +1,6 @@
 'use strict'
  $(document).ready(function() {
+
    if(localStorage.getItem("token")!=null){
            var USER_ROLE = JSON.parse(atob(localStorage.getItem("token").split('.')[1])).Role.trim()
    }
@@ -11,21 +12,16 @@
                       Administrar
                     </button>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                      <a class="dropdown-item" href="#">Empleados</a>
-                      <a class="dropdown-item" href="#">Productos</a>
-                      <a class="dropdown-item" href="#">Categorias</a>
+                      <a class="dropdown-item" data-toggle="modal" data-target="#modalEmpleados" id="menuADMempl" href="#">Empleados</a>
+                      <a class="dropdown-item" href="#">Modulo De Seguimiento</a>
                     </div>
                   </div>
             </div>
             <div class="col-5">
-            <div class="input-group flex-nowrap">
-              <div class="input-group-prepend">
-                <span class="input-group-text" id="addon-wrapping">Buscar producto</span>
-              </div>
-              <input type="text" class="form-control" placeholder="Ej: Remera" aria-label="Username" aria-describedby="addon-wrapping">
-            </div>
+            
           </div>  
           <div class="col-2">
+          <button type="button" id="ChangeMode" class="btn btn-warning">Cambiar Modo</button>
             </div>  
             <div class="col-2">
                 <button type="button" id="logout" class="btn btn-primary">Salir</button>
@@ -33,26 +29,14 @@
     `
     const HTML_VENTAS = `
             <div class="col-3">
-                <div class="dropdown">
-                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                      Ventas
-                    </button>
-                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                      <a class="dropdown-item" href="#">Nueva Venta</a>
-                      <a class="dropdown-item" href="#">Formalizar Venta</a>
-                      <a class="dropdown-item" href="#">Buscar</a>
-                    </div>
-                  </div>
+               
             </div> 
             <div class="col-5">
-            <div class="input-group flex-nowrap">
-              <div class="input-group-prepend">
-                <span class="input-group-text" id="addon-wrapping">Buscar producto</span>
-              </div>
-              <input type="text" class="form-control" placeholder="Ej: Remera" aria-label="Username" aria-describedby="addon-wrapping">
-            </div>
+              
           </div>
           <div class="col-2">
+          <button type="button" id="ChangeMode" class="btn btn-warning">Cambiar Modo</button>
+
           </div>  
           <div class="col-2">
               <button type="button" id="logout" class="btn btn-primary">Salir</button>
@@ -60,28 +44,13 @@
     `
     const HTML_CLIENTE = `
             <div class="col-3">
-                <div class="dropdown">
-                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                      Menu
-                    </button>
-                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                      <a class="dropdown-item" href="#">Comprar</a>
-                      <a class="dropdown-item" href="#">Mis Compras</a>
-                      <a class="dropdown-item" href="#">Buscar</a>
-                      <a class="dropdown-item" href="#">Mi Changuito</a>
-
-                    </div>
-                  </div>
+               
             </div>
             <div class="col-5">
-            <div class="input-group flex-nowrap">
-              <div class="input-group-prepend">
-                <span class="input-group-text" id="addon-wrapping">Buscar producto</span>
-              </div>
-              <input type="text" class="form-control" placeholder="Ej: Remera" aria-label="Username" aria-describedby="addon-wrapping">
-            </div>
+              
           </div>
           <div class="col-2">
+          <button type="button" id="ChangeMode" class="btn btn-warning">Cambiar Modo</button>
           </div>  
           <div class="col-2">
               <button type="button" id="logout" class="btn btn-primary">Salir</button>
@@ -91,18 +60,11 @@
     `
     const HTML_INVITADO = `
             <div class="col-3">
-                <div class="dropdown">
-                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                      Menu
-                    </button>
-                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                      <a class="dropdown-item" href="#">Buscar</a>
-                      <a class="dropdown-item" href="#">Mi Changuito</a>
-                    </div>
-                  </div>
+                
             </div>
             <div class="col-5">
-              
+               <button type="button" id="ChangeMode"  class="btn btn-warning">Cambiar Modo</button>
+
             </div>  
             <div class="col-2">
                 <button type="button" id=" " class="btn btn-primary" data-toggle="modal" data-target="#registro">Registrarse</button>
@@ -136,7 +98,9 @@
 
 
     $("#logout").click(()=>{
-       localStorage.clear();
+       localStorage.removeItem("token")
+       localStorage.removeItem("expirate")
+
        ComprobarSession();
     })
 
