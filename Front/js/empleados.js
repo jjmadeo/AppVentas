@@ -3,11 +3,23 @@ $(document).ready(function (){
     $("#containerModi").hide();
     $("#containerBaja").hide();
     $("#containerConsul").hide();
+    $("#zonaModificacionEMPL").hide();
+
     
+let empleado=[];
+
+    $('#deseaModificar').on('change', function() {
+        if (!$(this).is(':checked') ) {
+           $( ".modificar" ).prop( "disabled", true );
+        } else {
+           $( ".modificar" ).prop( "disabled", false );
+       }
+   });
 
     $("#menuADMempl").click(function(){
         GetSucursales();
         GetRoles();
+        GetEmpleados()
     })
 
 
@@ -52,20 +64,118 @@ $(document).ready(function (){
         $("#containerConsul").hide();
 
     })
-    $("#consultar").click(function(){
-        $(this).last().addClass("active");
+    // $("#consultar").click(function(){
+    //     $(this).last().addClass("active");
 
-        $("#baja").last().removeClass("active");
-        $("#modificacion").last().removeClass("active");
-        $("#alta").last().removeClass("active");
+    //     $("#baja").last().removeClass("active");
+    //     $("#modificacion").last().removeClass("active");
+    //     $("#alta").last().removeClass("active");
 
-        $("#containerAlta").hide();
-        $("#containerModi").hide();
-        $("#containerBaja").hide();
-        $("#containerConsul").show();
+    //     $("#containerAlta").hide();
+    //     $("#containerModi").hide();
+    //     $("#containerBaja").hide();
+    //     $("#containerConsul").show();
 
-    })
+    // })
 
+
+    $( "#formAltaEMpl" ).submit(function( event ) {
+
+
+        var myHeaders = new Headers();
+        myHeaders.append("Content-Type", "application/json");
+
+        var raw = JSON.stringify(
+            {"usuario":$('#UsuarioAltaEmpleado').val(),
+            "password":$('#passwordAltaEmpleado').val(),
+            "role":$('#rolAltaEmpleado').val(),
+            "nombre":$('#nombreAltaEmpleado').val(),
+            "id_sucursal":$('#sucursalAltaEmpleado').val()
+        });
+
+        var requestOptions = {
+        method: 'POST',
+        headers: myHeaders,
+        body: raw,
+        redirect: 'follow'
+        };
+
+        console.log(raw)
+
+        fetch("http://localhost:60227/api/Account/Create", requestOptions)
+        .then(response =>{
+            if(!response.ok) throw Error(response.status)
+            
+            return response.text();
+            
+            })
+          .then(result => {
+            
+            console.log("Usuario Creado=>>",JSON.parse(result))
+            var banner = $("#notificacionEMPL")
+         
+            banner.css("display","none")
+            banner.empty();
+            banner.append(`
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <strong>Listo!!</strong> El Empleado se creo correctamente.
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+            `)
+            banner.css("display","inline")
+
+                document.querySelector("#formAltaEMpl").reset();
+
+
+        })
+        .catch(error =>{
+            var banner = $("#notificacionEMPL")
+         
+              banner.css("display","none")
+              banner.empty();
+
+            if(error.toString().includes("404")){
+            
+              banner.append(`
+              <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <strong>Hay un problema</strong> El usuario ya existe.
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              
+              `)
+              banner.css("display","inline")
+
+
+            }
+
+            if(error.toString().includes("400")){
+              console.log(error.toString());
+            
+            banner.append(`
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+              <strong>Hay un problema</strong> El usuario ya existe.
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            
+            `)
+            banner.css("display","inline")
+
+
+          }
+
+          });
+      
+
+
+        event.preventDefault();
+
+      });
 
 
 
@@ -77,6 +187,7 @@ $(document).ready(function (){
             method: 'GET',
             redirect: 'follow'
           };
+          let $sleectSucursalModifi = $("#sucursalModiEmpleado");
           let  $slectSucursal = $("#sucursalAltaEmpleado");
           fetch("http://localhost:60227/api/Sucrusal", requestOptions)
             .then(response => response.text())
@@ -86,7 +197,7 @@ $(document).ready(function (){
             result.sucursales.forEach(element => {
                 
                $slectSucursal.append(`<option value="${element.id}" cuil="${element.cuil}" direccion="${element.direccion}" razonSocial="${element.razonSocial}">${element.razonSocial}</option>`);
-
+               $sleectSucursalModifi.append(`<option value="${element.id}" cuil="${element.cuil}" direccion="${element.direccion}" razonSocial="${element.razonSocial}">${element.razonSocial}</option>`);
             });
 
             })
@@ -95,12 +206,51 @@ $(document).ready(function (){
     }
 
 
+    $("#todosEMPl").change(function(){
+        let idEMPL = $("#todosEMPl option:selected").attr('value')
+
+
+        GetEmpl(idEMPL)
+
+
+        console.log(empleado)
+        
+     
+      });
+
+      $("#todosEMPlEliminar").change(function(){
+        let idEMPL = $("#todosEMPlEliminar option:selected").attr('value')
+
+        $('#formEliminarEMpl div div button').attr("value", idEMPL);
+
+        $('#formEliminarEMpl div div button').attr("disabled", false);
+        console.log(idEMPL)
+        
+     
+      });
+
+      $( "#formEliminarEMpl" ).submit((event)=>{
+        let deleteUserid=  $('#formEliminarEMpl div div button').attr("value")
+
+        eliminarEmpleado(deleteUserid)
+      
+        $('#formEliminarEMpl div div button').attr("disabled", true);
+        document.querySelector("#formEliminarEMpl").reset();
+
+        $('#todosEMPlEliminar').val(0)
+
+        event.preventDefault();
+      });
+
+
+
 
    function GetRoles(){
         var requestOptions = {
             method: 'GET',
             redirect: 'follow'
           };
+          let $rolesModifi = $('#rolModiEmpleado')
           let  $slectrRole = $("#rolAltaEmpleado");
           fetch("http://localhost:60227/api/Account/Roles", requestOptions)
             .then(response => response.text())
@@ -110,6 +260,7 @@ $(document).ready(function (){
             result.roles.forEach(element => {
                 
                $slectrRole.append(`<option value="${element.id}" >${element.nombre}</option>`);
+               $rolesModifi .append(`<option value="${element.id}" >${element.nombre}</option>`);
 
             });
 
@@ -117,6 +268,248 @@ $(document).ready(function (){
             .catch(error => console.log('error', error));
 
     }
+
+
+
+
+    function GetEmpleados(){
+        var requestOptions = {
+            method: 'GET',
+            redirect: 'follow'
+          };
+          let  $slectEMPl = $("#todosEMPl");
+          let $slectEMPlElimianr = $("#todosEMPlEliminar");
+          fetch("http://localhost:60227/api/Account/Empleados", requestOptions)
+            .then(response => response.text())
+            .then(result => {
+              result = JSON.parse(result);
+            console.log(result);
+            result.empleados.forEach(element => {
+                
+               $slectEMPl.append(`<option value="${element.id}">${element.nombre}</option>`);
+               $slectEMPlElimianr.append(`<option value="${element.id}">${element.nombre}</option>`);
+
+            });
+
+            })
+            .catch(error => console.log('error', error));
+
+    }
+
+
+
+    function GetEmpl(id){
+
+        $('#nombreModiEmpleado').val('')
+        $('#UsuarioModiEmpleado').val('')
+        $('#passwordModiEmpleado').val('')
+        $('#rolModiEmpleado').val(0)
+        $('#sucursalModiEmpleado').val(0)
+
+
+
+        
+        console.log(id)
+        var requestOptions = {
+            method: 'GET',
+            redirect: 'follow'
+          };
+            fetch("http://localhost:60227/api/Account/Empleados/"+id, requestOptions)
+            .then(response => response.text())
+            .then(result => {
+              result = JSON.parse(result);
+                let rol 
+                console.log(result)
+
+              switch (result.empleados.role) {
+                  case 'ADM':
+                      rol = 1;
+                      break;
+                case 'VENTAS':
+                         rol=2;
+                    break;
+               
+              }
+            
+              
+              $('#nombreModiEmpleado').val(result.empleados.nombre)
+              $('#UsuarioModiEmpleado').val(result.empleados.usuario)
+              $('#passwordModiEmpleado').val(result.empleados.password)
+              $('#rolModiEmpleado').val(rol)
+              $('#sucursalModiEmpleado').val(result.empleados.id_sucursal)
+
+
+
+
+
+            
+              $("#zonaModificacionEMPL").show();
+
+            })
+            .catch(error => console.log('error', error));
+
+    }
+    $( "#formModiEMpl" ).submit((event)=>{
+        
+
+            let modiusuario=$('#UsuarioModiEmpleado').val()
+            let modipassword=$('#passwordModiEmpleado').val()
+            let modirole=$('#rolModiEmpleado').val()
+            let modiid_sucursal=Number($('#sucursalModiEmpleado').val())
+            let modinombre= $('#nombreModiEmpleado').val()
+        
+            let idempleado= $("#todosEMPl option:selected").attr('value');
+
+        
+        
+        
+        
+
+
+
+
+        var myHeaders = new Headers();
+        myHeaders.append("Content-Type", "application/json");
+
+        var raw = JSON.stringify({"usuario":modiusuario,"password":modipassword,"role":modirole,"nombre":modinombre,"id_sucursal":modiid_sucursal});
+        console.log(JSON.parse(raw))
+        var requestOptions = {
+        method: 'PUT',
+        headers: myHeaders,
+        body: raw,
+        redirect: 'follow'
+        };
+
+        fetch("http://localhost:60227/api/Account/Empleados/"+idempleado, requestOptions)
+        .then(response =>{
+            if(!response.ok) throw Error(response.status)
+            
+            return response.text();
+            
+            })
+          .then(result => {
+
+            console.log(JSON.parse(result))
+            
+            var banner = $("#notificacionEMPL")
+         
+            banner.css("display","none")
+            banner.empty();
+            banner.append(`
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <strong>Listo!!</strong> El Empleado se ha actualizado
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+            `)
+            banner.css("display","inline")
+
+            document.querySelector("#formModiEMpl").reset();
+            $("#todosEMPl").empty()
+            GetEmpleados()
+            $("#zonaModificacionEMPL").hide();
+            $( ".modificar" ).prop( "disabled", true );
+
+
+
+        })
+        .catch(error =>{
+            var banner = $("#notificacionEMPL")
+         
+              banner.css("display","none")
+              banner.empty();
+
+            if(error.toString().includes("404")){
+            
+              banner.append(`
+              <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <strong>Hay un problema</strong> El usuario ya existe.
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              
+              `)
+              banner.css("display","inline")
+
+
+            }else{
+
+            
+              console.log(error.toString());
+            
+            banner.append(`
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+              <strong>Hay un problema</strong> El usuario ya existe.
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            
+            `)
+            banner.css("display","inline")
+
+            }
+          
+
+          });
+
+
+
+        event.preventDefault();
+
+    });
+    
+
+    function eliminarEmpleado(id){
+
+
+        var raw = "";
+
+        var requestOptions = {
+        method: 'DELETE',
+        body: raw,
+        redirect: 'follow'
+        };
+
+        fetch("http://localhost:60227/api/Account/Empleados/"+id, requestOptions)
+        .then(response =>{
+            if(!response.ok) throw Error(response.status)
+            
+            return response.text();
+            
+            })
+          .then(result => {
+
+            console.log(JSON.parse(result))
+            
+            var banner = $("#notificacionEMPL")
+         
+            banner.css("display","none")
+            banner.empty();
+            banner.append(`
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <strong>Listo!!</strong> El Empleado Fue eliminado.
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+            `)
+            banner.css("display","inline")
+
+            document.querySelector("#formEliminarEMpl").reset();
+            $("#todosEMPlEliminar").empty()
+            GetEmpleados()
+            $("#zonaModificacionEMPL").hide();
+            $( ".modificar" ).prop( "disabled", true );
+
+
+
+        })
+        .catch(error => console.log('error', error));
+    }
+        
     
 
 

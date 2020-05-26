@@ -251,6 +251,11 @@
       <div class="modal-body">
         <div class="container">
           <div class="row">
+            <div class="col" id="notificacionEMPL">
+
+            </div>
+          </div>
+          <div class="row">
            <div class="col menu">
 
             <ul class="nav nav-tabs">
@@ -258,21 +263,21 @@
                 <a class="nav-link active" id="alta" href="#">Alta</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link"  id="modificacion" href="#">Modificacion</a>
+                <a class="nav-link"  id="modificacion" href="#">Consultar - Modificacion</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" id="baja" href="#">Baja</a>
               </li>
-              <li class="nav-item">
+              <!-- <li class="nav-item">
                 <a class="nav-link " id="consultar" href="#" >Consultar</a>
-              </li>
+              </li> -->
             </ul>
            </div>
            
           </div>
         </div>
         <div class="container" id="containerAlta" >
-          <form class="was-validated container">
+          <form class="was-validated container" id="formAltaEMpl" data-toggle="validador">
 
             <div class="row">
               <div class="col">
@@ -281,7 +286,7 @@
                     <div class="input-group-prepend">
                       <span class="input-group-text" id="validatedInputGroupPrepend">Nombre Completo</span>
                     </div>
-                    <input type="text" class="form-control is-invalid" id="nombreAltaEmpleado" aria-describedby="validatedInputGroupPrepend" required>
+                    <input type="text" class="form-control is-invalid" name="nombre"  id="nombreAltaEmpleado" aria-describedby="validatedInputGroupPrepend" required>
                   </div>
                   <div class="invalid-feedback">
                     Example invalid input group feedback
@@ -298,7 +303,7 @@
                     <div class="input-group-prepend">
                       <span class="input-group-text" id="validatedInputGroupPrepend">Usuario</span>
                     </div>
-                    <input type="text" class="form-control is-invalid" id="UsuarioAltaEmpleado" aria-describedby="validatedInputGroupPrepend" required>
+                    <input type="text" class="form-control is-invalid" id="UsuarioAltaEmpleado" name="usuario" aria-describedby="validatedInputGroupPrepend" required>
                   </div>
                   <div class="invalid-feedback">
                     Example invalid input group feedback
@@ -312,7 +317,7 @@
                   <div class="input-group-prepend">
                     <span class="input-group-text" id="validatedInputGroupPrepend">Password</span>
                   </div>
-                  <input type="text" class="form-control is-invalid" id="passwordAltaEmpleado" aria-describedby="validatedInputGroupPrepend" required>
+                  <input type="text" class="form-control is-invalid" id="passwordAltaEmpleado" name="password" aria-describedby="validatedInputGroupPrepend" required>
                 </div>
                 <div class="invalid-feedback">
                   Example invalid input group feedback
@@ -328,7 +333,7 @@
                     <div class="input-group-prepend">
                       <label class="input-group-text" for="validatedInputGroupSelect">Rol</label>
                     </div>
-                    <select class="custom-select" id="rolAltaEmpleado" required>
+                    <select class="custom-select" id="rolAltaEmpleado" name="role" required>
                       <option value="">Seleccione</option>
                     </select>
                   </div>
@@ -343,9 +348,9 @@
                 <div class="mb-3">
                   <div class="input-group is-invalid">
                     <div class="input-group-prepend">
-                      <label class="input-group-text" for="validatedInputGroupSelect">Sucursal</label>
+                      <label class="input-group-text"  for="validatedInputGroupSelect">Sucursal</label>
                     </div>
-                    <select class="custom-select" id="sucursalAltaEmpleado" required>
+                    <select class="custom-select" name="id_sucursal" id="sucursalAltaEmpleado" required>
                       <option value="">Seleccione</option>
                     </select>
                   </div>
@@ -354,7 +359,23 @@
                   </div>
                 </div>
               </div>
-            </div>
+              </div>
+
+
+
+              <div class="row">
+                <div class="col-4">
+                </div>
+                <div class="col-3">
+
+                </div> 
+                <div class="col-2">
+                </div>
+                <div class="col-3">
+                    <button  type="submit" class="btn btn-success">Crear</button>
+                </div>                               
+              </div>
+
             
           
             
@@ -363,17 +384,159 @@
 
         </div>
         <div class="container" id="containerModi">
-          menu modificacion
+          
+          
+          <!-- zona modificaicon -->
+          <hr>
+          <div class="row" id="zonaModificacionEMPL">
+            <div class="col">
+              <form class="was-validated container" id="formModiEMpl" data-toggle="validador">
+
+                <div class="row">
+                  <div class="col">
+                    <div class="mb-3 mt-3">
+                      <div class="input-group is-invalid">
+                        <div class="input-group-prepend">
+                          <span class="input-group-text" id="validatedInputGroupPrepend">Nombre Completo</span>
+                        </div>
+                        <input type="text" class="form-control is-invalid modificar" disabled="true"  id="nombreModiEmpleado" aria-describedby="validatedInputGroupPrepend" required>
+                      </div>
+                      <div class="invalid-feedback">
+                        Example invalid input group feedback
+                      </div>
+                    </div>
+                  </div>
+                </div>
+    
+                <div class="row">
+                  <div class="col">
+    
+                    <div class="mb-3 mt-3">
+                      <div class="input-group is-invalid">
+                        <div class="input-group-prepend">
+                          <span class="input-group-text" id="validatedInputGroupPrepend">Usuario</span>
+                        </div>
+                        <input type="text" class="form-control is-invalid " disabled="true" id="UsuarioModiEmpleado"  aria-describedby="validatedInputGroupPrepend" required>
+                      </div>
+                      <div class="invalid-feedback">
+                        Example invalid input group feedback
+                      </div>
+                    </div>
+    
+                  </div>
+                  <div class="col">
+                    <div class="mb-3 mt-3">
+                    <div class="input-group is-invalid">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text" id="validatedInputGroupPrepend">Password</span>
+                      </div>
+                      <input type="text" class="form-control is-invalid modificar" disabled="true" id="passwordModiEmpleado" name="password" aria-describedby="validatedInputGroupPrepend" required>
+                    </div>
+                    <div class="invalid-feedback">
+                      Example invalid input group feedback
+                    </div>
+                  </div></div>
+                </div>
+                
+              
+                <div class="row">
+                  <div class="col">
+                    <div class="mb-3">
+                      <div class="input-group is-invalid">
+                        <div class="input-group-prepend">
+                          <label class="input-group-text" for="validatedInputGroupSelect">Rol</label>
+                        </div>
+                        <select class="custom-select modificar" id="rolModiEmpleado" disabled="true" name="role" required>
+                          <option value="0">Seleccione</option>
+                        </select>
+                      </div>
+                      <div class="invalid-feedback">
+                        Example invalid input group feedback
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col">
+                    <div class="mb-3">
+                      <div class="input-group is-invalid">
+                        <div class="input-group-prepend">
+                          <label class="input-group-text"  for="validatedInputGroupSelect">Sucursal</label>
+                        </div>
+                        <select class="custom-select modificar" name="id_sucursal" disabled="true" id="sucursalModiEmpleado" required>
+                          <option value="0">Seleccione</option>
+                        </select>
+                      </div>
+                      <div class="invalid-feedback">
+                        Example invalid input group feedback
+                      </div>
+                    </div>
+                  </div>
+                  </div>
+    
+    
+    
+                  <div class="row">
+                    <div class="col-4">
+                      <input class="form-check-input" type="checkbox" id="deseaModificar" >
+                      <label class="form-check-label" for="disabledFieldsetCheck">
+                        Modificar
+                      </label>
+                    </div>
+                    <div class="col-3">
+    
+                    </div> 
+                    <div class="col-2">
+                    </div>
+                    <div class="col-3">
+                        <button  type="submit" class="btn btn-success modificar" disabled="true">Modificar</button>
+                    </div>                               
+                  </div>
+    
+                
+              
+                
+              </form>
+
+            </div>
+          </div>
+
 
         </div>
         <div class="container" id="containerBaja">
-          menu baja
-
+          <form  class="was-validated container" id="formEliminarEMpl">
+            <div class="row">
+            
+              <div class="col">
+                <div class="mb-3 mt-3">
+                  <div class="input-group is-invalid">
+                    <div class="input-group-prepend">
+                      <label class="input-group-text" for="validatedInputGroupSelect">Empleados</label>
+                    </div>
+                    <select class="custom-select" id="todosEMPlEliminar" name="role" required>
+                      <option value="0">Seleccione</option>
+                    </select>
+                  </div>
+                  <div class="invalid-feedback">
+                    Example invalid input group feedback
+                  </div>
+                </div>
+  
+              </div>
+             
+            </div>
+            <div class="row">
+              <div class="col">
+                <button  type="submit" class="btn btn-success " disabled="true">Eliminar Empleado</button>
+              </div>
+            </div>
+          </form>
+         
         </div>
-        <div class="container" id="containerConsul">
+        <!-- <div class="container" id="containerConsul">
           menu consultar
 
-        </div>
+        </div> -->
 
 
         

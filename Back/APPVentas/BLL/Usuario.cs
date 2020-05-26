@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 using DAL;
@@ -26,7 +27,7 @@ namespace BLL
         }
 
         public UserInfo[] GetusersBLL(int id) {
-
+            
             return new DAL.Usuario().GetusersDAL(id);
 
         }
@@ -112,8 +113,13 @@ namespace BLL
         }
         public UserInfo getEmplBLL(int id) {
 
+
             try {
-                return new DAL.Usuario().getEmplDAL(id)[0];
+
+                UserInfo dato = new DAL.Usuario().getEmplDAL(id)[0];
+                dato.Password = Seguridad.DesencriptarTDES(dato.Password);
+
+                return dato;
 
             } catch (NullReferenceException) {
 
@@ -132,6 +138,23 @@ namespace BLL
 
 
 
+        }
+
+        public UserInfo EmplUpdateBLL(UserInfo user, int id) {
+            String ROLES = "1,2";
+            if (user.id_sucursal!=0 && user.Nombre != string.Empty && user.Role != string.Empty && user.Password  != string.Empty && ROLES.Contains(user.Role)) {
+                user.Password = Seguridad.EncriptarTDES(user.Password);
+
+                return new DAL.Usuario().EmplUpdateDAL(user, id);
+
+
+            }
+
+            return null;
+        }
+
+        public string eliminarEMPLBLL(int id) {
+            return new DAL.Usuario().eliminarEMPLDAL(id);
         }
     }
 

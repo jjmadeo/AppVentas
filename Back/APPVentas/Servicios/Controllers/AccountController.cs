@@ -132,7 +132,21 @@ namespace Servicios.Controllers
 
         }
 
+        [HttpPut("Empleados/{id}", Name = "updateEMPL")]
+        public IActionResult updateEMPL(int id , [FromBody] UserInfo user) {
+            _logger.LogInformation("Sucursal: " + user.id_sucursal.ToString());
 
+            return Ok(new { EMPLupdate = new BLL.Usuario().EmplUpdateBLL(user, id) });
+
+        }
+
+        [HttpDelete("Empleados/{id}", Name = "deleteEmpl")]
+        public IActionResult deleteEmpl(int id) {
+            
+
+            return Ok(new { emplDeleted = new BLL.Usuario().eliminarEMPLBLL(id) });
+
+        }
 
 
         /// <summary>

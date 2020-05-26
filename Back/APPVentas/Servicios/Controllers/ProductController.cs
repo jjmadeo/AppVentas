@@ -33,33 +33,10 @@ namespace Servicios.Controllers
             return productos;
         }
 
-        [HttpPost]
-        public IActionResult nuevoProducto([FromBody] Producto producto) {
-
-            //Producto productos = new BLL.Producto().newProductoBLL(producto);
+        
 
 
-            return Ok(new { ProductoCreated = producto });
-
-        }
-        [HttpPut("{id}", Name = "ProductoUpdate")] // id viene el identificador de la categoria 
-        public IActionResult ProductoUpdate(int id, [FromBody] Producto producto) { // Form body viene el contenido de la categoria.
-
-            //buscas al producto con el @{id} prodporcionado y actualizarlo con los valores recibidos en en producto.
-
-
-            return Ok(new { MSG = "Producto actualizado." });
-        }
-
-
-        [HttpDelete("{id}", Name = "ProductoDelete")] // id viene el identificador de la categoria 
-        public IActionResult ProductoDelete(int id) { // Form body viene el contenido de la categoria.
-
-
-            // buscar por id y borrar el producto de la base.
-
-            return Ok(new { MSG = "Producto Eliminado." });
-        }
+        
 
 
 
@@ -73,27 +50,9 @@ namespace Servicios.Controllers
             return categorias;
         }
 
-        //actualizar
-        [HttpPut]
-        [Route("categorias")]
-        [HttpGet("{id}", Name = "cateogiraUpdate")] // id viene el identificador de la categoria 
-        public IActionResult  cateogiraUpdate(int id,[FromBody] Categoria categoria ) { // Form body viene el contenido de la categoria.
+        
 
-            //codigo para actualizar una categoria existente.
-
-
-            return Ok(new { MSG="Producto actualizado." }); 
-        }
-
-        [HttpPost]
-        [Route("categorias")]
-        public IActionResult cateogiraUpdate([FromBody] Categoria categoria) { // Form body viene el contenido de la categoria.
-
-            //codigo para actualizar una categoria existente.
-
-
-            return Ok(new { MSG = "Producto actualizado." }); 
-        }
+       
 
 
 

@@ -58,13 +58,19 @@ namespace ENTITY
             set { _id_sucursal = value; }
         }
 
+        private int _id;
+
+        public int Id {
+            get { return _id; }
+            set { _id = value; }
+        }
+            
 
 
 
 
-        
 
-        public UserInfo(string usuario, string pass, string role, string nombre, string email, string direccion, int id_sucursal) {
+        public UserInfo(string usuario, string pass, string role, string nombre, string email, string direccion, int id_sucursal, int id) {
             _usuario = usuario;
             _pass = pass;
             _role = role;
@@ -72,6 +78,7 @@ namespace ENTITY
             _email = email;
             _direccion = direccion;
             _id_sucursal = id_sucursal;
+            _id = id;
 
         }
 
