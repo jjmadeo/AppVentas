@@ -4,8 +4,15 @@ $(document).ready(function (){
     $("#containerBaja").hide();
     $("#containerConsul").hide();
     $("#zonaModificacionEMPL").hide();
+   
 
-    
+if(localStorage.getItem("token") !=null && localStorage.getItem("token") != undefined){
+  var $TokenUsuario  =  "Bearer " +localStorage.getItem("token").replace(/"/gi,'') ;
+  console.log($TokenUsuario)
+}
+GetSucursales();
+GetRoles();
+GetEmpleados();
 let empleado=[];
 
     $('#deseaModificar').on('change', function() {
@@ -16,17 +23,24 @@ let empleado=[];
        }
    });
 
+   $('#PaswordModif').on('change', function() {
+    if (!$(this).is(':checked') ) {
+       $( ".modificarPass" ).prop( "disabled", true );
+    } else {
+       $( ".modificarPass" ).prop( "disabled", false );
+   }
+});
     $("#menuADMempl").click(function(){
-        GetSucursales();
-        GetRoles();
-        GetEmpleados()
+        // GetSucursales();
+        // GetRoles();
+        // GetEmpleados()
     })
 
 
     $("#alta").click(function(){
         $(this).last().addClass("active");
-        GetSucursales();
-        GetRoles();
+        // GetSucursales();
+        // GetRoles();
         $("#baja").last().removeClass("active");
         $("#modificacion").last().removeClass("active");
         $("#consultar").last().removeClass("active");
@@ -83,6 +97,7 @@ let empleado=[];
 
 
         var myHeaders = new Headers();
+
         myHeaders.append("Content-Type", "application/json");
 
         var raw = JSON.stringify(
@@ -127,6 +142,11 @@ let empleado=[];
             banner.css("display","inline")
 
                 document.querySelector("#formAltaEMpl").reset();
+
+                $("#todosEMPl").empty()
+                $("#todosEMPlEliminar").empty()
+                GetEmpleados();
+
 
 
         })
@@ -231,8 +251,10 @@ let empleado=[];
 
       $( "#formEliminarEMpl" ).submit((event)=>{
         let deleteUserid=  $('#formEliminarEMpl div div button').attr("value")
-
         eliminarEmpleado(deleteUserid)
+
+       
+
       
         $('#formEliminarEMpl div div button').attr("disabled", true);
         document.querySelector("#formEliminarEMpl").reset();
@@ -246,8 +268,13 @@ let empleado=[];
 
 
    function GetRoles(){
-        var requestOptions = {
+        var myHeaders = new Headers();
+          myHeaders.append("Authorization",  $TokenUsuario);
+          console.log($TokenUsuario)
+
+          var requestOptions = {
             method: 'GET',
+            headers: myHeaders,
             redirect: 'follow'
           };
           let $rolesModifi = $('#rolModiEmpleado')
@@ -273,7 +300,11 @@ let empleado=[];
 
 
     function GetEmpleados(){
+
+      var myHeaders = new Headers();
+          myHeaders.append("Authorization",  $TokenUsuario);
         var requestOptions = {
+          headers:myHeaders,
             method: 'GET',
             redirect: 'follow'
           };
@@ -310,7 +341,11 @@ let empleado=[];
 
         
         console.log(id)
+
+        var myHeaders = new Headers();
+          myHeaders.append("Authorization",  $TokenUsuario);
         var requestOptions = {
+          headers:myHeaders,
             method: 'GET',
             redirect: 'follow'
           };
@@ -334,7 +369,7 @@ let empleado=[];
               
               $('#nombreModiEmpleado').val(result.empleados.nombre)
               $('#UsuarioModiEmpleado').val(result.empleados.usuario)
-              $('#passwordModiEmpleado').val(result.empleados.password)
+              //$('#passwordModiEmpleado').val(result.empleados.password)
               $('#rolModiEmpleado').val(rol)
               $('#sucursalModiEmpleado').val(result.empleados.id_sucursal)
 
@@ -369,10 +404,11 @@ let empleado=[];
 
 
         var myHeaders = new Headers();
+          myHeaders.append("Authorization",  $TokenUsuario);
         myHeaders.append("Content-Type", "application/json");
 
         var raw = JSON.stringify({"usuario":modiusuario,"password":modipassword,"role":modirole,"nombre":modinombre,"id_sucursal":modiid_sucursal});
-        console.log(JSON.parse(raw))
+        console.log("dato a enviar =>",JSON.parse(raw))
         var requestOptions = {
         method: 'PUT',
         headers: myHeaders,
@@ -407,6 +443,7 @@ let empleado=[];
 
             document.querySelector("#formModiEMpl").reset();
             $("#todosEMPl").empty()
+            $("#todosEMPlEliminar").empty()
             GetEmpleados()
             $("#zonaModificacionEMPL").hide();
             $( ".modificar" ).prop( "disabled", true );
@@ -463,12 +500,14 @@ let empleado=[];
     
 
     function eliminarEmpleado(id){
-
+      var myHeaders = new Headers();
+      myHeaders.append("Authorization",  $TokenUsuario);
 
         var raw = "";
 
         var requestOptions = {
         method: 'DELETE',
+        headers:myHeaders,
         body: raw,
         redirect: 'follow'
         };
@@ -499,8 +538,9 @@ let empleado=[];
             banner.css("display","inline")
 
             document.querySelector("#formEliminarEMpl").reset();
+            $("#todosEMPl").empty()
             $("#todosEMPlEliminar").empty()
-            GetEmpleados()
+            GetEmpleados();
             $("#zonaModificacionEMPL").hide();
             $( ".modificar" ).prop( "disabled", true );
 

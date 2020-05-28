@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Net.Http.Headers;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using DAL;
@@ -36,7 +37,7 @@ namespace BLL
 
             if (model.Usuario != string.Empty && model.Password != string.Empty) {
                 UserInfo Userloguiado = new DAL.Usuario().LoginDAL(model);
-                if ((model != null && Userloguiado != null) && (model.Usuario.Equals(Userloguiado.Usuario) && model.Password.Equals(Seguridad.DesencriptarTDES(Userloguiado.Password)))) {
+                if ((model != null && Userloguiado != null) && (model.Usuario.Equals(Userloguiado.Usuario) &&  Seguridad.ComputeHash(model.Password, new MD5CryptoServiceProvider()).Equals(Userloguiado.Password))) {
                     return new string[] { "OK", $"Datos Correctos, Bienvenido {Userloguiado.Usuario}", $"{Userloguiado.Role}" };
 
                 } else {
@@ -85,7 +86,7 @@ namespace BLL
 
                 if (!ConsultarUsuario(model)) {
                     if (ROLES.Contains(model.Role)) {
-                        model.Password = Seguridad.EncriptarTDES(model.Password);
+                        model.Password = Seguridad.ComputeHash(model.Password, new MD5CryptoServiceProvider());
                         if ("OK".Equals(new DAL.Usuario().CrearUsuarioDAL(model)[0])) {
                             return new string[] { "OK", $"Clave encriptada,Registro Realizado" };
                         }
@@ -142,8 +143,11 @@ namespace BLL
 
         public UserInfo EmplUpdateBLL(UserInfo user, int id) {
             String ROLES = "1,2";
-            if (user.id_sucursal!=0 && user.Nombre != string.Empty && user.Role != string.Empty && user.Password  != string.Empty && ROLES.Contains(user.Role)) {
-                user.Password = Seguridad.EncriptarTDES(user.Password);
+            if (user.id_sucursal!=0 && user.Nombre != string.Empty && user.Role != string.Empty /*&& user.Password  != string.Empty*/ && ROLES.Contains(user.Role)) {
+               if(user.Password != string.Empty) {
+                    user.Password = Seguridad.ComputeHash(user.Password, new MD5CryptoServiceProvider());
+
+                } 
 
                 return new DAL.Usuario().EmplUpdateDAL(user, id);
 
@@ -155,6 +159,10 @@ namespace BLL
 
         public string eliminarEMPLBLL(int id) {
             return new DAL.Usuario().eliminarEMPLDAL(id);
+        }
+
+        public bool checkuserBLL(string user) {
+            return new DAL.Usuario().checkuserDAL( user);
         }
     }
 

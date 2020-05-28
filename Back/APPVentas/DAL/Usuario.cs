@@ -58,7 +58,7 @@ namespace DAL
 
 
                     for (int i = 0; i < res.Rows.Count; i++) {
-                        arrEmpl[i] = new UserInfo(res.Rows[i]["usuario"].ToString(), string.Empty, res.Rows[i]["rol"].ToString(), res.Rows[i]["nombre"].ToString(), string.Empty, string.Empty, int.Parse(res.Rows[i]["idsucursal"].ToString()), int.Parse(res.Rows[i]["id_empl"].ToString()));
+                        arrEmpl[i] = new UserInfo(res.Rows[i]["usuario"].ToString(), string.Empty, res.Rows[i]["rol"].ToString(), res.Rows[i]["nombre"].ToString()+" "+ res.Rows[i]["usuario"].ToString(), string.Empty, string.Empty, int.Parse(res.Rows[i]["idsucursal"].ToString()), int.Parse(res.Rows[i]["id_empl"].ToString()));
                     }
 
                     return arrEmpl;
@@ -135,12 +135,36 @@ namespace DAL
 
         }
 
+        public bool checkuserDAL(string user) {
+
+            ConnectBBDD conexion = new ConnectBBDD();
+
+
+            DataTable empleados = conexion.LeerPorComando($"select u.id_empl,u.usuario,u.password,u.nombre,r.nombre as role  from Empleados as u, Roles  as r where r.id = u.id_role and usuario='{user}'");
+            DataTable usuarios = conexion.LeerPorComando($"select u.id,u.usuario,u.password,u.email,u.direccion,u.nombre,r.nombre as role  from usuarios as u, Roles  as r where r.id = u.id_role and usuario='{user}'");
+
+
+            if ((empleados.Rows.Count > 0 && empleados.Rows[0]["usuario"].ToString().Equals(user)) || (usuarios.Rows.Count > 0 && usuarios.Rows[0]["usuario"].ToString().Equals(user))) {
+                return true;
+            }
+            return false;
+
+        }
+
         public UserInfo EmplUpdateDAL(UserInfo user, int id) {
 
             ConnectBBDD conexion = new ConnectBBDD();
 
-            int res = conexion.EscribirPorComando($"update Empleados set nombre = '{user.Nombre}', password = '{user.Password}', id_role ={ int.Parse(user.Role)},id_sucursal ={ user.id_sucursal}where id_empl = {id}");
+            string complemento = user.Password != string.Empty ? $", password = '{user.Password}'" : "";
+
+
+           
+
+
+
+            int res = conexion.EscribirPorComando($"update Empleados set nombre = '{user.Nombre}'{complemento}, id_role ={ int.Parse(user.Role)},id_sucursal ={ user.id_sucursal}where id_empl = {id}");
             if(res > 0) {
+
 
                 return user;
             }
@@ -206,7 +230,7 @@ namespace DAL
 
 
             } else if(resempl.Rows.Count > 0) {
-                return new UserInfo(resempl.Rows[0]["usuario"].ToString(), resempl.Rows[0]["password"].ToString(), resempl.Rows[0]["role"].ToString(), resempl.Rows[0]["nombre"].ToString(), string.Empty, string.Empty, int.Parse(resempl.Rows[0]["id_sucursal"].ToString()), int.Parse(res.Rows[0]["id"].ToString()));
+                return new UserInfo(resempl.Rows[0]["usuario"].ToString(), resempl.Rows[0]["password"].ToString(), resempl.Rows[0]["role"].ToString(), resempl.Rows[0]["nombre"].ToString(), string.Empty, string.Empty, int.Parse(resempl.Rows[0]["id_sucursal"].ToString()), int.Parse(resempl.Rows[0]["id_empl"].ToString()));
 
 
             } else {

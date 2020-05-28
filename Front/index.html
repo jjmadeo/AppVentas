@@ -384,6 +384,27 @@
 
         </div>
         <div class="container" id="containerModi">
+
+          <div class="row">
+            
+            <div class="col">
+              <div class="mb-3 mt-3">
+                <div class="input-group is-invalid">
+                  <div class="input-group-prepend">
+                    <label class="input-group-text" for="validatedInputGroupSelect">Empleados</label>
+                  </div>
+                  <select class="custom-select" id="todosEMPl" name="role" required>
+                    <option value="0">Seleccione</option>
+                  </select>
+                </div>
+                <div class="invalid-feedback">
+                  Example invalid input group feedback
+                </div>
+              </div>
+
+            </div>
+           
+          </div>
           
           
           <!-- zona modificaicon -->
@@ -409,7 +430,7 @@
                 </div>
     
                 <div class="row">
-                  <div class="col">
+                  <div class="col-4">
     
                     <div class="mb-3 mt-3">
                       <div class="input-group is-invalid">
@@ -424,19 +445,28 @@
                     </div>
     
                   </div>
-                  <div class="col">
+                  <div class="col-4">
                     <div class="mb-3 mt-3">
                     <div class="input-group is-invalid">
                       <div class="input-group-prepend">
                         <span class="input-group-text" id="validatedInputGroupPrepend">Password</span>
                       </div>
-                      <input type="text" class="form-control is-invalid modificar" disabled="true" id="passwordModiEmpleado" name="password" aria-describedby="validatedInputGroupPrepend" required>
+                      <input type="text" class="form-control is-invalid modificarPass" disabled="true" id="passwordModiEmpleado" name="password" aria-describedby="validatedInputGroupPrepend" required>
                     </div>
                     <div class="invalid-feedback">
                       Example invalid input group feedback
                     </div>
-                  </div></div>
+                  </div>
                 </div>
+                <div class="col-4">
+                  <input class="form-check-input modificar" type="checkbox" id="PaswordModif" disabled="true" >
+                      <label class="form-check-label" for="PaswordModif">
+                        Modificar Contraseña
+                      </label>
+                </div>
+                </div>
+
+                
                 
               
                 <div class="row">

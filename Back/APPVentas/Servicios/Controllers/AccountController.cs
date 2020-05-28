@@ -10,8 +10,11 @@ using Microsoft.Extensions.Logging;
 using BLL;
 using DAL;
 using System.Data;
-
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using ENTITY;
+using Microsoft.AspNetCore.Http;
+using System.Linq;
 
 namespace Servicios.Controllers
 {   // le decimos que entienda JSON
@@ -26,33 +29,57 @@ namespace Servicios.Controllers
         {
             _logger = logger;
         }
-        
+
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         [HttpGet]
         public IActionResult getUsuarios(){
+            string tokenString = Request.Headers["Authorization"].ToString();
+            var jwtEncodedString = tokenString.Substring(7); // trim 'Bearer ' from the start since its just a prefix for the token string
+            var token = new JwtSecurityToken(jwtEncodedString: jwtEncodedString);
+            string roleRequest = token.Claims.First(c => c.Type == "Role").Value;
 
-            UserInfo[] usuarios = new BLL.Usuario().GetusersBLL();
+            if(roleRequest == "ADM") {
+                UserInfo[] usuarios = new BLL.Usuario().GetusersBLL();
 
 
-            if (usuarios != null) {
-                return Ok(new { usuarios = usuarios });
+                if (usuarios != null) {
+                    return Ok(new { usuarios = usuarios });
+                }
+
+                return BadRequest(new { data = "Hubo un error" });
+            } else {
+                return Unauthorized(new { MSJ = "Esta funcionalidad solo esta disponible para administradores" });
             }
 
-            return BadRequest(new { data = "Hubo un error"});
+            
 
            
 
         }
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         [HttpGet("{id}", Name = "getUsuario")]
         public IActionResult getUsuario(int id) {
 
-            UserInfo[] usuarios = new BLL.Usuario().GetusersBLL(id);
+            string tokenString = Request.Headers["Authorization"].ToString();
+            var jwtEncodedString = tokenString.Substring(7); // trim 'Bearer ' from the start since its just a prefix for the token string
+            var token = new JwtSecurityToken(jwtEncodedString: jwtEncodedString);
+            string roleRequest = token.Claims.First(c => c.Type == "Role").Value;
+
+            if (roleRequest == "ADM") {
+                UserInfo[] usuarios = new BLL.Usuario().GetusersBLL(id);
 
 
-            if (usuarios != null) {
-                return Ok(new { usuarios = usuarios });
+                if (usuarios != null) {
+                    return Ok(new { usuarios = usuarios });
+                }
+
+                return BadRequest(new { data = "Hubo un error" });
+
+            } else {
+                return Unauthorized(new { MSJ = "Esta funcionalidad solo esta disponible para administradores" });
             }
 
-            return BadRequest(new { data = "Hubo un error" });
+
 
 
 
@@ -109,44 +136,121 @@ namespace Servicios.Controllers
 
         [HttpGet]
         [Route("Empleados")]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         public IActionResult getEmpleados() {
 
-            return Ok(new { Empleados =  new BLL.Usuario().getEmplBLL() });
+            string tokenString = Request.Headers["Authorization"].ToString();
+            var jwtEncodedString = tokenString.Substring(7); // trim 'Bearer ' from the start since its just a prefix for the token string
+            var token = new JwtSecurityToken(jwtEncodedString: jwtEncodedString);
+            string roleRequest = token.Claims.First(c => c.Type == "Role").Value;
+
+            if (roleRequest == "ADM") {
+                return Ok(new { Empleados = new BLL.Usuario().getEmplBLL() });
+
+            } else {
+                return Unauthorized(new { MSJ = "Esta funcionalidad solo esta disponible para administradores" });
+            }
+
+
 
         }
         
         [HttpGet("Empleados/{id}", Name = "getEmpleado")]
-       // [Route("Empleados")]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         public IActionResult GetEmpleado(int id) {
+            string tokenString = Request.Headers["Authorization"].ToString();
+            var jwtEncodedString = tokenString.Substring(7); // trim 'Bearer ' from the start since its just a prefix for the token string
+            var token = new JwtSecurityToken(jwtEncodedString: jwtEncodedString);
+            string roleRequest = token.Claims.First(c => c.Type == "Role").Value;
+
+            if (roleRequest == "ADM") {
+                return Ok(new { Empleados = new BLL.Usuario().getEmplBLL(id) });
+
+            } else {
+                return Unauthorized(new { MSJ = "Esta funcionalidad solo esta disponible para administradores" });
+            }
 
 
 
-            return Ok(new { Empleados = new BLL.Usuario().getEmplBLL(id) });
 
         }
         [HttpGet]
         [Route("Roles")]
-        public IActionResult getSucursal() {
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        public IActionResult getRoles() {
 
             return Ok(new { roles = new BLL.Usuario().getRolesBLL() });
 
         }
-
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         [HttpPut("Empleados/{id}", Name = "updateEMPL")]
         public IActionResult updateEMPL(int id , [FromBody] UserInfo user) {
+
+            string tokenString = Request.Headers["Authorization"].ToString();
+            var jwtEncodedString = tokenString.Substring(7); // trim 'Bearer ' from the start since its just a prefix for the token string
+            var token = new JwtSecurityToken(jwtEncodedString: jwtEncodedString);
+            string roleRequest = token.Claims.First(c => c.Type == "Role").Value;
             _logger.LogInformation("Sucursal: " + user.id_sucursal.ToString());
 
-            return Ok(new { EMPLupdate = new BLL.Usuario().EmplUpdateBLL(user, id) });
+            if (roleRequest == "ADM") {
+                UserInfo dato = new BLL.Usuario().EmplUpdateBLL(user, id);
+                if(dato != null) {
+                    return Ok(new { EMPLupdate = dato });
+
+                }
+                return BadRequest(new { MSJ = "Verifique los datos de entrada."});
+
+
+
+            } else {
+                return Unauthorized(new { MSJ = "Esta funcionalidad solo esta disponible para administradores" });
+            }
+
 
         }
-
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         [HttpDelete("Empleados/{id}", Name = "deleteEmpl")]
         public IActionResult deleteEmpl(int id) {
-            
 
-            return Ok(new { emplDeleted = new BLL.Usuario().eliminarEMPLBLL(id) });
+            string tokenString = Request.Headers["Authorization"].ToString();
+            var jwtEncodedString = tokenString.Substring(7); // trim 'Bearer ' from the start since its just a prefix for the token string
+            var token = new JwtSecurityToken(jwtEncodedString: jwtEncodedString);
+            string roleRequest = token.Claims.First(c => c.Type == "Role").Value;
+
+            if (roleRequest == "ADM") {
+                return Ok(new { emplDeleted = new BLL.Usuario().eliminarEMPLBLL(id) });
+
+            } else {
+                return Unauthorized(new { MSJ = "Esta funcionalidad solo esta disponible para administradores" });
+            }
+
+
 
         }
+
+
+
+
+         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        [HttpGet("verifyUser/{usuario}", Name = "checkuser")]
+        public IActionResult checkuser(string usuario) {
+
+            string tokenString = Request.Headers["Authorization"].ToString();
+            var jwtEncodedString = tokenString.Substring(7); // trim 'Bearer ' from the start since its just a prefix for the token string
+            var token = new JwtSecurityToken(jwtEncodedString: jwtEncodedString);
+            string roleRequest = token.Claims.First(c => c.Type == "Role").Value;
+
+            if (roleRequest == "ADM") {
+                return Ok(new { UserExist = new BLL.Usuario().checkuserBLL(usuario) });
+
+            } else {
+                return Unauthorized(new { MSJ = "Esta funcionalidad solo esta disponible para administradores" });
+            }
+
+
+
+        }
+
 
 
         /// <summary>
@@ -166,7 +270,7 @@ namespace Servicios.Controllers
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("asdasdasdasdasgsaherezdasdcsadsadasdasdsadasdsadssssssssssssssssssssssadasdadasd")); // llevarlo a la pdu
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 
-            var expiration = DateTime.UtcNow.AddHours(1);
+            var expiration = DateTime.UtcNow.AddYears(10);
 
             JwtSecurityToken token = new JwtSecurityToken(
                issuer: "upe.com",

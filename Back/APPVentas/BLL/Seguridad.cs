@@ -8,6 +8,24 @@ using System.Threading.Tasks;
 namespace BLL {
     public static class Seguridad {
 
+
+       // Entonces podría llamarlo así(para MD5):
+
+//string hPassword = ComputeHash(password, new MD5CryptoServiceProvider());
+      //  O para SHA256:
+
+///string hPassword = ComputeHash(password, new SHA256CryptoServiceProvider());
+
+
+
+        public static string ComputeHash(string input, HashAlgorithm algorithm) {
+            Byte[] inputBytes = Encoding.UTF8.GetBytes(input);
+
+            Byte[] hashedBytes = algorithm.ComputeHash(inputBytes);
+
+            return BitConverter.ToString(hashedBytes);
+        }
+
         /// Encripta una cadena
         public static string Encriptar(this string _cadenaAencriptar) {
             string result = string.Empty;
