@@ -550,6 +550,92 @@ let empleado=[];
         .catch(error => console.log('error', error));
     }
         
+
+    $("#UsuarioAltaEmpleado").on('blur', function() {
+
+     var usuarioAverificar= $("#UsuarioAltaEmpleado").val();
+
+      verificarUsuario(usuarioAverificar);
+
+  });
+    
+   
+  // document.querySelector("#UsuarioModiEmpleado").addEventListener("blur", function(){
+
+
+  //   alert("asd")
+
+
+  // });
+
+
+    function verificarUsuario(usuario){
+
+
+
+
+      var requestOptions = {
+        method: 'GET',
+        redirect: 'follow'
+      };
+      
+      fetch("http://localhost:60227/api/Account/verifyUser/"+usuario, requestOptions)
+        .then(response => response.text())
+        .then(result => {
+
+          result = JSON.parse(result);
+          console.log(result.userExist)     
+          
+          ///// FUNCIONA///
+
+
+            if(result.userExist === true){
+    
+              $("#UsuarioAltaEmpleado").last().removeClass("bg-danger");
+              $("#UsuarioAltaEmpleado").last().removeClass("bg-success");
+              $("#UsuarioAltaEmpleado" ).last().addClass( "bg-danger" );
+    
+              $('#formAltaEMpl div div button').attr("disabled", true);
+
+    
+    
+    
+            }else{
+              $("#UsuarioAltaEmpleado").last().removeClass("bg-danger");
+              $("#UsuarioAltaEmpleado").last().removeClass("bg-success");
+              $("#UsuarioAltaEmpleado" ).last().addClass( "bg-success" );
+              $('#formAltaEMpl div div button').attr("disabled", false);
+
+    
+            }
+
+
+        })
+        .catch(error => console.log('error', error));
+
+
+
+          // if(){
+  
+          //   $("#UsuarioAltaEmpleado").last().removeClass("bg-danger");
+          //   $("#UsuarioAltaEmpleado").last().removeClass("bg-success");
+          //   $("#UsuarioAltaEmpleado" ).last().addClass( "bg-danger" );
+  
+  
+  
+  
+  
+          // }else{
+          //   $("#UsuarioAltaEmpleado").last().removeClass("bg-danger");
+          //   $("#UsuarioAltaEmpleado").last().removeClass("bg-success");
+          //   $("#UsuarioAltaEmpleado" ).last().addClass( "bg-success" );
+  
+          // }
+        
+       
+
+
+    }
     
 
 

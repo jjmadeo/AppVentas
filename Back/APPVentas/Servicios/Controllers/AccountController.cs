@@ -231,22 +231,14 @@ namespace Servicios.Controllers
 
 
 
-         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        // [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         [HttpGet("verifyUser/{usuario}", Name = "checkuser")]
         public IActionResult checkuser(string usuario) {
 
-            string tokenString = Request.Headers["Authorization"].ToString();
-            var jwtEncodedString = tokenString.Substring(7); // trim 'Bearer ' from the start since its just a prefix for the token string
-            var token = new JwtSecurityToken(jwtEncodedString: jwtEncodedString);
-            string roleRequest = token.Claims.First(c => c.Type == "Role").Value;
 
-            if (roleRequest == "ADM") {
                 return Ok(new { UserExist = new BLL.Usuario().checkuserBLL(usuario) });
 
-            } else {
-                return Unauthorized(new { MSJ = "Esta funcionalidad solo esta disponible para administradores" });
-            }
-
+           
 
 
         }

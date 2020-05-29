@@ -13,7 +13,7 @@
                     </button>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                       <a class="dropdown-item" data-toggle="modal" data-target="#modalEmpleados" id="menuADMempl" href="#">Empleados</a>
-                      <a class="dropdown-item" href="#">Modulo De Seguimiento</a>
+                      <a class="dropdown-item" data-toggle="modal" data-target="#moduloSeguimiento" href="#">Modulo De Seguimiento</a>
                     </div>
                   </div>
             </div>
