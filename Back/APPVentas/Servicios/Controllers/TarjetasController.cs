@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using ENTITY;
 
 namespace Servicios.Controllers
 {
@@ -14,9 +15,15 @@ namespace Servicios.Controllers
 
         [HttpGet("user/{id}", Name = "obtenerTarjetasUser")]
         public IActionResult obtenerTarjetasUser(int id) {
+            ENTITY.Tarjeta[] tarjetas = new BLL.Tarjeta().GetTarjetaBLL(id);
 
-           return Ok(new { Tarjetas = "asd" });
+
+
+
+
+           return Ok(new { Tarjetas = tarjetas });
         }
+
 
 
 

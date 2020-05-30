@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 namespace ENTITY {
    public class Tarjeta {
       
-        private int _nTarjeta;
+        private string _nTarjeta;
 
-        public int nTarjeta {
+        public string nTarjeta {
             get { return _nTarjeta; }
             set { _nTarjeta = value; }
         }
@@ -41,9 +41,13 @@ namespace ENTITY {
             set { _idUsuario = value; }
         }
 
-
-
-
-
+        public Tarjeta(string nTarjeta, int fechaVencimiento, string nombreCompleto, int pin, int idUsuario)
+        {
+            _nTarjeta = nTarjeta;
+            _fechaVencimiento = fechaVencimiento;
+            _nombreCompleto = nombreCompleto;
+            _pin = pin;
+            _idUsuario = idUsuario;
+        }
     }
 }
