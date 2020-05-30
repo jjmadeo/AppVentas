@@ -1,4 +1,5 @@
 $(document).ready(function(){
+    
     $(document).on('click','.categorias', function(e){ //esta función se ejecutará en todos los casos
 
     let id_Categoria = $(this).attr('idCategoria')
@@ -64,7 +65,7 @@ $(document).ready(function(){
       $("#ChangeMode").click(function(){
 
         localStorage.clear();
-        location. reload();
+        location.reload();
 
         // Vaciar("#items");
         // cargarProductos();
@@ -81,9 +82,26 @@ $(document).ready(function(){
 
 })
 
+// window.addEventListener("scroll", function(){
+//     var st = window.pageYOffset || document.documentElement.scrollTop; 
+//     if (st > 295){
+//       console.log('agranda el div');
+
+//     } else {
+//       console.log('para arriba'+st);
+//     }
+//  }, false);
+
+$(window).scroll(function(){
+    var sticky = $('#contenedorCarrito'),
+        scroll = $(window).scrollTop();
+  
+    if (scroll >= 295) sticky.addClass('fixed');
+    else sticky.removeClass('fixed');
+  });
 
 
-let img = "https://assets.adidas.com/images/w_840,h_840,f_auto,q_auto:sensitive,fl_lossy/d02db446868c4f2a8b31a9f10119d830_9366/Pelota_Top_de_Entrenamiento_Argentina_19_Blanco_DY2519_DY2519_01_standard.jpg"
+
     let baseDeDatos = []
 cargarProductos();
 
@@ -258,21 +276,46 @@ renderItems(newArr)
         let miNodoTitle = document.createElement('h5');
         miNodoTitle.classList.add('card-title');
         miNodoTitle.textContent = info['nombre'];
+        //Ver detalle
+        let miNodoVerDetalle = document.createElement('button');
+        miNodoVerDetalle.classList.add('btn', 'btn-info');
+        miNodoVerDetalle.setAttribute('id', "VerDetalle"+info['id']);
+        miNodoVerDetalle.textContent="Detalle"
+        miNodoVerDetalle.addEventListener('click', function(e){
+            let idDetalle= ("#"+e.target.id+"p")
+            let $detalle = document.querySelector(idDetalle);
+
+            if($detalle.style.display === 'none'){
+                $detalle.style.display="block";
+            }else{
+                $detalle.style.display="none";
+
+            }
+            
+
+
+        });
+
+
         //detalle
         let miNodoDetalle = document.createElement('p');
         miNodoDetalle.classList.add('card-text');
         miNodoDetalle.textContent = info['detalle'];
+        miNodoDetalle.setAttribute('id', "VerDetalle"+info['id']+"p");
+        miNodoDetalle.style.display="none";
+
+
         // Imagen
         let miNodoImagen = document.createElement('img');
         miNodoImagen.classList.add('img-fluid');
-        miNodoImagen.setAttribute('src', img);
+        miNodoImagen.setAttribute('src', info['imgUrl']);
         // Precio
         let miNodoPrecio = document.createElement('p');
         miNodoPrecio.classList.add('card-text');
         miNodoPrecio.textContent ='$'+info['precio'] ;
         // Boton 
         let miNodoBoton = document.createElement('button');
-        miNodoBoton.classList.add('btn', 'btn-primary');
+        miNodoBoton.classList.add('btn', 'btn-success', 'rounded-circle');
         miNodoBoton.textContent = '+';
         miNodoBoton.setAttribute('marcador', info['id']);
         miNodoBoton.addEventListener('click', anyadirCarrito);
@@ -291,9 +334,11 @@ renderItems(newArr)
         // Insertamos
         miNodoCardBody.appendChild(miNodoImagen);
         miNodoCardBody.appendChild(miNodoTitle);
+        miNodoCardBody.appendChild(miNodoVerDetalle);
         miNodoCardBody.appendChild(miNodoDetalle);
         miNodoCardBody.appendChild(miNodoPrecio);
         miNodoCardBody.appendChild(miNodoBoton);
+
         miNodo.appendChild(miNodoCardBody);
         $items.appendChild(miNodo);
     }
@@ -326,21 +371,45 @@ function renderizarCarrito () {
         }, 0);
         // Creamos el nodo del item del carrito
         let miNodo = document.createElement('li');
-        miNodo.classList.add('list-group-item', 'text-right', 'mx-2');
-        miNodo.textContent = `${numeroUnidadesItem} x ${miItem[0]['nombre']} - $${miItem[0]['precio']}`;
+        let miFila = document.createElement('div');
+        miFila.classList.add('row')
+
+        let col1 = document.createElement('div');
+        col1.classList.add('col-1')
+        col1.textContent= "X "+numeroUnidadesItem
+        let col2 = document.createElement('div');
+        col2.classList.add('col-5')
+        col2.textContent =miItem[0]['nombre']
+        let col3 = document.createElement('div');
+        col3.classList.add('col-3')
+        col3.textContent = "$"+miItem[0]['precio']
+        let col4 = document.createElement('div');
+        col4.classList.add('col-3')
+      
+
+        miNodo.classList.add('list-group-item', 'text-right', 'mx-2','itemCarrito','row');
+        // miNodo.textContent = `${numeroUnidadesItem} x ${miItem[0]['nombre']} - $${miItem[0]['precio']}`;
         caantidad = caantidad + numeroUnidadesItem;
 
         // Boton de borrar
         let miBoton = document.createElement('button');
-        miBoton.classList.add('btn', 'btn-danger', 'mx-5');
+        miBoton.classList.add('btn', 'btn-danger','rounded-circle' );
         miBoton.textContent = 'X';
         miBoton.style.marginLeft = '1rem';
         miBoton.setAttribute('item', item);
         miBoton.addEventListener('click', borrarItemCarrito);
+        col4.appendChild(miBoton);
         // Mezclamos nodos
-        miNodo.appendChild(miBoton);
+        miFila.appendChild(col2)
+        miFila.appendChild(col1)
+        miFila.appendChild(col3)
+        miFila.appendChild(col4)
+        miNodo.appendChild(miFila)
+
+        //miNodo.appendChild(miBoton);
         $carrito.appendChild(miNodo);
     })
+    console.log("CARRITO=>",$carrito)
     document.querySelector("#badge").textContent=caantidad
 
 
@@ -377,6 +446,10 @@ function calcularTotal () {
 // Eventos
 
 
+function MOdetalle(detalle){
+    console.log(detalle)
+
+}
 
 
 

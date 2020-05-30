@@ -1,10 +1,23 @@
-body{
+/* body{
   background:#bdc3c7;
+  
+} */
+body{
+  margin: 0;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  line-height: 20px;
+  color: #333333;
+  background-color: #ffffff;
 }
 
 .header{
   padding-top: 10px;
-  height: 60px;
+  height: 240px;
+}
+.cabezera{
+  /* background: linear-gradient(90deg, rgba(136,40,55,1) 25%, rgba(138,36,95,1) 69%); */
+background-image: url(../img/logo.png);
 }
 #logout{
   width:  100%;
@@ -29,6 +42,49 @@ input[type = "number"]{
 .my-fixed-item {
   position:fixed;
   left:60%;
+  
 }
 
+/* .bodyback{
+  background: #5758BB;
+} */
 
+#carrito{
+  overflow-y: scroll;
+  max-height:333px;
+
+
+}
+.itemCarrito {
+  background: #d1d8e0;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #ccc;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #b3b3b3;
+  box-shadow: 0 0 2px 1px rgba(0, 0, 0, 0.2);
+}
+
+::-webkit-scrollbar-thumb:active {
+  background-color: #999999;
+}
+::-webkit-scrollbar-track {
+  background: #e1e1e1;
+  border-radius: 4px;
+}
+
+/* ::-webkit-scrollbar-track:hover,
+::-webkit-scrollbar-track:active {
+background: #d4d4d4;
+} */
+
+.fixed {
+  position: fixed;
+  top:0; left:60%;
+  width: 100%; 
+  margin-top: 100px;
+}

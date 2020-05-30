@@ -63,9 +63,16 @@ namespace ENTITY {
             get { return _categoria; }
             set { _categoria = value; }
         }
+        private string _imgURl;
+
+        public string ImgUrl {
+            get { return _imgURl; }
+            set { _imgURl = value; }
+        }
 
 
-        public Producto(String nombre, string detalle, double precio, int stock, int fecha, bool visible, int id, Categoria  categoria) {
+
+        public Producto(String nombre, string detalle, double precio, int stock, int fecha, bool visible, int id, Categoria  categoria,string imgURl) {
             _nombre = nombre;
             _id = id;
             _detalle = detalle;
@@ -74,6 +81,7 @@ namespace ENTITY {
             _fecha = fecha;
             _visible = visible;
             _categoria = categoria;
+            _imgURl = imgURl;
         }
 
 

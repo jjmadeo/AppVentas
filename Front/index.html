@@ -8,24 +8,46 @@
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.css">
     <link rel="stylesheet" href="./css/estilos.css">
     <link rel="stylesheet" href="./css/login.css">
-  
+    <link rel="stylesheet" href="./css/scrollBard.css">
+
 
 
 </head>
-<body class="">
+<body class="bodyback .containerScroll">
+  
+  <nav class="navbar navbar-expand-lg navbar-light bg-black ">
+    <spam class="navbar-brand text-success" id="spamBienvenida"></spam>
+     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+       <span class="navbar-toggler-icon"></span>
+     </button>
+   
+     <div class="collapse navbar-collapse" id="navbarSupportedContent">
+       
+     </div>
+       <form class="form-inline my-2 my-lg-0">
+         <input class="form-control mr-sm-2" id="buscar" type="search" placeholder="Buscar" aria-label="Search" >
+       </form>
+     </div>
+   </nav>
+
+
+
+  
 
 <!-- Menu. -->
-<div class="container bg-secondary pricipal">
-    <div class="container header">
-        <div class="row" id="menu">            
-            
+<div class="container-fluid cabezera pricipal">
+    <div class="container header pb-3">
+      <div class="row">
+        <div class="col">
         </div>
+      </div>
+       
     </div>
     
 </div>
 
 
-<div class="container mt-5">
+<div class="container  mt-5">
   <div class="row">
     <div class="col-4">
       <div class="dropdown">
@@ -40,12 +62,7 @@
       
     </div>
     <div class="col-4">
-      <div class="input-group flex-nowrap">
-        <div class="input-group-prepend">
-          <span class="input-group-text" id="addon-wrapping">Buscar producto</span>
-        </div>
-        <input type="text" class="form-control" placeholder="Ej: Remera"   id="buscar" aria-label="Username" aria-describedby="addon-wrapping">
-      </div>
+      
     </div>
   </div>
   <div class="row">
@@ -55,7 +72,7 @@
       <aside id="contenedorCarrito" class="col-sm-4 my-fixed-item">
           <h2>Carrito</h2>
           <!-- Elementos del carrito -->
-          <ul id="carrito" class="list-group"></ul>
+          <ul id="carrito" class="list-group container-fluid"></ul>
           <hr>
           <!-- Precio total -->
           <div class="row">
@@ -754,7 +771,12 @@
         var token =localStorage.getItem("token");
         if(token){
             tokenDecoded = JSON.parse(atob(token.split('.')[1]))
-            alert(`Bienvenido ${tokenDecoded.unique_name} !!`);
+            $("#spamBienvenida").empty();
+            $("#spamBienvenida").text("Hola "+tokenDecoded.unique_name+"!");
+        }
+        else{
+          $("#spamBienvenida").empty();
+            $("#spamBienvenida").text("Bienvenido!");
         }
         //login
     $("#ingresar").click(function(event){
@@ -868,6 +890,12 @@
               </div>
             `)
             banner.css("display","inline")
+
+            $("#usuario").val("");
+            $("#password").val("");
+            $("#nombre").val("");
+            $("#direccion").val("");
+            $("#email").val("");
          
 
 

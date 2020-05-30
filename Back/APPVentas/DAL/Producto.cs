@@ -19,7 +19,7 @@ namespace DAL {
             ConnectBBDD conexion = new ConnectBBDD();
 
             if(id > 0) {
-                DataTable res = conexion.LeerPorComando($"select b.nombre,b.precio,b.detalle ,b.visible,b.fecha,b.id,r.stock,c.nombre as categoria ,c.id as id__categoria from productos b, ProductoSucursalRela r, Sucursales s , Categorias c where b.id = r.id_producto and s.id = r.id_sucursal and b.id_Categoria = c.id and r.id_sucursal = {id}");
+                DataTable res = conexion.LeerPorComando($"select b.nombre,b.precio,b.detalle,b.imgurl ,b.visible,b.fecha,b.id,r.stock,c.nombre as categoria ,c.id as id__categoria from productos b, ProductoSucursalRela r, Sucursales s , Categorias c where b.id = r.id_producto and s.id = r.id_sucursal and b.id_Categoria = c.id and r.id_sucursal = {id}");
 
                 if (res.Rows.Count > 0) {
                     ENTITY.Producto[] arrProduct = new ENTITY.Producto[res.Rows.Count];
@@ -33,7 +33,8 @@ namespace DAL {
                            Int32.Parse(res.Rows[i]["fecha"].ToString()),
                            bool.Parse(res.Rows[i]["visible"].ToString()),
                            Int32.Parse(res.Rows[i]["id"].ToString()),
-                           new Categoria(res.Rows[i]["categoria"].ToString(), Int32.Parse(res.Rows[i]["id__categoria"].ToString()))
+                           new Categoria(res.Rows[i]["categoria"].ToString(), Int32.Parse(res.Rows[i]["id__categoria"].ToString())),
+                           res.Rows[i]["imgurl"].ToString()
                             );
                     }
 
@@ -46,7 +47,7 @@ namespace DAL {
 
                 }
             } else {
-                DataTable res = conexion.LeerPorComando($"select a.detalle,a.fecha,a.id,a.nombre,a.precio,a.stock,a.visible,b.nombre as categoria,b.id as id__categoria from productos as a, categorias as b  where a.id_Categoria = b.id");
+                DataTable res = conexion.LeerPorComando($"select a.detalle,a.fecha, a.imgurl,a.id,a.nombre,a.precio,a.stock,a.visible,b.nombre as categoria,b.id as id__categoria from productos as a, categorias as b  where a.id_Categoria = b.id");
 
                 if (res.Rows.Count > 0) {
                     ENTITY.Producto[] arrProduct = new ENTITY.Producto[res.Rows.Count];
@@ -60,7 +61,9 @@ namespace DAL {
                            Int32.Parse(res.Rows[i]["fecha"].ToString()),
                            bool.Parse(res.Rows[i]["visible"].ToString()),
                            Int32.Parse(res.Rows[i]["id"].ToString()),
-                           new Categoria(res.Rows[i]["categoria"].ToString(), Int32.Parse(res.Rows[i]["id__categoria"].ToString()))
+                           new Categoria(res.Rows[i]["categoria"].ToString(), Int32.Parse(res.Rows[i]["id__categoria"].ToString())), 
+                           res.Rows[i]["imgurl"].ToString()
+
                             );
                     }
 

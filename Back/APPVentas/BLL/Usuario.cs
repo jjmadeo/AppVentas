@@ -34,10 +34,12 @@ namespace BLL
         }
 
         public String[] LoginBLL(UserInfo model) {
+            model.Usuario = model.Usuario.ToLower();
+
 
             if (model.Usuario != string.Empty && model.Password != string.Empty) {
                 UserInfo Userloguiado = new DAL.Usuario().LoginDAL(model);
-                if ((model != null && Userloguiado != null) && (model.Usuario.Equals(Userloguiado.Usuario) &&  Seguridad.ComputeHash(model.Password, new MD5CryptoServiceProvider()).Equals(Userloguiado.Password))) {
+                if ((model != null && Userloguiado != null) && (model.Usuario.Equals(Userloguiado.Usuario.ToLower()) &&  Seguridad.ComputeHash(model.Password, new MD5CryptoServiceProvider()).Equals(Userloguiado.Password))) {
                     return new string[] { "OK", $"Datos Correctos, Bienvenido {Userloguiado.Usuario}", $"{Userloguiado.Role}" };
 
                 } else {
@@ -62,6 +64,7 @@ namespace BLL
 
         //}
         private bool ConsultarUsuario(UserInfo model) {
+            model.Usuario = model.Usuario.ToLower();
 
             if (model.Usuario != null) {
                 if (new DAL.Usuario().ConsultarUsuarioDAL(model)) {
@@ -79,6 +82,7 @@ namespace BLL
 
         public String[] CrearUsuario(UserInfo model) {
             model.Role = model.Role.ToUpper();
+            model.Usuario = model.Usuario.ToLower();
 
             String ROLES = "1,2,3";
 
@@ -162,7 +166,7 @@ namespace BLL
         }
 
         public bool checkuserBLL(string user) {
-            return new DAL.Usuario().checkuserDAL( user);
+            return new DAL.Usuario().checkuserDAL(user.ToLower());
         }
     }
 

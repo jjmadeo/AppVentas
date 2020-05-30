@@ -284,6 +284,11 @@ let empleado=[];
             .then(result => {
               result = JSON.parse(result);
             console.log(result);
+
+            result.roles = result.roles.filter(item=>{
+              return item.nombre != 'CLIENTE';
+          })
+
             result.roles.forEach(element => {
                 
                $slectrRole.append(`<option value="${element.id}" >${element.nombre}</option>`);
