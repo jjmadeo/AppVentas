@@ -8,7 +8,7 @@ namespace Servicios {
    public class PDU {
 		
 		
-		public static string getPropertiePDUaBLL(string Clave) {
+		public static string getPropertiePDUaServicios(string Clave) {
 			return new BLL.PDU().getPropertiePDUBLL(Clave);
 		}
 	}

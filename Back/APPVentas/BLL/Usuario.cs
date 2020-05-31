@@ -40,7 +40,7 @@ namespace BLL
             if (model.Usuario != string.Empty && model.Password != string.Empty) {
                 UserInfo Userloguiado = new DAL.Usuario().LoginDAL(model);
                 if ((model != null && Userloguiado != null) && (model.Usuario.Equals(Userloguiado.Usuario.ToLower()) &&  Seguridad.ComputeHash(model.Password, new MD5CryptoServiceProvider()).Equals(Userloguiado.Password))) {
-                    return new string[] { "OK", $"Datos Correctos, Bienvenido {Userloguiado.Usuario}", $"{Userloguiado.Role}" };
+                    return new string[] { "OK", $"Datos Correctos, Bienvenido {Userloguiado.Usuario}", $"{Userloguiado.Role}",$"{Userloguiado.Direccion}", $"{Userloguiado.Nombre}", $"{Userloguiado.Id}", $"{Userloguiado.id_sucursal}", };
 
                 } else {
                     return new string[] { "Error", $"EL usuario o password  no coincide." };

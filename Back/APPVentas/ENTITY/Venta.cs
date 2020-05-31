@@ -41,9 +41,9 @@ namespace ENTITY {
 			set { _fecha = value; }
 		}
 
-		private MedioDePago _MedioDePago;
+		private string _MedioDePago;
 
-		public MedioDePago MedioDePago {
+		public string MedioDePago {
 			get { return _MedioDePago; }
 			set { _MedioDePago = value; }
 		}

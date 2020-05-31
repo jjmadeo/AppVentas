@@ -15,8 +15,17 @@ namespace Servicios.Controllers
         [HttpPost]
         public IActionResult nuevaVenta([FromBody] Venta venta) {
 
+            try {
+             Venta ventaRealizada = new BLL.Venta().IniciarVenta(venta);
+              return Ok(new { MSJ = "Venta realizada", VentaRealizaad = ventaRealizada });
 
-            return Ok(new { venta = "Venta" });
+            } catch (Exception e) {
+
+               return BadRequest(new { MSJ = e.Message });
+
+
+            }
+
         }
 
 

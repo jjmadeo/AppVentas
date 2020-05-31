@@ -123,6 +123,12 @@ namespace Servicios.Controllers
                 String[] resCore = new BLL.Usuario().LoginBLL(userInfo);
                 if ("OK".Equals(resCore[0])) {
                     userInfo.Role = resCore[2];
+                    userInfo.Direccion = resCore[3];
+                    userInfo.Nombre = resCore[4];
+                    userInfo.Id = int.Parse(resCore[5]);
+                    userInfo.id_sucursal = int.Parse(resCore[6]);
+
+
                     return BuildToken(userInfo);
                 } else {
                     ModelState.AddModelError(string.Empty, "Invalid login attempt.");
@@ -255,11 +261,18 @@ namespace Servicios.Controllers
             var claims = new[]
             {
                 new Claim(JwtRegisteredClaimNames.UniqueName, userInfo.Usuario),
-                new Claim("Role", userInfo.Role),
+                new Claim("Direccion", userInfo.Direccion ==null?"":userInfo.Direccion),
+                new Claim("Role", userInfo.Role ==null?"":userInfo.Role),
+                new Claim("Usuario", userInfo.Usuario ==null?"":userInfo.Usuario),
+                new Claim("Nombre", userInfo.Nombre ==null?"":userInfo.Nombre),
+                new Claim("id_sucursal", userInfo.id_sucursal.ToString() ==null?"":userInfo.id_sucursal.ToString()),
+                new Claim("Id", userInfo.Id.ToString() ==null?"":userInfo.Id.ToString()),
+               
+
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
             };
 
-            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("asdasdasdasdasgsaherezdasdcsadsadasdasdsadasdsadssssssssssssssssssssssadasdadasd")); // llevarlo a la pdu
+            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(new BLL.PDU().getPropertiePDUBLL("ClaveToken"))); // llevarlo a la pdu
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 
             var expiration = DateTime.UtcNow.AddYears(10);

@@ -15,7 +15,7 @@ namespace ENTITY {
 
 		private Producto _producto;
 
-		public Producto rproducto {
+		public Producto producto {
 			get { return _producto; }
 			set { _producto = value; }
 		}
@@ -25,9 +25,9 @@ namespace ENTITY {
 			get { return _cantidad; }
 			set { _cantidad = value; }
 		}
-		private int _valor;
+		private float _valor;
 
-		public int Valor {
+		public float Valor {
 			get { return _valor; }
 			set { _valor = value; }
 		}
