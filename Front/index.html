@@ -77,7 +77,7 @@
           <!-- Precio total -->
           <div class="row">
             <div class="col-6">
-              <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modalCarrito">
+              <button type="button" class="btn btn-success" id="btnComprarBotton" data-toggle="modal" data-target="#modalCarrito">
                 Comprar <span class="badge badge-light" id="badge" ></span>
                 <span class="sr-only">unread messages</span>
                 </button> 
@@ -190,27 +190,275 @@
   <!-- Modal Carrito. -->
 
 <div class="modal fade bd-example-modal-lg" id="modalCarrito"tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-lg" role="document">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
     <div class="modal-content">
     <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Carrito</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Venta</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
      </div>
       <div class="modal-body">
+        <form class="was-validated container" id="ventaForm" data-toggle="validador">
+
         <div class="container">
           <div class="row">
-            <div class="con-9"></div>                                     
-            <div class="con-3"></div>
+            <div class="col" id="notificacionEMPL">
+
+            </div>
+          </div>
+          <div class="row">
+            <div class="col">
+              <h4>Acérquese a un vendedor</h4>
+
+            </div>
+          </div>
+
+          <div class="row mt-3">
+            <div class="col">
+
+              <div class="">
+                <div class="input-group is-invalid">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text" id="validatedInputGroupPrepend">Usuario</span>
+                  </div>
+                  <input type="text" class="form-control is-invalid " id="validarEMPl" name="usuario" aria-describedby="validatedInputGroupPrepend" required>
+                </div>
+                <div class="invalid-feedback">
+                  Example invalid input group feedback
+                </div>
+              </div>
+
+            </div>
+
+            <div class="col">
+
+              <div class="">
+                <div class="input-group is-invalid">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text" id="validatedInputGroupPrepend">Contraseña</span>
+                  </div>
+                  <input type="password" class="form-control is-invalid " id="validarEMPlpass" name="usuario" aria-describedby="validatedInputGroupPrepend" required>
+                </div>
+                <div class="invalid-feedback">
+                  Example invalid input group feedback
+                </div>
+              </div>
+
+            </div>
+
+            <div class="col">              
+              <button type="button" class="btn btn-success">Validar</button>
+            </div>
+            
+            <div id="datosPersonales.">
+            <div class="row"><div class="col"><hr></div></div>
+            <div class="row">
+              <div class="col">
+                <h4>Datos Personales</h4>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-8">
+                <div class="">
+                  <div class="input-group is-invalid">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text" id="validatedInputGroupPrepend">Nombre Completo</span>
+                    </div>
+                    <input type="text" class="form-control is-invalid " id="nombreClie" name="usuario" aria-describedby="validatedInputGroupPrepend" required>
+                  </div>
+                  <div class="invalid-feedback">
+                    Example invalid input group feedback
+                  </div>
+                </div>
+              </div>
+              <div class="col-4">
+                <div class="">
+                  <div class="input-group is-invalid">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text" id="validatedInputGroupPrepend">CUIL</span>
+                    </div>
+                    <input type="text" class="form-control is-invalid " id="cuilClie" name="usuario" aria-describedby="validatedInputGroupPrepend" required>
+                  </div>
+                  <div class="invalid-feedback">
+                    Example invalid input group feedback
+                  </div>
+                </div>
+              </div>
+
+            </div>
+            <div class="row mt-3">
+              <div class="col">
+                <div class="">
+                  <div class="input-group is-invalid">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text" id="validatedInputGroupPrepend">Domicilio</span>
+                    </div>
+                    <input type="text" class="form-control is-invalid " id="domicilioClie" name="usuario" aria-describedby="validatedInputGroupPrepend" required>
+                  </div>
+                  <div class="invalid-feedback">
+                    Example invalid input group feedback
+                  </div>
+                </div>
+              </div>
+              <div class="col">
+                <div class="mb-3">
+                  <div class="input-group is-invalid">
+                    <div class="input-group-prepend">
+                      <label class="input-group-text" for="validatedInputGroupSelect">Medio de Pago</label>
+                    </div>
+                    <select class="custom-select" id="medioDepago" name="role" required>
+
+                      <option value="EFECTIVO">Efectivo</option>
+                      <option value="DEBITO">Debito</option>
+                      <option value="CREDITO">Credito</option>
+
+                    </select>
+                  </div>
+                  <div class="invalid-feedback">
+                    Example invalid input group feedback
+                  </div>
+                </div>
+
+              </div>
+
+            </div>
+            
+          </div>
+
+
+          
+          <div id="tarjeta">
+            <div class="row"><div class="col"><hr></div></div>
+            <div class="row">
+              <div class="col">
+                <h4>Datos de la Tarjeta</h4>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-8">
+                <div class="">
+                  <div class="input-group is-invalid">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text" id="validatedInputGroupPrepend">Numero de Tarjeta</span>
+                    </div>
+                    <input type="text" class="form-control is-invalid " id="nTarjeta" name="usuario" aria-describedby="validatedInputGroupPrepend" required>
+                  </div>
+                  <div class="invalid-feedback">
+                    Example invalid input group feedback
+                  </div>
+                </div>
+              </div>
+              <div class="col-4">
+                <div class="">
+                  <div class="input-group is-invalid">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text" id="validatedInputGroupPrepend">Fecha Vencimiento</span>
+                    </div>
+                    <input type="text" class="form-control is-invalid " id="fechaVencimiento" name="usuario" aria-describedby="validatedInputGroupPrepend" required>
+                  </div>
+                  <div class="invalid-feedback">
+                    Example invalid input group feedback
+                  </div>
+                </div>
+              </div>
+
+            </div>
+            <div class="row  mt-3">
+              <div class="col-9">
+                <div class="">
+                  <div class="input-group is-invalid">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text" id="validatedInputGroupPrepend">Nombre Completo</span>
+                    </div>
+                    <input type="text" class="form-control is-invalid " id="nombreCompleto" name="usuario" aria-describedby="validatedInputGroupPrepend" required>
+                  </div>
+                  <div class="invalid-feedback">
+                    Example invalid input group feedback
+                  </div>
+                </div>
+              </div>
+              <div class="col-3">
+                <div class="">
+                  <div class="input-group is-invalid">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text" id="validatedInputGroupPrepend">PIN</span>
+                    </div>
+                    <input type="text" class="form-control is-invalid " id="pin" name="usuario" aria-describedby="validatedInputGroupPrepend" required>
+                  </div>
+                  <div class="invalid-feedback">
+                    Example invalid input group feedback
+                  </div>
+                </div>
+
+              </div>
+
+            </div>
+            
+          </div>
+
+          <div id="envio">
+            <div class="row"><div class="col"><hr></div></div>
+            <div class="row">
+              <div class="col">
+                <h4>Envio</h4>
+              </div>
+            </div>
+            <div class="row">
+
+              <div class="col-8">
+                <div class="">
+                  <div class="input-group is-invalid">
+                    <div class="input-group-prepend">
+                      <label class="input-group-text" for="validatedInputGroupSelect">Forma de envio</label>
+                    </div>
+                    <select class="custom-select" id="medioDepago" name="role" required>
+
+                      <option value="SUCURSAL">Retiro en sucursal.</option>
+                      <option value="DOMICILIO">Recibir en mi domicilio</option>
+
+                    </select>
+                  </div>
+                  <div class="invalid-feedback">
+                    Example invalid input group feedback
+                  </div>
+                </div>
+              </div>
+              <div class="col-4">
+                <div class="">
+                  <div class="input-group is-invalid">
+                    <div class="input-group-prepend">
+                      <label class="input-group-text" for="validatedInputGroupSelect">Sucursal</label>
+                    </div>
+                    <select class="form-control" id="SucursalesVENTA">
+                      <option selected="selected">Seleccione</option>
+                    </select>
+                   
+                  </div>
+                  <div class="invalid-feedback">
+                    Example invalid input group feedback
+                  </div>
+                </div>
+              </div>
+              
+
+            </div>
+            
+            
+          </div>
+
 
           </div>
+
         </div>
+
+        </form>
         
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Send message</button>
+       
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn btn-success" disabled="true">Finalizar Compra</button>
       </div>
     </div>
   </div>
@@ -684,6 +932,7 @@
 <script type="module" src="./js/Productos.js"></script>
 <script type="module" src="./js/Carrito.js"></script>
 <script type="module" src="./js/empleados.js"></script>
+<script type="module" src="./js/Venta.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
@@ -750,6 +999,7 @@
             method: 'GET',
             redirect: 'follow'
           };
+          let $SucursalesVENTA = $("#SucursalesVENTA")
           let  $slectSucursal = $("#sucursalSelectinicio");
           fetch("http://localhost:60227/api/Sucrusal", requestOptions)
             .then(response => response.text())
@@ -759,6 +1009,7 @@
             result.sucursales.forEach(element => {
                 
                $slectSucursal.append(`<option value="${element.id}" cuil="${element.cuil}" direccion="${element.direccion}" razonSocial="${element.razonSocial}">${element.razonSocial}</option>`);
+               SucursalesVENTA.append(`<option value="${element.id}" cuil="${element.cuil}" direccion="${element.direccion}" razonSocial="${element.razonSocial}">${element.razonSocial}</option>`);
 
             });
 

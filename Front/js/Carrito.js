@@ -53,10 +53,14 @@ $(document).ready(function(){
         if($('#tipoVentaSelect').val()==='Asistida'){
             localStorage.removeItem("Compra");
             localStorage.setItem("Compra",JSON.stringify(compra));
+        }else{
+            localStorage.removeItem("Compra");
+            localStorage.setItem("Compra",JSON.stringify(compra));
         }
 
         Vaciar("#items");
         cargarProductos();
+
 
 
       })
@@ -113,7 +117,7 @@ function cargarProductos(){
     let compralstorage = localStorage.getItem("Compra");
     console.log(compralstorage)
     
-    if(compralstorage != null){
+    if(JSON.parse(compralstorage)?.tipoCompra === 'Asistida'){
         compralstorage= JSON.parse(compralstorage);
         idSucursal=compralstorage.id;
     }
@@ -328,9 +332,11 @@ renderItems(newArr)
             miNodoBoton.setAttribute('hidden',true)
             document.querySelector('#contenedorCarrito').setAttribute('hidden',true)
             }
-         }else{
-
+         }else if(localStorage.getItem("Compra")===null){
+            // miNodoBoton.setAttribute('hidden',true)
+            // document.querySelector('#contenedorCarrito').setAttribute('hidden',true)
          }
+         
         // Insertamos
         miNodoCardBody.appendChild(miNodoImagen);
         miNodoCardBody.appendChild(miNodoTitle);
