@@ -22,7 +22,7 @@ namespace BLL {
 
             return false;
 
-        }
+        }       
 
 
         public ENTITY.Tarjeta[] GetTarjetaBLL(int id)

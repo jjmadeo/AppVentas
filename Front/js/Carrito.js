@@ -56,6 +56,8 @@ $(document).ready(function(){
         }else{
             localStorage.removeItem("Compra");
             localStorage.setItem("Compra",JSON.stringify(compra));
+            $("#btnComprarBotton").css("display","none")
+
         }
 
         Vaciar("#items");
@@ -194,6 +196,7 @@ let carrito = [];
 let total = 0;
 let $carrito = document.querySelector('#carrito');
 let $total = document.querySelector('#total');
+let $totalVenta = document.querySelector("#totalVenta");
 let $search = document.querySelector('#buscar')
 
 // document.addEventListener("DOMContentLoaded", function(event) {
@@ -437,17 +440,31 @@ function borrarItemCarrito () {
 
 function calcularTotal () {
     // Limpiamos precio anterior
+    
     total = 0;
+   let arayID = [];
+   let arrayASD =[];
     // Recorremos el array del carrito
     for (let item of carrito) {
         // De cada elemento obtenemos su precio
-        let miItem = baseDeDatos.filter(function(itemBaseDatos) {
+        var miItem = baseDeDatos.filter(function(itemBaseDatos) {
             return itemBaseDatos['id'] == item;
         });
         total = total + miItem[0]['precio'];
+        arayID.push(miItem[0]['id']);
+        arrayASD.push({id:miItem[0]['id'],precio:miItem[0]['precio']})
     }
+    console.log(miItem)
+    var result = foo(arrayASD);
+
+
+    
+    
+   // arayID = [...new Set(arayID)]
+    localStorage.setItem("itemsSeleccionados",JSON.stringify(result))
     // Renderizamos el precio en el HTML
     $total.textContent = total.toFixed(2);
+    $totalVenta.textContent = total.toFixed(2);
 }
 // Eventos
 
@@ -473,4 +490,30 @@ const Categorias = function(e){
     console.log("boton")
 }
 
+
+function foo(arr) {
+    let NewArr =[]
+    let repeticiones =0;
+    var obj = {}
+    var prev
+    for (let i = 0; i < arr.length; i++) {
+        repeticiones=0;
+        if(arr[i].id != prev){
+            for (let j =0 ;j <arr.length ; j++) {
+                if(arr[i].id === arr[j].id){
+                    repeticiones++;
+                }
+            }    
+            obj ={
+                id :arr[i].id,
+                precio : arr[i].precio,
+                catidad :repeticiones
+            }
+            prev = arr[i].id;
+            NewArr.push(obj);
+        }
+    }
+    return NewArr;   
+    
+}
 

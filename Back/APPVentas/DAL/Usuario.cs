@@ -259,7 +259,7 @@ namespace DAL
 
             } else {
                 if (model.Usuario != null && model.Password != null & model.Role != null) {
-                    if (conexion.EscribirPorComando($"INSERT INTO [dbo].[usuarios]([usuario],[password],[id_role],[nombre],[direccion],[email])VALUES('{model.Usuario}','{model.Password}',{model.Role},'{model.Nombre}','{model.Direccion}','{model.Email}'); ") != 0) {
+                    if (conexion.EscribirPorComando($"INSERT INTO [dbo].[usuarios]([usuario],[password],[id_role],[nombre],[direccion],[email])VALUES('{model.Usuario}','{model.Password}',{model.Role},'{model.Email}','{model.Direccion}','{model.Nombre}'); ") != 0) {
                         return new string[] { "OK", $"Usuario {model.Password}, creado" };
                     }
                     return new string[] { "ERROR", "El usuario no se ah podido Crear" };

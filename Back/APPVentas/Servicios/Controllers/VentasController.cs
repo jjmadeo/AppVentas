@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using ENTITY;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 
 namespace Servicios.Controllers
 {
@@ -12,8 +13,17 @@ namespace Servicios.Controllers
     [ApiController]
     public class VentasController : ControllerBase
     {
+        private readonly ILogger<VentasController> _logger;  //modulos para escribir logs,  siempre va definido en forma global.
+
+        public VentasController(ILogger<VentasController> logger) {
+            _logger = logger;
+        }
+
         [HttpPost]
         public IActionResult nuevaVenta([FromBody] Venta venta) {
+            this._logger.LogInformation(venta.ToString());
+            this._logger.LogInformation("LLEGO UNA PETICION A VENTAS.");
+
 
             try {
              Venta ventaRealizada = new BLL.Venta().IniciarVenta(venta);
