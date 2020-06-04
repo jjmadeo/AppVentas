@@ -25,10 +25,13 @@ namespace Servicios.Controllers
     {
          private readonly ILogger<AccountController> _logger;  //modulos para escribir logs,  siempre va definido en forma global.
 
+
         public AccountController(ILogger<AccountController> logger)
         {
             _logger = logger;
         }
+
+
 
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         [HttpGet]
@@ -97,6 +100,31 @@ namespace Servicios.Controllers
         [HttpPost]
         public IActionResult CreateUser([FromBody] UserInfo model)
         {
+            if(model.Role!= null) {
+               
+
+                string tokenString = Request.Headers["Authorization"].ToString();
+                var jwtEncodedString = tokenString.Substring(7); // trim 'Bearer ' from the start since its just a prefix for the token string
+                var token = new JwtSecurityToken(jwtEncodedString: jwtEncodedString);
+                string usuarioRequest = token.Claims.First(c => c.Type == "Usuario").Value;
+                string roleRequest = token.Claims.First(c => c.Type == "Role").Value;
+                string nombre = token.Claims.First(c => c.Type == "Nombre").Value;
+                string idsucursal = token.Claims.First(c => c.Type == "id_sucursal").Value;
+                string id = token.Claims.First(c => c.Type == "Id").Value;
+
+                if (roleRequest == "ADM") {
+                    roleRequest = "1";
+                }
+
+                new BLL.Auditoria().loggearEnModuloAuditoria(new ENTITY.Auditoria("EMPL", usuarioRequest, $"Se esta creando al Empleado ==>{model.Usuario} con rol ==>{model.Role}  Sucursal del nuevo Empleado ==>{model.id_sucursal} ",int.Parse(roleRequest) , int.Parse(id)));
+
+
+
+            }
+
+
+
+
             _logger.LogInformation("Usaurio=>" + model.Usuario + "Pasword =>"+model.Password +"Role=>"+model.Role);
             if (ModelState.IsValid){
                 if (model.Role == null) {
@@ -195,12 +223,22 @@ namespace Servicios.Controllers
             string tokenString = Request.Headers["Authorization"].ToString();
             var jwtEncodedString = tokenString.Substring(7); // trim 'Bearer ' from the start since its just a prefix for the token string
             var token = new JwtSecurityToken(jwtEncodedString: jwtEncodedString);
+            string usuarioRequest = token.Claims.First(c => c.Type == "Usuario").Value;
             string roleRequest = token.Claims.First(c => c.Type == "Role").Value;
+            string nombre = token.Claims.First(c => c.Type == "Nombre").Value;
+            string idsucursal = token.Claims.First(c => c.Type == "id_sucursal").Value;
+            string idempl = token.Claims.First(c => c.Type == "Id").Value;
+
+
+
             _logger.LogInformation("Sucursal: " + user.id_sucursal.ToString());
 
             if (roleRequest == "ADM") {
                 UserInfo dato = new BLL.Usuario().EmplUpdateBLL(user, id);
                 if(dato != null) {
+                    user.Password = user.Password != null ? user.Password : "";
+                    new BLL.Auditoria().loggearEnModuloAuditoria(new ENTITY.Auditoria("EMPL", usuarioRequest, $"Se ah actualizado   Al usaurio =>{user.Usuario} Nuevos Datos({user.id_sucursal}-{user.Nombre}-{user.Role}-{user.Password })", int.Parse("1"), int.Parse(idempl)));
+
                     return Ok(new { EMPLupdate = dato });
 
                 }
@@ -221,9 +259,23 @@ namespace Servicios.Controllers
             string tokenString = Request.Headers["Authorization"].ToString();
             var jwtEncodedString = tokenString.Substring(7); // trim 'Bearer ' from the start since its just a prefix for the token string
             var token = new JwtSecurityToken(jwtEncodedString: jwtEncodedString);
+            string usuarioRequest = token.Claims.First(c => c.Type == "Usuario").Value;
             string roleRequest = token.Claims.First(c => c.Type == "Role").Value;
+            string nombre = token.Claims.First(c => c.Type == "Nombre").Value;
+            string idsucursal = token.Claims.First(c => c.Type == "id_sucursal").Value;
+            string idempl = token.Claims.First(c => c.Type == "Id").Value;
+
+           
+
+
+
+
+          
 
             if (roleRequest == "ADM") {
+
+                new BLL.Auditoria().loggearEnModuloAuditoria(new ENTITY.Auditoria("EMPL", usuarioRequest, $"Usted esta eliminando al empleado con Id =>{id}", int.Parse("1"), int.Parse(idempl)));
+
                 return Ok(new { emplDeleted = new BLL.Usuario().eliminarEMPLBLL(id) });
 
             } else {

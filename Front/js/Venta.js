@@ -237,24 +237,37 @@ $("#validarEmpl").click(function (){
               banner.css("display","none")
               banner.empty();
 
-            
               banner.append(`
               <div class="alert alert-success alert-dismissible fade show" role="alert">
-                <strong>Hay un problema</strong> Excelente, Continuemos con la compra..
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-                </button>
+                <strong>Bienvenido</strong> 
+                
               </div>
               
               `)
               banner.css("display","inline")
-
+          
+              setTimeout(()=>{
+                banner.css("display","none")
+                banner.empty();
+          
+              },10000)
 
 
 
 
      })
      .catch(error =>{
+
+
+
+      var banner = $("#notificacionVenta")
+         
+    banner.css("display","none")
+    banner.empty();
+
+  
+    
+
 
 
       var banner = $("#notificacionVenta")
@@ -265,17 +278,19 @@ $("#validarEmpl").click(function (){
     if(error.toString().includes("404")){
     
       banner.append(`
-      <div class="alert alert-danger alert-dismissible fade show" role="alert">
-        <strong>Hay un problema</strong> Usuario Inexistente.
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+      <strong>Verifique las Credenciales.</strong> 
       
-      `)
-      banner.css("display","inline")
+    </div>
+    
+    `)
+    banner.css("display","inline")
 
+    setTimeout(()=>{
+      banner.css("display","none")
+      banner.empty();
 
+    },10000)
     }
 
 
@@ -451,87 +466,69 @@ var requestOptions = {
 };
 
 fetch("http://localhost:60227/api/Ventas", requestOptions)
-  .then(response => response.text())
-  .then(result => console.log(result))
-  .catch(error => console.log('error', error));
+.then(response => response)
+.then(result => {
 
-
-
-// fetch("http://localhost:60227/api/Ventas", requestOptions)
-// .then(response =>{
-//   if(!response.ok) throw Error(response.status)
-  
-//   return response.text();
-  
-//   })
-// .then(result => {
-//   console.log("Empleado PARA LA VENTA.",JSON.parse(result))
-//   let res =  JSON.parse(result);
-//   var banner = $("#notificacionVenta")
+  var banner = $("#notificacionVenta");
          
-//   banner.css("display","none")
-//   banner.empty();
+  banner.css("display","none");
+  banner.empty();
+
+  if(result.ok){
+    result.text().then(value=>{
+      banner.append(`
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+          <strong>${JSON.parse(value).msj}</strong> 
+          
+        </div>
+        
+        `)
+  banner.css("display","inline")
+
+  setTimeout(()=>{
+    banner.css("display","none")
+    banner.empty();
+
+  },10000)
 
 
-//   banner.append(`
-//   <div class="alert alert-success alert-dismissible fade show" role="alert">
-//     <strong>Ingrese Productos en el carrito</strong> 
-    
-//   </div>
+    })
+
+  }else{
+
+    result.text().then(value=>{
+      console.log(JSON.parse(value))
+
+          banner.append(`
+      <div class="alert alert-warning alert-dismissible fade show" role="alert">
+        <strong>${JSON.parse(value).msj}</strong> 
+        
+      </div>
+      
+      `)
+  banner.css("display","inline")
+
+  setTimeout(()=>{
+    banner.css("display","none")
+    banner.empty();
+
+  },10000)
+
+
+
+    })
+
+  }
+
+
+
+
   
-//   `)
-//   banner.css("display","inline")
-
-//   setTimeout(()=>{
-//     banner.css("display","none")
-//     banner.empty();
-
-//   },10000)
 
 
 
+})
 
-// })
-// .catch(error =>{
-
-
-//   console.log(error.toString())
-
-//   var banner = $("#notificacionVenta")
-         
-  
-
-//  var banner = $("#notificacionVenta")
-    
-//  banner.css("display","none")
-//  banner.empty();
-
-// if(error.toString().includes("404")){
-
-//   banner.css("display","none")
-//   banner.empty();
-
-
-//   banner.append(`
-//   <div class="alert alert-danger alert-dismissible fade show" role="alert">
-//     <strong>Ingrese Productos en el carrito</strong> 
-    
-//   </div>
-  
-//   `)
-//   banner.css("display","inline")
-
-//   setTimeout(()=>{
-//     banner.css("display","none")
-//     banner.empty();
-
-//   },10000)
-
-
-// }
-
-
-// });
 }
 
 

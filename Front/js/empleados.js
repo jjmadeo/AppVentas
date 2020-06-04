@@ -97,7 +97,7 @@ let empleado=[];
 
 
         var myHeaders = new Headers();
-
+        myHeaders.append("Authorization",  $TokenUsuario);
         myHeaders.append("Content-Type", "application/json");
 
         var raw = JSON.stringify(

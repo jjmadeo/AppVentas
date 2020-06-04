@@ -62,11 +62,10 @@ namespace ENTITY {
 		}
 
 
-		public Auditoria(string modulo, string usuario, string detalle, string fecha, int role, int idempl) {
+		public Auditoria(string modulo, string usuario, string detalle,  int role, int idempl) {
 			_modulo = modulo;
 			_usuario = usuario;
 			_detalle = detalle;
-			_fecha = fecha;
 			_role = role;
 			_idempl = idempl;
 		}

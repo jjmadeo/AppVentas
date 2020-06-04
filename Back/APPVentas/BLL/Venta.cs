@@ -10,6 +10,7 @@ namespace BLL {
         public ENTITY.Venta IniciarVenta(ENTITY.Venta venta) {
             if (venta.Empleado.Id == 0) {
                 venta.Empleado.Id = int.Parse(new PDU().getPropertiePDUBLL("idUserVentaOnline"));
+                venta.Empleado.id_sucursal = int.Parse(new PDU().getPropertiePDUBLL("SucursalOnline"));
             }
             venta.Total = int.Parse(venta.Total.ToString().Replace(",", "").Replace(".", ""));
             foreach (DetalleVenta item in venta.DetalleVentas) {
