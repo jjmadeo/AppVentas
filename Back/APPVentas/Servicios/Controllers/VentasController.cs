@@ -6,6 +6,8 @@ using ENTITY;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Servicios.Controllers
 {
@@ -20,6 +22,7 @@ namespace Servicios.Controllers
         }
 
         [HttpPost]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         public IActionResult nuevaVenta([FromBody] Venta venta) {
             this._logger.LogInformation(venta.ToString());
             this._logger.LogInformation("LLEGO UNA PETICION A VENTAS.");

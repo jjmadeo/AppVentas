@@ -1,4 +1,5 @@
 $(document).ready(function (){
+  var $TokenUsuario;
   var VentaRequest =
     {
     "empleado": {
@@ -51,7 +52,7 @@ $(document).ready(function (){
 
 
     if(localStorage.getItem("token") !=null && localStorage.getItem("token") != undefined){
-        var $TokenUsuario  =  "Bearer " +localStorage.getItem("token").replace(/"/gi,'') ;
+         $TokenUsuario  =  "Bearer " +localStorage.getItem("token").replace(/"/gi,'') ;
         console.log($TokenUsuario)
 
         var _Empleado ={id:JSON.parse(atob(localStorage.getItem("token")?.split('.')[1])).Id, id_sucursal:JSON.parse(atob(localStorage.getItem("token")?.split('.')[1])).id_sucursal}
@@ -230,6 +231,9 @@ $("#validarEmpl").click(function (){
       $("#datosPersonales").css("display","block")
       $("#realizarCompra").css("display","block")
 
+      console.log(res)
+      $TokenUsuario = "Bearer " +res.token.replace(/"/gi,'') ;
+      console.log($TokenUsuario)
 
 
       var banner = $("#notificacionVenta")
@@ -429,6 +433,7 @@ if(VentaRequest.cliente.role === "CLIENTE"){
 
 
 function cargarSucursales(idContenedor){
+ 
   var requestOptions = {
     method: 'GET',
     redirect: 'follow'
@@ -455,6 +460,7 @@ function realizarVenta(objetoRequest){
 myHeaders.append("Content-Type", "application/json");
 
 var raw = JSON.stringify(objetoRequest)
+myHeaders.append("Authorization",  $TokenUsuario);
 
 //var raw = JSON.stringify({"id":0,"empleado":{"usuario":"","role":"","nombre":"","id_sucursal":0,"id":0},"cliente":{"usuario":"juan","role":"3","nombre":"jjmadeo@gmail.com","email":"Juan Jose","direccion":"Alberdi 1637  Luis Guillon","id":49},"tarjetaClie":{"nTarjeta":"1623187916231888","fechaVencimiento":523,"nombreCompleto":"MADEO JUAN JOSE","pin":835,"id_usuario":49},"medioDePago":"Efectivo","nombreCompletoClie":"MADEO JUAN JOSE","cuilClie":"20385897001","total":3596236,"direccionClie":"Alberdi 1637  Luis Guillon","detalleVentas":[{"producto":{"id":335,"detalle":"mochila","precio":2199,"stock":20,"fecha":20200529,"visible":true,"nombre":"MOCHILA LOTTO DELTA PLUS","categoria":{"nombre":"Aceesorios","id":1},"imgUrl":"https://dexter.vteximg.com.br/arquivos/ids/557763-540-540/601-0565-002_zoom1.jpg?v=637261959891500000"},"cantidad":5,"valor":32223},{"producto":{"id":336,"detalle":"botines topper","precio":2849,"stock":300,"fecha":20200529,"visible":true,"nombre":"BOTINES TOPPER STINGRAY MACH 1","categoria":{"nombre":"botines   ","id":7},"imgUrl":"https://dexter.vteximg.com.br/arquivos/ids/558528-540-540/TO51446_1.jpg?v=637262824657430000"},"cantidad":35,"valor":988},{"producto":{"id":337,"detalle":"botines nike","precio":11299,"stock":120,"fecha":20200529,"visible":false,"nombre":"BOTINES NIKE PHANTOM VENOM PRO FG","categoria":{"nombre":"botines   ","id":7},"imgUrl":"https://dexter.vteximg.com.br/arquivos/ids/557632-540-540/IMG_1115.jpg?v=637253995206470000"},"cantidad":65,"valor":356}]});
 
