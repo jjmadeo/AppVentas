@@ -117,7 +117,7 @@ let empleado=[];
 
         console.log(raw)
 
-        fetch("http://localhost:60227/api/Account/Create", requestOptions)
+        fetch("http://185.254.205.224:60227/api/Account/Create", requestOptions)
         .then(response =>{
             if(!response.ok) throw Error(response.status)
             
@@ -209,7 +209,7 @@ let empleado=[];
           };
           let $sleectSucursalModifi = $("#sucursalModiEmpleado");
           let  $slectSucursal = $("#sucursalAltaEmpleado");
-          fetch("http://localhost:60227/api/Sucrusal", requestOptions)
+          fetch("http://185.254.205.224:60227/api/Sucrusal", requestOptions)
             .then(response => response.text())
             .then(result => {
               result = JSON.parse(result);
@@ -279,7 +279,7 @@ let empleado=[];
           };
           let $rolesModifi = $('#rolModiEmpleado')
           let  $slectrRole = $("#rolAltaEmpleado");
-          fetch("http://localhost:60227/api/Account/Roles", requestOptions)
+          fetch("http://185.254.205.224:60227/api/Account/Roles", requestOptions)
             .then(response => response.text())
             .then(result => {
               result = JSON.parse(result);
@@ -315,7 +315,7 @@ let empleado=[];
           };
           let  $slectEMPl = $("#todosEMPl");
           let $slectEMPlElimianr = $("#todosEMPlEliminar");
-          fetch("http://localhost:60227/api/Account/Empleados", requestOptions)
+          fetch("http://185.254.205.224:60227/api/Account/Empleados", requestOptions)
             .then(response => response.text())
             .then(result => {
               result = JSON.parse(result);
@@ -354,7 +354,7 @@ let empleado=[];
             method: 'GET',
             redirect: 'follow'
           };
-            fetch("http://localhost:60227/api/Account/Empleados/"+id, requestOptions)
+            fetch("http://185.254.205.224:60227/api/Account/Empleados/"+id, requestOptions)
             .then(response => response.text())
             .then(result => {
               result = JSON.parse(result);
@@ -421,7 +421,7 @@ let empleado=[];
         redirect: 'follow'
         };
 
-        fetch("http://localhost:60227/api/Account/Empleados/"+idempleado, requestOptions)
+        fetch("http://185.254.205.224:60227/api/Account/Empleados/"+idempleado, requestOptions)
         .then(response =>{
             if(!response.ok) throw Error(response.status)
             
@@ -517,7 +517,7 @@ let empleado=[];
         redirect: 'follow'
         };
 
-        fetch("http://localhost:60227/api/Account/Empleados/"+id, requestOptions)
+        fetch("http://185.254.205.224:60227/api/Account/Empleados/"+id, requestOptions)
         .then(response =>{
             if(!response.ok) throw Error(response.status)
             
@@ -584,7 +584,7 @@ let empleado=[];
         redirect: 'follow'
       };
       
-      fetch("http://localhost:60227/api/Account/verifyUser/"+usuario, requestOptions)
+      fetch("http://185.254.205.224:60227/api/Account/verifyUser/"+usuario, requestOptions)
         .then(response => response.text())
         .then(result => {
 

@@ -1011,7 +1011,7 @@
         redirect: 'follow'
       };
       
-      fetch("http://localhost:60227/api/Account/verifyUser/"+usuarioAverificar, requestOptions)
+      fetch("http://185.254.205.224:60227/api/Account/verifyUser/"+usuarioAverificar, requestOptions)
         .then(response => response.text())
         .then(result => {
 
@@ -1052,7 +1052,7 @@
             redirect: 'follow'
           };
           let  $slectSucursal = $("#sucursalSelectinicio");
-          fetch("http://localhost:60227/api/Sucrusal", requestOptions)
+          fetch("http://185.254.205.224:60227/api/Sucrusal", requestOptions)
             .then(response => response.text())
             .then(result => {
               result = JSON.parse(result);
@@ -1100,7 +1100,7 @@
           redirect: 'follow'
           };
 
-          fetch("http://localhost:60227/api/account/login", requestOptions)
+          fetch("http://185.254.205.224:60227/api/account/login", requestOptions)
           .then(response =>{
             if(!response.ok) throw Error(response.status)
             
@@ -1176,7 +1176,7 @@
           redirect: 'follow'
           };
 
-          fetch("http://localhost:60227/api/account/create", requestOptions)
+          fetch("http://185.254.205.224:60227/api/account/create", requestOptions)
           .then(response =>{
             if(!response.ok) throw Error(response.status)
             

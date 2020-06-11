@@ -6,7 +6,7 @@ $(document).ready(function (){
         redirect: 'follow'
       };
       
-      fetch("http://localhost:60227/api/Auditoria", requestOptions)
+      fetch("http://185.254.205.224:60227/api/Auditoria", requestOptions)
         .then(response => response.text())
         .then(result => {
            let datasoruce = JSON.parse(result).auditorias;

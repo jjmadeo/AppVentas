@@ -129,10 +129,10 @@ function cargarProductos(){
         redirect: 'follow'
     };
     
-    let enpointProduct = "http://localhost:60227/api/product"
+    let enpointProduct = "http://185.254.205.224:60227/api/product"
    // console.log("asd"+compralstorage.id)
     if( compralstorage?.id!=null){
-        enpointProduct =`http://localhost:60227/api/Product/Sucursal/${compralstorage.id}`
+        enpointProduct =`http://185.254.205.224:60227/api/Product/Sucursal/${compralstorage.id}`
     } 
     
     
@@ -168,10 +168,10 @@ function cargarProductos(){
 //     redirect: 'follow'
 // };
 
-// let enpointProduct = "http://localhost:60227/api/product"
+// let enpointProduct = "http://185.254.205.224:60227/api/product"
 // console.log("asd"+compralstorage.id)
 // if(compralstorage.id!=null){
-//     enpointProduct =`http://localhost:60227/api/Product/Sucursal/${compralstorage.id}`
+//     enpointProduct =`http://185.254.205.224:60227/api/Product/Sucursal/${compralstorage.id}`
 // } 
 
 

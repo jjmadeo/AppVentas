@@ -7,7 +7,7 @@ $(document).ready(function() {
         redirect: 'follow'
       };
       let $contenedorCategorias = $("#contenedorCategorias");
-      fetch("http://localhost:60227/api/Product/categorias", requestOptions)
+      fetch("http://185.254.205.224:60227/api/Product/categorias", requestOptions)
         .then(response => response.text())
         .then(result => {
             result = JSON.parse(result);

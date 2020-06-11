@@ -95,7 +95,12 @@ $(document).ready(function (){
       $("#nombreClie").val(JSON.parse(atob(localStorage.getItem("token")?.split('.')[1])).Nombre);
       $("#domicilioClie").val(JSON.parse(atob(localStorage.getItem("token")?.split('.')[1])).Direccion);
       obtenerTarjetas(VentaRequest.cliente.id);
-      $("#misTarjetas").css("display","block")
+      $("#misTarjetas").css("display","block");
+      $("#medioDepago option[value='CREDITO']").attr("selected","selected");
+      $("#medioDepago option[value='EFECTIVO']").css("display","none");
+      $("#tarjeta").css("display","block");
+
+
 
 
 
@@ -170,7 +175,7 @@ function obtenerTarjetas(id){
   };
   let $tarjetasVENTA = $("#terjetasUsuario")
 
-  fetch("http://localhost:60227/api/Tarjetas/user/"+id, requestOptions)
+  fetch("http://185.254.205.224:60227/api/Tarjetas/user/"+id, requestOptions)
     .then(response => response.text())
     .then(result => {
       result = JSON.parse(result);
@@ -207,7 +212,7 @@ $("#validarEmpl").click(function (){
      redirect: 'follow'
      };
 
-     fetch("http://localhost:60227/api/account/login", requestOptions)
+     fetch("http://185.254.205.224:60227/api/account/login", requestOptions)
      .then(response =>{
        if(!response.ok) throw Error(response.status)
        
@@ -439,7 +444,7 @@ function cargarSucursales(idContenedor){
     redirect: 'follow'
   };
   let $SucursalesVENTA = $("#"+idContenedor)
-  fetch("http://localhost:60227/api/Sucrusal", requestOptions)
+  fetch("http://185.254.205.224:60227/api/Sucrusal", requestOptions)
     .then(response => response.text())
     .then(result => {
       result = JSON.parse(result);
@@ -471,7 +476,7 @@ var requestOptions = {
   redirect: 'follow'
 };
 
-fetch("http://localhost:60227/api/Ventas", requestOptions)
+fetch("http://185.254.205.224:60227/api/Ventas", requestOptions)
 .then(response => response)
 .then(result => {
 
@@ -481,6 +486,8 @@ fetch("http://localhost:60227/api/Ventas", requestOptions)
   banner.empty();
 
   if(result.ok){
+    document.querySelector("#ventaForm").reset();
+
     result.text().then(value=>{
       banner.append(`
         <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -499,6 +506,7 @@ fetch("http://localhost:60227/api/Ventas", requestOptions)
 
 
     })
+    
 
   }else{
 
