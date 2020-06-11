@@ -13,6 +13,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json;
+using Serilog;
 
 namespace Servicios
 {
@@ -35,7 +36,7 @@ namespace Servicios
                 options.AddPolicy(name: ReglasCorse,
                                   builder =>
                                   {
-                                      builder.WithOrigins("http://localhost:81", "http://localhost", "http://localhost:80").AllowAnyHeader().AllowAnyMethod();
+                                      builder.WithOrigins("http://localhost:81", "http://185.254.205.224:80","http://185.254.205.224", "http://localhost", "http://localhost:80").AllowAnyHeader().AllowAnyMethod();
                                   });
             });
 
@@ -76,8 +77,11 @@ namespace Servicios
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env,ILoggerFactory loggerFactory)
         {
+            loggerFactory.AddFile("c:/logs/archivo.log");
+
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();

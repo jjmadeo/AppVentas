@@ -8,6 +8,10 @@ using System.Threading.Tasks;
 //Incorporo el espacio de nombre System.Data.SqlClient
 using System.Data.SqlClient;
 using System.Data;
+using System.Configuration;
+using NLog.Internal;
+using Microsoft.Extensions.Logging;
+using System.IO;
 
 namespace DAL
 {
@@ -16,20 +20,36 @@ namespace DAL
         private SqlConnection objConexion;
         private string strCadenaDeConexion = "";
 
+      /* -------------------- private void Conectar() ------------ 
+       * Este metodo como indica su nombre... me permite conectarme con la 
+       * base de datos (en este caso, SqlServer)
+       * 
+       */
 
-        /* -------------------- private void Conectar() ------------ 
-         * Este metodo como indica su nombre... me permite conectarme con la 
-         * base de datos (en este caso, SqlServer)
-         * 
-         */
+       
+
+        public ConnectBBDD() {
+
+        }
+
+
+
         private void Conectar()
         {
-            strCadenaDeConexion = @"Integrated Security=SSPI;Persist Security Info=False;Initial Catalog=SALES;Data Source=localhost\SQLEXPRESS";
+            //strCadenaDeConexion = @"Integrated Security=SSPI;Persist Security Info=False;Initial Catalog=SALES;Data Source=localhost\SQLEXPRESS";
+            //strCadenaDeConexion = ConfigurationManager;
+            strCadenaDeConexion = Properties.Settings.Default.bbdd;
 
+
+            using(StreamWriter outputFile = new StreamWriter("c:/logs/archivo.log")) {
+                outputFile.WriteLine(strCadenaDeConexion);
+            }
             //Instanció un objeto del tipo SqlConnection
             objConexion = new SqlConnection();
             objConexion.ConnectionString = strCadenaDeConexion;
             objConexion.Open();
+
+            
         }
 
         /* -------------------- private void Desconectar() ------------ 
@@ -93,6 +113,7 @@ namespace DAL
 
         public DataTable LeerPorComando(string pComando)
         {
+
             //Instancio un objeto del tipo DataTable
             var unaTabla = new DataTable();
 
@@ -136,6 +157,7 @@ namespace DAL
 
         public int EscribirPorComando(string pTexto)
         {
+
             //Instanció una variable filasAfectadas que va a terminar devolviendo la cantidad de filas afectadas.
             int filasAfectadas = 0;
 
