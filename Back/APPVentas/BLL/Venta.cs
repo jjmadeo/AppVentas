@@ -1,13 +1,40 @@
 ﻿using ENTITY;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BLL {
     public class Venta {
         public ENTITY.Venta IniciarVenta(ENTITY.Venta venta) {
+            DateTime fechaActual = DateTime.Today;
+            string mes;
+            string anio; 
+            if ( venta.TarjetaClie.FechaVencimiento.ToString().Length == 4) {
+                 mes = venta.TarjetaClie.FechaVencimiento.ToString().Substring(0, 2);
+                 anio = venta.TarjetaClie.FechaVencimiento.ToString().Substring(2, 2);
+            } else {
+                 mes = "0"+venta.TarjetaClie.FechaVencimiento.ToString().Substring(0, 1);
+                 anio = venta.TarjetaClie.FechaVencimiento.ToString().Substring(1, 2);
+            }
+
+
+            if( ! (int.Parse(mes)> 0 && int.Parse(mes) <= 12)) {
+                throw new Exception("El mes es Invalido.");
+
+            }
+
+            if (!(int.Parse(anio) > 10 && int.Parse(anio) <= 30)) {
+                throw new Exception("El Anio es Invalido.");
+
+            }
+
+            string fecha = fechaActual.Month.ToString() + fechaActual.Year.ToString().Substring(2,2);
+            //string.Format("Mes actual {0}. Año actual {1}", fechaActual.ToString("MMMM"), fechaActual.Year)
+
+            if(int.Parse(anio) < int.Parse(fechaActual.Year.ToString().Substring(2, 2)) || (int.Parse(anio) <= int.Parse(fechaActual.Year.ToString().Substring(2, 2)) && int.Parse(mes) < fechaActual.Month) ) {
+                throw new Exception("Su Tarjeta ah Expirado.");
+
+
+            }
+
             if (venta.Empleado.Id == 0) {
                 venta.Empleado.Id = int.Parse(new PDU().getPropertiePDUBLL("idUserVentaOnline"));
                 venta.Empleado.id_sucursal = int.Parse(new PDU().getPropertiePDUBLL("SucursalOnline"));
